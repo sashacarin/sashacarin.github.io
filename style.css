@@ -1,0 +1,155 @@
+/* Web 1.0 style sheet. Edit colors here to restyle the whole site. */
+
+body {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+  background: #fff;
+  max-width: 680px;
+  margin: 2em auto;
+  padding: 0 1em;
+}
+
+a {
+  color: #0000ee;
+}
+
+a:visited {
+  color: #551a8b;
+}
+
+nav {
+  margin-bottom: 1em;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #000;
+  margin: 1.5em 0;
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+  margin: 1em 0 0.5em;
+}
+
+ul.posts {
+  list-style: none;
+  padding: 0;
+}
+
+ul.posts li {
+  margin: 0.4em 0;
+}
+
+ul.posts .date {
+  display: inline-block;
+  width: 7em;
+  color: #555;
+}
+
+ul.playlist {
+  list-style: none;
+  padding: 0;
+}
+
+.track {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 1em;
+  row-gap: 0.5em;
+  margin: 1.5em 0;
+  align-items: start;
+}
+
+.track-art {
+  grid-row: 1 / span 2;
+  position: relative;
+  width: 140px;
+  height: 140px;
+  padding: 0;
+  border: 1px solid #000;
+  background: #eee;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.track-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  transition: background 0.15s;
+}
+
+.play-icon::before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 18px 0 18px 30px;
+  border-color: transparent transparent transparent #fff;
+  margin-left: 6px;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.6));
+}
+
+.track-art:hover .play-icon {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.track-art.playing .play-icon::before {
+  border: none;
+  width: 22px;
+  height: 26px;
+  margin-left: 0;
+  background:
+    linear-gradient(#fff, #fff) left / 7px 100% no-repeat,
+    linear-gradient(#fff, #fff) right / 7px 100% no-repeat;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.6));
+}
+
+.track-info {
+  align-self: end;
+}
+
+.track audio {
+  grid-column: 2;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .track {
+    grid-template-columns: 1fr;
+  }
+  .track-art {
+    grid-row: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+  .track audio {
+    grid-column: 1;
+  }
+}
+
+footer {
+  margin-top: 2em;
+  font-size: 0.9em;
+  color: #555;
+}
+
+@media (max-width: 600px) {
+  body { margin: 1em auto; }
+}

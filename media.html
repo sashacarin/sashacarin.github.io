@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Media &mdash; sasha's blog</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+<a href="index.html">Home</a> |
+<a href="blog.html">Blog</a> |
+<a href="media.html">Media</a> |
+<a href="contact.html">Contact</a>
+</nav>
+
+<hr>
+
+<h1>Media</h1>
+
+<h2>Listening</h2>
+
+<ul class="playlist">
+
+  <li class="track">
+    <button class="track-art" type="button" data-audio="track-1" aria-label="Play Track Title">
+      <img src="media/artwork-one.jpg" alt="">
+      <span class="play-icon" aria-hidden="true"></span>
+    </button>
+    <div class="track-info">
+      <strong>Track Title</strong><br>
+      Artist
+    </div>
+    <audio id="track-1" controls preload="none" src="media/example.mp3">
+      <a href="media/example.mp3">Download MP3</a>.
+    </audio>
+  </li>
+
+  <li class="track">
+    <button class="track-art" type="button" data-audio="track-2" aria-label="Play Another Track">
+      <img src="media/artwork-two.jpg" alt="">
+      <span class="play-icon" aria-hidden="true"></span>
+    </button>
+    <div class="track-info">
+      <strong>Another Track</strong><br>
+      Artist
+    </div>
+    <audio id="track-2" controls preload="none" src="media/example-two.mp3">
+      <a href="media/example-two.mp3">Download MP3</a>.
+    </audio>
+  </li>
+
+</ul>
+
+<h2>Reading</h2>
+<ul>
+  <li><em>Book Title</em> &mdash; Author</li>
+  <li><em>Another Book</em> &mdash; Author</li>
+</ul>
+
+<h2>Watching</h2>
+<ul>
+  <li><em>Film or Show</em> &mdash; short note.</li>
+</ul>
+
+<hr>
+
+<footer>
+&mdash; sasha, 2026
+</footer>
+
+<script>
+  document.querySelectorAll('.track-art').forEach(function (btn) {
+    var audio = document.getElementById(btn.dataset.audio);
+    if (!audio) return;
+    btn.addEventListener('click', function () {
+      if (audio.paused) {
+        document.querySelectorAll('audio').forEach(function (a) {
+          if (a !== audio) a.pause();
+        });
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+    audio.addEventListener('play',  function () { btn.classList.add('playing'); });
+    audio.addEventListener('pause', function () { btn.classList.remove('playing'); });
+    audio.addEventListener('ended', function () { btn.classList.remove('playing'); });
+  });
+</script>
+
+</body>
+</html>
