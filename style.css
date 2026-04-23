@@ -55,93 +55,35 @@ ul.playlist {
 }
 
 .track {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  grid-template-rows: auto auto;
-  column-gap: 1em;
-  row-gap: 0.5em;
-  margin: 1.5em 0;
-  align-items: start;
-}
-
-.track-art {
-  grid-row: 1 / span 2;
-  position: relative;
-  width: 140px;
-  height: 140px;
-  padding: 0;
-  border: 1px solid #000;
-  background: #eee;
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.track-art img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.play-icon {
-  position: absolute;
-  inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.35);
-  transition: background 0.15s;
-}
-
-.play-icon::before {
-  content: "";
-  display: block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 18px 0 18px 30px;
-  border-color: transparent transparent transparent #fff;
-  margin-left: 6px;
-  filter: drop-shadow(0 0 2px rgba(0,0,0,0.6));
-}
-
-.track-art:hover .play-icon {
-  background: rgba(0, 0, 0, 0.15);
-}
-
-.track-art.playing .play-icon::before {
-  border: none;
-  width: 22px;
-  height: 26px;
-  margin-left: 0;
-  background:
-    linear-gradient(#fff, #fff) left / 7px 100% no-repeat,
-    linear-gradient(#fff, #fff) right / 7px 100% no-repeat;
-  filter: drop-shadow(0 0 2px rgba(0,0,0,0.6));
+  margin: 2em 0;
+  text-align: center;
 }
 
 .track-info {
-  align-self: end;
+  margin-bottom: 0.5em;
+}
+
+.track-art {
+  display: block;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border: 1px solid #000;
+  background: #eee;
 }
 
 .track audio {
-  grid-column: 2;
-  width: 100%;
+  width: 280px;
+  max-width: 100%;
+  margin-top: 0.6em;
 }
 
-@media (max-width: 480px) {
-  .track {
-    grid-template-columns: 1fr;
-  }
-  .track-art {
-    grid-row: auto;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-  }
-  .track audio {
-    grid-column: 1;
-  }
+@media (max-width: 320px) {
+  .track-art { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+  .track audio { width: 100%; }
 }
 
 footer {

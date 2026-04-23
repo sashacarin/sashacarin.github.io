@@ -24,99 +24,78 @@
 <ul class="playlist">
 
   <li class="track">
-    <button class="track-art" type="button" data-audio="track-1" aria-label="Play Horizontal Hold by This Heat">
-      <img src="media/this-heat-horizontal-hold.png" alt="">
-      <span class="play-icon" aria-hidden="true"></span>
-    </button>
     <div class="track-info">
       <strong>Horizontal Hold</strong><br>
       This Heat
     </div>
-    <audio id="track-1" controls preload="none" src="media/this-heat-horizontal-hold.mp3">
+    <img class="track-art" src="media/this-heat-horizontal-hold.png" alt="">
+    <audio controls preload="none" src="media/this-heat-horizontal-hold.mp3">
       <a href="media/this-heat-horizontal-hold.mp3">Download MP3</a>.
     </audio>
   </li>
 
   <li class="track">
-    <button class="track-art" type="button" data-audio="track-2" aria-label="Play Man Proposes, God Disposes by Sprain">
-      <img src="media/sprain-man-proposes-god-disposes.png" alt="">
-      <span class="play-icon" aria-hidden="true"></span>
-    </button>
     <div class="track-info">
       <strong>Man Proposes, God Disposes</strong><br>
       Sprain
     </div>
-    <audio id="track-2" controls preload="none" src="media/sprain-man-proposes-god-disposes.mp3">
+    <img class="track-art" src="media/sprain-man-proposes-god-disposes.png" alt="">
+    <audio controls preload="none" src="media/sprain-man-proposes-god-disposes.mp3">
       <a href="media/sprain-man-proposes-god-disposes.mp3">Download MP3</a>.
     </audio>
   </li>
 
   <li class="track">
-    <button class="track-art" type="button" data-audio="track-3" aria-label="Play Descending by Leechmilk">
-      <img src="media/leechmilk-descending.png" alt="">
-      <span class="play-icon" aria-hidden="true"></span>
-    </button>
     <div class="track-info">
       <strong>Descending</strong><br>
       Leechmilk
     </div>
-    <audio id="track-3" controls preload="none" src="media/leechmilk-descending.mp3">
+    <img class="track-art" src="media/leechmilk-descending.png" alt="">
+    <audio controls preload="none" src="media/leechmilk-descending.mp3">
       <a href="media/leechmilk-descending.mp3">Download MP3</a>.
     </audio>
   </li>
 
   <li class="track">
-    <button class="track-art" type="button" data-audio="track-4" aria-label="Play Jamtland by Brakhage">
-      <img src="media/brakhage-jamtland.jpg" alt="">
-      <span class="play-icon" aria-hidden="true"></span>
-    </button>
     <div class="track-info">
       <strong>Jamtland</strong><br>
       Brakhage
     </div>
-    <audio id="track-4" controls preload="none" src="media/brakhage-jamtland.mp3">
+    <img class="track-art" src="media/brakhage-jamtland.jpg" alt="">
+    <audio controls preload="none" src="media/brakhage-jamtland.mp3">
       <a href="media/brakhage-jamtland.mp3">Download MP3</a>.
     </audio>
   </li>
 
   <li class="track">
-    <button class="track-art" type="button" data-audio="track-5" aria-label="Play Gossip by Suburban Lawns">
-      <img src="media/suburban-lawns-gossip.png" alt="">
-      <span class="play-icon" aria-hidden="true"></span>
-    </button>
     <div class="track-info">
       <strong>Gossip</strong><br>
       Suburban Lawns
     </div>
-    <audio id="track-5" controls preload="none" src="media/suburban-lawns-gossip.mp3">
+    <img class="track-art" src="media/suburban-lawns-gossip.png" alt="">
+    <audio controls preload="none" src="media/suburban-lawns-gossip.mp3">
       <a href="media/suburban-lawns-gossip.mp3">Download MP3</a>.
     </audio>
   </li>
 
   <li class="track">
-    <button class="track-art" type="button" data-audio="track-6" aria-label="Play Possibly Maybe by Bjork">
-      <img src="media/bjork-possibly-maybe.png" alt="">
-      <span class="play-icon" aria-hidden="true"></span>
-    </button>
     <div class="track-info">
       <strong>Possibly Maybe</strong><br>
       Bj&ouml;rk
     </div>
-    <audio id="track-6" controls preload="none" src="media/bjork-possibly-maybe.mp3">
+    <img class="track-art" src="media/bjork-possibly-maybe.png" alt="">
+    <audio controls preload="none" src="media/bjork-possibly-maybe.mp3">
       <a href="media/bjork-possibly-maybe.mp3">Download MP3</a>.
     </audio>
   </li>
 
   <li class="track">
-    <button class="track-art" type="button" data-audio="track-7" aria-label="Play Send It On by D'Angelo">
-      <img src="media/dangelo-send-it-on.png" alt="">
-      <span class="play-icon" aria-hidden="true"></span>
-    </button>
     <div class="track-info">
       <strong>Send It On</strong><br>
       D&rsquo;Angelo
     </div>
-    <audio id="track-7" controls preload="none" src="media/dangelo-send-it-on.mp3">
+    <img class="track-art" src="media/dangelo-send-it-on.png" alt="">
+    <audio controls preload="none" src="media/dangelo-send-it-on.mp3">
       <a href="media/dangelo-send-it-on.mp3">Download MP3</a>.
     </audio>
   </li>
@@ -139,26 +118,6 @@
 <footer>
 &mdash; sasha, 2026
 </footer>
-
-<script>
-  document.querySelectorAll('.track-art').forEach(function (btn) {
-    var audio = document.getElementById(btn.dataset.audio);
-    if (!audio) return;
-    btn.addEventListener('click', function () {
-      if (audio.paused) {
-        document.querySelectorAll('audio').forEach(function (a) {
-          if (a !== audio) a.pause();
-        });
-        audio.play();
-      } else {
-        audio.pause();
-      }
-    });
-    audio.addEventListener('play',  function () { btn.classList.add('playing'); });
-    audio.addEventListener('pause', function () { btn.classList.remove('playing'); });
-    audio.addEventListener('ended', function () { btn.classList.remove('playing'); });
-  });
-</script>
 
 </body>
 </html>
