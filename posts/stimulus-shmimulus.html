@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stimulus - Shmimulus &mdash; sasha's blog</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]
+  });"></script>
+</head>
+<body>
+
+<nav>
+<a href="../index.html">Home</a> |
+<a href="../blog.html">Blog</a> |
+<a href="../media.html">Media</a> |
+<a href="../contact.html">Contact</a>
+</nav>
+
+<hr>
+
+<h1>Stimulus - Shmimulus</h1>
+<p><em>2026-04-26 &middot; working manuscript, v2</em></p>
+
+<h2>1. Stimulus&ndash;Shmimulus</h2>
+
+<ul>
+  <li><strong>Distal stimulus:</strong> &ldquo;actual&rdquo; object out in the world creating/releasing information.</li>
+  <li><strong>Proximal stimulus:</strong> our sensory system collecting information.</li>
+</ul>
+
+<p><strong>Theory (epistemological):</strong> for any single observer, the existence of a distal stimulus can only be established through inference on proximal stimuli.</p>
+
+<div class="claim">
+<p><span class="label">Claim.</span> For any single observer \(O\), the existence of a distal stimulus \(D\) can only be established through inference on proximal stimuli received by \(O\).</p>
+</div>
+
+<div class="proof">
+<p>Suppose, for contradiction, that observer \(O\) can establish the existence of some distal stimulus \(D\) <em>without</em> performing inference on any proximal stimulus.</p>
+
+<p>By definition, a distal stimulus is an object or event external to the observer's sensory apparatus. The only channel by which information about \(D\) can reach \(O\) is through \(O\)'s sensory systems &mdash; that is, as proximal stimuli. (If information were to reach \(O\) by some other means, we would simply expand our definition of &ldquo;sensory system&rdquo; to include that channel.)</p>
+
+<p>So either:</p>
+<ol type="a">
+  <li>\(D\) produces proximal stimuli in \(O\), but \(O\) does not infer from them &mdash; in which case \(O\) has no representation of \(D\) and cannot establish its existence. Contradiction.</li>
+  <li>\(D\) produces no proximal stimuli in \(O\) &mdash; in which case \(O\) has no information about \(D\) whatsoever and cannot establish its existence. Contradiction.</li>
+</ol>
+
+<p>In both cases, \(O\) cannot establish the existence of \(D\) without inference on proximal stimuli.</p>
+</div>
+
+<p><strong>Key distinction:</strong> this is an <em>epistemological</em> claim, not an ontological one. Distal stimuli may well exist in the world; the point is that an observer can only <em>know about</em> them through inference on proximal input. The traditional perceptual-psychology framing &mdash; posit a &ldquo;real&rdquo; distal world and ask how accurately the brain reconstructs it &mdash; quietly relies on a god's-eye comparison that no observer can actually perform.</p>
+
+<hr>
+
+<h2>2. From Epistemological Closure to a Predictive Model</h2>
+
+<p>The proof above establishes what we might call <strong>epistemic closure</strong>: the observer's world model is constructed entirely from inference on proximal stimuli. The question is: what kind of inference?</p>
+
+<h3>2.1. Historical context: Helmholtz and the inference tradition</h3>
+
+<p>The idea that perception involves inference is not new. Helmholtz (1867) argued that perception consists of &ldquo;unconscious inferences&rdquo; &mdash; the brain draws conclusions about the distal world from ambiguous sensory data, using prior experience as a guide<sup><a href="#ref-1">[1]</a></sup>. As he put it, sensory experiences are not direct representations of the world but rather learned signs that must be interpreted. Helmholtz's key claim was that many of these inferences are <em>learned</em> rather than innate<sup><a href="#ref-2">[2]</a></sup>. This framework &mdash; perception as inverse inference &mdash; has been enormously productive and directly underlies the Likelihood Principle.</p>
+
+<p>Our proof of epistemic closure can be understood as a formalization and radicalization of Helmholtz's insight. Helmholtz recognized that perception involves inference; we show that inference on proximal stimuli is the <em>only</em> epistemic channel available to any observer. From this stronger starting point, we can ask what kind of inferential architecture follows.</p>
+
+<h3>2.2. The Likelihood Principle is not foundational &mdash; it is derived</h3>
+
+<p>The Likelihood Principle states: given proximal input, the percept is the distal configuration most likely to have produced it. That is, the brain selects the percept that maximizes \(P(\mathrm{proximal} \mid \mathrm{distal})\). This is already an inferential framework, and it is <em>compatible</em> with the proof above. So why is it insufficient as a foundation?</p>
+
+<p>The argument proceeds in three parts.</p>
+
+<p><strong>Part 1: The likelihood function is observer-relative.</strong>
+To evaluate \(P(\mathrm{proximal} \mid \mathrm{distal})\), the observer needs a model of how distal configurations produce proximal stimuli. But by epistemic closure, the observer has no direct access to distal configurations. The likelihood function must therefore be <em>estimated from experience</em> &mdash; that is, learned from prior proximal stimuli. It is a component of the inference machine, not an objective bridge to the external world. Different observers with different histories will construct different likelihood functions, and none of them can be checked against ground truth. Kido (2022) identifies precisely this gap in existing Bayesian perception frameworks, noting a disconnect between the process by which a posterior is derived from likelihood and prior, and the process by which the likelihood and prior themselves are learned from data<sup><a href="#ref-3">[3]</a></sup>.</p>
+
+<p><strong>Part 2: No convergence guarantee without external ground truth.</strong>
+The Likelihood Principle implicitly suggests convergence toward veridical perception: more sensory channels, more data, better percepts. But convergence requires that the likelihood function is well-calibrated, and calibration requires checking against the distal world. By epistemic closure, this check is impossible. The observer can only compare new proximal input against <em>predicted</em> proximal input &mdash; never against distal reality. This is sufficient for building <em>useful</em> models (the observer survives), but not for building <em>true</em> models (the world model matches the distal world). There will always be a structural disconnect between the world and the inference machine building the world model, and this disconnect is not a bug to be minimized but a permanent architectural feature of any observer system.</p>
+
+<p>Hohwy (2013) arrives at a compatible conclusion from within the predictive processing tradition, arguing that the mind has a &ldquo;fragile and indirect relation to the world&rdquo; &mdash; we are deeply in tune with our environment yet structurally separated from it<sup><a href="#ref-8">[8]</a></sup>.</p>
+
+<p><strong>Part 3: Prediction error is the only available learning signal.</strong>
+Given epistemic closure and the action&ndash;perception loop (Axiom 2), the only feedback the observer ever receives is whether its predictions about future proximal stimuli were accurate. This makes <strong>prediction error</strong> the foundational learning signal. The likelihood function that the brain appears to compute is itself the <em>product</em> of accumulated prediction-error-driven learning. The Likelihood Principle describes the behavior of a well-trained prediction machine at a single time-slice; prediction-error minimization explains how the machine got there, what happens when it fails, and why it works at all.</p>
+
+<p>This view finds substantial support in Friston's (2010) free-energy principle, which proposes that all biological systems minimize variational free energy &mdash; an information-theoretic bound on surprise &mdash; through continuous correction of their world models<sup><a href="#ref-4">[4]</a></sup>. Under this framework, perception and action are two sides of the same optimization: the brain either updates its models to better predict sensory input (perception), or acts on the world to make sensory input conform to its predictions (active inference). The neural implementation of this principle has been modeled in detail. Rao and Ballard (1999) demonstrated that a hierarchical predictive coding network, where feedback connections carry predictions and feedforward connections carry prediction errors, reproduces known receptive-field properties in visual cortex<sup><a href="#ref-5">[5]</a></sup>. Friston and Kiebel (2009) extended this to dynamical systems, showing how the brain could use hierarchical generative models to recognize and predict temporal sequences of sensory states<sup><a href="#ref-6">[6]</a></sup>.</p>
+
+<h3>2.3. The relationship between frameworks</h3>
+
+<p>The claim is not that the Likelihood Principle is <em>wrong</em>. It is that the Likelihood Principle is a <em>derived property</em> of a more fundamental prediction-error-minimizing system &mdash; analogous to how Newtonian mechanics is a special case of general relativity. The Likelihood Principle describes what the system does when it is operating in a well-behaved regime: rich sensory data, well-trained priors, familiar stimuli. But it cannot account for its own foundations (where did the likelihood function come from?), and it breaks down at the edges &mdash; novel stimuli, degraded input, and developmental learning.</p>
+
+<p>Clark (2016) draws the same distinction in <em>Surfing Uncertainty</em>, characterizing minds as &ldquo;prediction machines &mdash; devices that have evolved to anticipate the incoming streams of sensory stimulation before they arrive&rdquo;<sup><a href="#ref-7">[7]</a></sup>. The &ldquo;predictive processing&rdquo; framework Clark describes replaces the traditional feed-forward picture with one in which top-down predictions and bottom-up prediction errors are in constant exchange across a cortical hierarchy. Crucially, Clark emphasizes that this is not merely a Bayesian gloss on standard perception &mdash; it is a fundamentally different account of what the brain is <em>doing</em>: generating predictions and using their failures as the primary signal for learning and adaptation.</p>
+
+<p>A defender of the Likelihood Principle might respond: &ldquo;We never claimed the likelihood function was objective. We only claim the brain <em>acts as if</em> it computes likelihoods.&rdquo; But this concession is exactly the point. Saying the brain &ldquo;acts as if&rdquo; it computes likelihoods is an <em>observation</em>, not an <em>explanation</em>. <em>Why</em> does it act that way? Because it is a prediction-error-minimizing system that, over sufficient training, builds an internal model whose behavior approximates likelihood computation. The &ldquo;acts as if&rdquo; is a consequence of Axiom 3, not a competing account. As a reviewer of Hohwy's work noted, &ldquo;evidence for Bayesian perceptual psychology is not in itself evidence for the [predictive processing] framework&rdquo; &mdash; the two operate at different levels of description<sup><a href="#ref-9">[9]</a></sup>.</p>
+
+<h3>2.4. Differential empirical predictions</h3>
+
+<p>This distinction is not merely philosophical &mdash; the two framings make different empirical predictions:</p>
+
+<ul>
+  <li>The Likelihood Principle, taken as foundational, predicts that perception should always converge on the <em>objectively most likely</em> interpretation of sensory input.</li>
+  <li>The predictive model predicts that perception converges on whatever minimizes prediction error <em>given the observer's particular history</em> &mdash; which may <em>not</em> be the objectively most likely interpretation if the observer's priors were shaped by unusual experience.</li>
+</ul>
+
+<p>Illusions, perceptual biases, and clinical conditions like agnosia are not failures of a likelihood computation on this account. They are <em>expected behavior</em> of a prediction machine with a particular training history. The predictive framework explains both veridical perception (when priors are well-calibrated to the environment) and systematic error (when they are not) under a single mechanism.</p>
+
+<p>Consider the M&uuml;ller-Lyer illusion as a test case. The classic &ldquo;carpentered world&rdquo; hypothesis (Segall et al., 1966) proposed that susceptibility to the illusion varied across cultures because of differences in environmental exposure to rectilinear architecture<sup><a href="#ref-10">[10]</a></sup>. If true, this would support a strong version of the Likelihood Principle: the likelihood function is calibrated to environmental statistics, and different environments produce different calibrations. However, recent comprehensive review by Amir and Firestone (2025) synthesizes evidence that the illusion appears across diverse animal species (birds, fish, reptiles, primates), persists with curved stimuli that lack any rectilinear features, and is experienced by congenitally blind individuals shortly after sight restoration &mdash; all of which challenge the cultural-calibration account<sup><a href="#ref-11">[11]</a></sup>. From the predictive framework, this pattern is expected: the illusion reflects deep structural properties of the prediction machinery (likely phylogenetically installed priors), not a culture-specific likelihood function. The <em>degree</em> of susceptibility may vary with experience, but the basic phenomenon is architectural.</p>
+
+<hr>
+
+<h2>3. Un-Informed Observer Model</h2>
+
+<h3>3.1. Axioms (revised)</h3>
+
+<div class="axiom">
+<p><span class="label">Axiom 1 (Epistemic Closure).</span> The observer's world model consists exclusively of inferences drawn from proximal stimuli.</p>
+</div>
+
+<div class="axiom">
+<p><span class="label">Axiom 2 (Action&ndash;Perception Loop).</span> The observer's actions produce new proximal stimuli that serve as feedback.</p>
+</div>
+
+<div class="axiom">
+<p><span class="label">Axiom 3 (Update Rule).</span> The inference model is updated based on the discrepancy between predicted and actual proximal stimuli (prediction error).</p>
+</div>
+
+<p>These axioms replace the original, underspecified set:</p>
+<ol>
+  <li>Observer's decisions are made based on stimulus.</li>
+  <li>Un-inferred &ldquo;things&rdquo; do not exist in the observer's world model.</li>
+  <li>Observer's inference model is updatable through learning.</li>
+</ol>
+
+<p>Axiom 1 (Epistemic Closure) is the proof's conclusion elevated to axiomatic status. Axiom 2 (Action&ndash;Perception Loop) makes explicit that the observer's own actions generate new proximal stimuli, creating a closed loop. Axiom 3 (Update Rule) introduces <em>prediction error</em> as the specific learning signal &mdash; implicit in the original text (&ldquo;getting yelled at by your mother&rdquo;) but never stated. The closed loop is what makes the model <em>predictive</em> rather than merely reactive: inference &rarr; action &rarr; new proximal stimuli &rarr; comparison with prediction &rarr; update.</p>
+
+<h3>3.2. The closed loop</h3>
+
+<p>In this model, the observer reacts to proximal stimulus based on their internal inference machine. Whether the reaction was &ldquo;good&rdquo; or &ldquo;bad&rdquo; is again interpreted via proximal stimulus &mdash; in ancient times this probably meant death vs. survival, but in modern times getting yelled at by your mother is a better comparison. After each inference&ndash;action cycle, the observer's inference machine is updated through the prediction-error signal to attempt to make better inferences going forward.</p>
+
+<p>This inference is what allows us to conclude that the barking we hear implies there is a dog around the corner. But getting into the semantics is what is really interesting.</p>
+
+<h3>3.3. Open questions</h3>
+<ol>
+  <li>Is <em>all</em> inference learned? Or are our brains set up with a starting point for inference?</li>
+  <li>How does this model mesh with Gestalt laws of perceptual organization?</li>
+</ol>
+
+<hr>
+
+<h2>4. Unlearned Inference and Innate Priors</h2>
+
+<p>Is all inference learned? The answer is clearly <em>no</em>.</p>
+
+<h3>4.1. Empirical evidence for innate inference</h3>
+
+<p>Research on neonates (0&ndash;7 days from birth) demonstrates that the visual world of the newborn is already highly organized. Slater (1998) presents evidence that newborns respond to human faces not as arbitrary collections of stimulus elements but as faces specifically, and that they can form auditory-visual associations after only brief exposure &mdash; suggesting that innate capacities direct and facilitate early learning<sup><a href="#ref-12">[12]</a></sup>.</p>
+
+<p>More broadly, Spelke and Kinzler (2007) have proposed that human cognition is founded on at least four innate <strong>core knowledge systems</strong>: (1) a system for representing <em>objects</em> and their mechanical interactions (governed by principles of cohesion, continuity, and contact), (2) a system for representing <em>agents</em> and their goal-directed actions, (3) a system for representing <em>number</em> and approximate magnitude, and (4) a system for representing the <em>geometry</em> of surrounding space. A fifth system, for representing social partners and group membership, may also be innate<sup><a href="#ref-13">[13]</a></sup>. These systems are domain-specific, abstract, present across cultures, shared with nonhuman primates, and functional from the earliest months of life. They are not learned from scratch through proximal-stimulus exposure &mdash; they are present before significant learning has occurred.</p>
+
+<p>This poses a challenge for our framework. If Axiom 3 (the Update Rule) states that the inference model is updated via prediction error, then where do these initial priors come from? They were not installed by prediction error within the observer's lifetime.</p>
+
+<h3>4.2. Resolution: evolutionary prediction error</h3>
+
+<p>We adopt the position that innate priors are the product of <strong>evolutionary learning</strong> &mdash; prediction-error-driven optimization operating over <em>phylogenetic</em> time rather than <em>ontogenetic</em> time. Natural selection functions as an update rule: organisms whose innate priors produce poor predictions about the world (and therefore poor actions) are selected against. Organisms whose priors produce good predictions survive and reproduce, passing those priors to the next generation. Over evolutionary timescales, this process installs increasingly well-calibrated initial conditions into the inference machine.</p>
+
+<p>This framing unifies innate and learned inference under a single principle &mdash; prediction error minimization &mdash; operating at two timescales:</p>
+
+<ul>
+  <li><strong>Phylogenetic learning</strong> (evolutionary timescale): natural selection installs initial priors into the inference machine's architecture. These priors reflect statistical regularities of the ancestral environment that were stable enough across generations to be worth hardcoding.</li>
+  <li><strong>Ontogenetic learning</strong> (lifetime timescale): prediction-error-driven updating refines and extends these priors based on the individual observer's experience.</li>
+</ul>
+
+<p>We acknowledge that &ldquo;evolutionary prediction error&rdquo; is partly metaphorical &mdash; natural selection does not compute prediction errors in the same way a neural circuit does. But the functional logic is identical: variants that fail to predict their environment are eliminated, and the result over time is a system whose initial state is well-calibrated to environmental regularities. The analogy is precise enough to be productive, and we flag it as a framing device rather than a strict identity claim.</p>
+
+<p>Spelke's core knowledge systems map neatly onto this account. The principles governing object representation (cohesion, continuity, contact) are predictions about the physical world that have been stable across mammalian evolutionary history. The agent-detection system reflects the survival value of rapidly identifying intentional actors. The approximate number system encodes magnitude comparisons useful for foraging and threat assessment. These are the priors that evolution has determined are too important &mdash; and too stable across environments &mdash; to leave to individual learning.</p>
+
+<h3>4.3. Species-specific priors: what makes us <em>us</em></h3>
+
+<p>This leads to a striking implication: if innate priors are the product of a species' evolutionary history, then <strong>different species &mdash; or hypothetical alien observers &mdash; would have fundamentally different initial inference machines</strong>. Not merely different learned models of the world, but different <em>starting axioms</em> for perception itself. The core knowledge systems that Spelke identifies are not universal features of any possible observer; they are the specific priors that human evolutionary history has installed. An observer with a different evolutionary trajectory would begin with different core systems and would therefore construct a different world model from the same proximal stimuli.</p>
+
+<p>This has implications beyond philosophy of mind. The specific structure of human innate priors may explain why human societies organize the way they do.</p>
+
+<h3>4.4. Priors, reward, and the drive for control</h3>
+
+<p>Consider what the prediction-error framework implies about motivation and reward. If the observer's fundamental drive is to minimize prediction error &mdash; to make the world model as accurate and comprehensive as possible &mdash; then <em>anything that increases the observer's predictive power should be experienced as rewarding</em>. Tools, technologies, and explanatory frameworks all serve this function: they extend the observer's ability to predict and control proximal stimuli. A hammer lets you predict the consequences of striking. A telescope extends your sensory range. A scientific theory lets you predict classes of phenomena you have never directly encountered.</p>
+
+<p>This suggests that the human drive toward technology and understanding is not incidental but is a direct consequence of our inference architecture. We are organisms whose reward system is tuned to <em>world-model expansion</em> &mdash; to making more of the world predictable. Societies that develop technology, science, and complex social structures are not doing something extraneous to human cognition; they are doing exactly what a prediction-error-minimizing system would do when scaled up to populations that can share and accumulate knowledge.</p>
+
+<h3>4.5. A speculative consequence: the post-technology inversion</h3>
+
+<p>If this account is correct, it generates an unsettling prediction about the trajectory of technological civilization. The drive toward technology is driven by prediction-error minimization: we build tools and systems that make the world more predictable and controllable. But what happens when the world <em>is</em> predictable and controllable &mdash; when the basic problems of survival, comfort, and environmental management are solved by mechanized systems?</p>
+
+<p>In a fully mechanized world, the observer's prediction errors are already near-minimal for the domains that historically drove technological development. The inference machine has less to do. But the reward system is still tuned to prediction-error reduction. If there are no significant prediction errors left to resolve through technology, the system faces a choice:</p>
+
+<ul>
+  <li><strong>Seek new frontiers of unpredictability</strong> &mdash; art, abstract science, exploration, novel social structures. This is the optimistic trajectory.</li>
+  <li><strong>Reduce the complexity of the world model itself</strong> &mdash; simplify one's environment, reduce cognitive demands, seek controllable and predictable micro-worlds. This amounts to making oneself &ldquo;stupider&rdquo; and one's life simpler, not out of laziness but because a simpler world model is easier to keep prediction-error-free.</li>
+</ul>
+
+<p>The second trajectory is the darker prediction: that post-technological societies may tend not toward further complexity but toward <em>voluntary cognitive simplification</em>. The prediction machine, having solved the hard problems, optimizes for low prediction error by shrinking the space of things it tries to predict. Comfort, routine, algorithmically curated environments, and the offloading of cognitive work to automated systems all serve this function. The result is a world that is maximally predictable &mdash; and maximally unstimulating.</p>
+
+<p>This is speculative, but it follows logically from the framework: if the reward signal is prediction-error minimization, and if technology makes the world predictable, then the system's equilibrium state is not &ldquo;more technology&rdquo; but &ldquo;less to predict.&rdquo;</p>
+
+<hr>
+
+<h2>5. Perceptual Organization: Reinterpreting Gestalt</h2>
+
+<p>The Gestalt psychologists identified a set of principles governing perceptual organization: proximity, similarity, good continuation, closure, common fate, and the overarching Law of Pr&auml;gnanz (the tendency toward the simplest, most regular interpretation). The traditional explanations for <em>why</em> these principles hold fall into two camps:</p>
+
+<ul>
+  <li><strong>Pr&auml;gnanz (simplicity):</strong> we perceive in accordance with Gestalt principles because the resulting percepts are &ldquo;simple&rdquo; or &ldquo;good forms.&rdquo; This is descriptive rather than explanatory &mdash; it restates the observation without identifying a mechanism.</li>
+  <li><strong>Likelihood Principle:</strong> we perceive in accordance with Gestalt principles because the resulting interpretations are the most probable given the sensory input. As argued in Section 2, this is an observer-relative claim that presupposes a likelihood function the observer cannot independently verify.</li>
+</ul>
+
+<p>Our framework offers a third account that subsumes both: Gestalt principles are <strong>descriptions of the prediction machine's priors</strong> &mdash; regularities that have been installed by evolutionary learning (phylogenetic prediction-error minimization) and refined by individual experience (ontogenetic prediction-error minimization). They are phenomenological summaries of what the system has learned, not rules it follows.</p>
+
+<h3>5.1. Gestalt principles as ecological priors</h3>
+
+<p>This reinterpretation has empirical support. Brunswik and Kamiya (1953) were the first to propose that Gestalt principles reflect statistical regularities of the natural visual environment<sup><a href="#ref-14">[14]</a></sup>. Elder and Goldberg (2002) tested this directly by measuring the co-occurrence statistics of contour elements in natural images and found that the Gestalt principles of proximity and good continuation correspond to genuine statistical regularities: elements that are nearby and smoothly aligned are in fact more likely to belong to the same physical contour<sup><a href="#ref-15">[15]</a></sup>. In other words, the prediction machine's priors match the statistics of the world it evolved in &mdash; exactly what the evolutionary-learning account predicts.</p>
+
+<p>From the predictive framework, this is not surprising. A prediction-error-minimizing system that has been exposed to natural scenes &mdash; either over a lifetime or over evolutionary time &mdash; will develop internal models that exploit whatever statistical regularities reduce prediction error most efficiently. Proximity grouping works because spatially nearby elements in natural scenes <em>do</em> tend to belong to the same object. Good continuation works because physical contours <em>are</em> smooth. Common fate works because parts of a single object <em>do</em> move together. These are not arbitrary perceptual preferences; they are predictions about the structure of the world that happen to be accurate for the environments in which our inference machinery evolved.</p>
+
+<h3>5.2. The neonatal challenge, resolved</h3>
+
+<p>The challenge to a purely learning-based account was that some Gestalt principles appear in neonates before significant visual experience. As discussed above, Slater (1998) demonstrated that newborns already show organized visual perception, and Spelke and Kinzler (2007) documented innate core knowledge systems for objects, agents, number, and geometry<sup><a href="#ref-12">[12]</a></sup><sup><a href="#ref-13">[13]</a></sup>.</p>
+
+<p>With the evolutionary-learning framework now in place, this is no longer a counterexample. Neonatal Gestalt responses are not evidence that these principles are &ldquo;hardwired rules&rdquo; independent of learning. They are evidence that <em>phylogenetic</em> learning &mdash; natural selection operating as a prediction-error update rule across generations &mdash; has installed these priors as the initial state of the inference machine. The principles of proximity, continuity, and common fate reflect statistical regularities of the physical world that have been stable across mammalian evolutionary history. They were too important, and too stable across environments, to leave to individual learning.</p>
+
+<p>The ontogenetic learning that follows birth then <em>refines</em> these priors. An infant born with a rough prior for proximity grouping will, through prediction-error-driven experience, sharpen that prior to the specific spatial statistics of its environment. The phylogenetic prior gets the system into the right neighborhood; ontogenetic learning fine-tunes it.</p>
+
+<h3>5.3. Gestalt as consequence, not cause</h3>
+
+<p>This reinterpretation changes the explanatory direction. The traditional account says: &ldquo;we perceive this way <em>because of</em> the Law of Pr&auml;gnanz.&rdquo; Our account says: &ldquo;we perceive this way because our prediction machine &mdash; shaped by evolutionary and individual learning &mdash; has built priors that happen to match the statistical structure of natural environments. The Law of Pr&auml;gnanz is a <em>description</em> of what those priors produce, not a <em>cause</em> of perception.&rdquo;</p>
+
+<p>The same logic applies to the Likelihood Principle: saying the brain selects the most likely interpretation is a description of a well-calibrated prediction machine in action. And it applies to Pr&auml;gnanz: saying perception tends toward simplicity is a description of what a system optimized for prediction-error minimization does when its priors match the environment &mdash; simple interpretations are the ones that minimize prediction error because the world itself has regular structure.</p>
+
+<p>All three &mdash; Gestalt principles, the Likelihood Principle, and Pr&auml;gnanz &mdash; collapse into consequences of a single underlying mechanism: prediction-error minimization operating on priors installed by evolutionary and individual learning.</p>
+
+<h3>5.4. Species-specific Gestalts</h3>
+
+<p>If Gestalt principles are priors shaped by evolutionary history, then a genuinely alien observer &mdash; one with a different evolutionary trajectory in a different environment &mdash; would exhibit different &ldquo;Gestalt principles.&rdquo; An organism evolved in a world dominated by fluid dynamics rather than rigid bodies might not group by proximity or common fate in the way we do, because the statistical regularities of its ancestral environment would be different. Its prediction machine would have been calibrated to different ecological statistics, and its perceptual organization would reflect those statistics.</p>
+
+<p>This reinforces the species-specific-priors argument from Section 4.3: the way we carve the world into objects, surfaces, agents, and groups is not a universal feature of perception but a reflection of <em>our</em> evolutionary history. Gestalt principles are human Gestalts.</p>
+
+<hr>
+
+<h2>6. Where this is going</h2>
+
+<p>The argument now proceeds as follows:</p>
+
+<ol>
+  <li>The proof establishes <strong>epistemic closure</strong>: the observer only has inference on proximal stimuli. (<em>Resolved</em>, Section 1.)</li>
+  <li>From epistemic closure, we derive that the only possible learning signal is <strong>prediction error</strong> on future proximal stimuli. The Likelihood Principle is shown to be a derived property of this more fundamental system, not a competing account. (<em>Resolved</em>, Section 2.)</li>
+  <li>The inference machine's initial state is set by <strong>evolutionary learning</strong> &mdash; phylogenetic prediction-error minimization &mdash; which installs species-specific priors (core knowledge systems). Ontogenetic learning refines these priors over the observer's lifetime. (<em>Resolved</em>, Section 4.)</li>
+  <li>Gestalt principles, the Likelihood Principle, and Pr&auml;gnanz all become <strong>consequences</strong> of the prediction machinery operating on ecologically calibrated priors &mdash; descriptions of regularities in what the machine has learned, not rules it follows. (<em>Resolved</em>, Section 5.)</li>
+</ol>
+
+<p><strong>What remains:</strong></p>
+<ul>
+  <li><strong>Formalization:</strong> the argument is currently conceptual. A mathematical treatment &mdash; connecting the axioms to prediction-error minimization via Friston's free-energy formalism &mdash; would strengthen the framework substantially.</li>
+  <li><strong>Empirical program:</strong> targeted experimental work is needed to discriminate this framework from alternative accounts (e.g., manipulating environmental statistics and measuring changes in grouping priors; cross-species comparisons of perceptual organization).</li>
+  <li><strong>Speculative extensions:</strong> the post-technology inversion (Section 4.5) and species-specific Gestalts (Section 5.4) are interesting but currently conjectural. They need to be either grounded empirically or flagged explicitly as philosophical speculation.</li>
+  <li><strong>Positioning:</strong> the relationship to Friston, Clark, and Hohwy needs to be made precise. Are we re-deriving their conclusions from a simpler epistemological starting point, or making a genuinely novel claim?</li>
+</ul>
+
+<hr>
+
+<h2>References</h2>
+
+<ol class="refs">
+  <li id="ref-1">Helmholtz, H. von (1867). <em>Handbuch der physiologischen Optik</em>. Leipzig: Leopold Voss. (English translation: <em>Treatise on Physiological Optics</em>, J.P.C. Southall, Ed., 1924&ndash;1925.)</li>
+  <li id="ref-2">Cahan, D. (2018). Helmholtz: From enlightenment to neuroscience. <em>Perception</em>, 47(10&ndash;11), 1091&ndash;1093. See also: Stanford Encyclopedia of Philosophy entry on Hermann von Helmholtz.</li>
+  <li id="ref-3">Kido, H. (2022). Towards unifying perceptual reasoning and logical reasoning. <em>arXiv preprint arXiv:2206.13174</em>.</li>
+  <li id="ref-4">Friston, K. (2010). The free-energy principle: A unified brain theory? <em>Nature Reviews Neuroscience</em>, 11(2), 127&ndash;138.</li>
+  <li id="ref-5">Rao, R.P.N. &amp; Ballard, D.H. (1999). Predictive coding in the visual cortex: A functional interpretation of some extra-classical receptive-field effects. <em>Nature Neuroscience</em>, 2(1), 79&ndash;87.</li>
+  <li id="ref-6">Friston, K. &amp; Kiebel, S. (2009). Predictive coding under the free-energy principle. <em>Philosophical Transactions of the Royal Society B</em>, 364(1521), 1211&ndash;1221.</li>
+  <li id="ref-7">Clark, A. (2016). <em>Surfing Uncertainty: Prediction, Action, and the Embodied Mind</em>. New York: Oxford University Press.</li>
+  <li id="ref-8">Hohwy, J. (2013). <em>The Predictive Mind</em>. Oxford: Oxford University Press.</li>
+  <li id="ref-9">Rescorla, M. (2017). Review of <em>Surfing Uncertainty</em> by Andy Clark. <em>Notre Dame Philosophical Reviews</em>.</li>
+  <li id="ref-10">Segall, M.H., Campbell, D.T., &amp; Herskovits, M.J. (1966). <em>The Influence of Culture on Visual Perception</em>. Indianapolis: Bobbs-Merrill.</li>
+  <li id="ref-11">Amir, D. &amp; Firestone, C. (2025). Is visual perception WEIRD? The M&uuml;ller-Lyer illusion and the cultural byproduct hypothesis. <em>Psychological Review</em>.</li>
+  <li id="ref-12">Slater, A. (1998). Innate and learned perceptual abilities in the newborn infant. <em>Experimental Brain Research</em>, 123, 90&ndash;94.</li>
+  <li id="ref-13">Spelke, E.S. &amp; Kinzler, K.D. (2007). Core knowledge. <em>Developmental Science</em>, 10(1), 89&ndash;96.</li>
+  <li id="ref-14">Brunswik, E. &amp; Kamiya, J. (1953). Ecological cue-validity of &ldquo;proximity&rdquo; and of other Gestalt factors. <em>American Journal of Psychology</em>, 66(1), 20&ndash;32.</li>
+  <li id="ref-15">Elder, J.H. &amp; Goldberg, R.M. (2002). Ecological statistics of Gestalt laws for the perceptual organization of contours. <em>Journal of Vision</em>, 2(4), 324&ndash;353.</li>
+</ol>
+
+<hr>
+
+<p><a href="../blog.html">&larr; Back to blog</a></p>
+
+<footer>
+&mdash; sasha, 2026
+</footer>
+
+</body>
+</html>
