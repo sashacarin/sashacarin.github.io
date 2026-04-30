@@ -1,5 +1,21 @@
 /* Web 1.0 style sheet. Edit colors here to restyle the whole site. */
 
+/* Pixelated beach wallpaper, fixed behind everything; the centered body
+   covers the middle so the image only shows in the left/right margins. */
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url('assets/beach-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
 body {
   font-family: "Courier New", Courier, monospace;
   font-size: 16px;
@@ -8,7 +24,7 @@ body {
   background: #fff;
   max-width: 680px;
   margin: 2em auto;
-  padding: 0 1em;
+  padding: 1em;
 }
 
 
