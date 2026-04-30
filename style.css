@@ -1,19 +1,23 @@
 /* Web 1.0 style sheet. Edit colors here to restyle the whole site. */
 
-/* Pixelated beach wallpaper, fixed behind everything; the centered body
-   covers the middle so the image only shows in the left/right margins. */
-html::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
+/* Pixelated beach wallpaper on the html background. The centered body
+   sits on top with its own white background, so the image only shows
+   in the left/right margins around the 680px content card. */
+html {
   background-image: url('assets/beach-bg.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
+  min-height: 100%;
+}
+
+/* Don't let pixelation inherit to album covers etc. */
+img, audio, video {
+  image-rendering: auto;
 }
 
 body {
@@ -25,6 +29,7 @@ body {
   max-width: 680px;
   margin: 2em auto;
   padding: 1em;
+  border: 1px solid #000;
 }
 
 
