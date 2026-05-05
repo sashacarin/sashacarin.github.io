@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sparse Networks &amp; Human Intelligence &mdash; sasha's blog</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]
+  });"></script>
+<style>
+  figure.diagram {
+    margin: 1.5em 0;
+    text-align: center;
+  }
+  figure.diagram svg {
+    max-width: 100%;
+    height: auto;
+  }
+  figure.diagram figcaption {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 0.5em;
+    text-align: left;
+  }
+  table.mapping {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    font-size: 0.92em;
+  }
+  table.mapping th, table.mapping td {
+    border-top: 1px solid #000;
+    padding: 0.5em 0.6em;
+    vertical-align: top;
+    text-align: left;
+  }
+  table.mapping thead th {
+    border-bottom: 1px solid #000;
+  }
+  table.mapping tbody tr:last-child td {
+    border-bottom: 1px solid #000;
+  }
+</style>
+</head>
+<body>
+<nav>
+<a href="../index.html">Home</a> |
+<a href="../blog.html">Blog</a> |
+<a href="../media.html">Media</a> |
+<a href="../contact.html">Contact</a>
+</nav>
+
+<hr>
+
+<h1>Sparse Neural Networks as a Computational Analogue of the Controlled-to-Automatic Processing Transition</h1>
+<p><em>2026-05-05 &middot; bridging artificial pruning and theories of human intelligence</em></p>
+
+<h2>Abstract</h2>
+
+<p>The distinction between fluid and crystallized intelligence &mdash; the capacity to reason through novel problems versus the ability to deploy acquired knowledge &mdash; has been a cornerstone of differential psychology since Cattell<sup><a href="#ref-1">[1]</a></sup>. A parallel distinction exists in cognitive psychology between controlled processing, which is slow, serial, and resource-intensive, and automatic processing, which is fast, parallel, and effortless<sup><a href="#ref-2">[2]</a></sup><sup><a href="#ref-3">[3]</a></sup>. In artificial intelligence, a strikingly analogous trajectory emerges during neural network training and subsequent pruning: a dense, highly plastic network is trained on a task and then reduced to a sparse, efficient subnetwork that preserves or even exceeds the original performance<sup><a href="#ref-4">[4]</a></sup><sup><a href="#ref-5">[5]</a></sup>. This post argues that the progression from dense-to-sparse representations in artificial neural networks provides a useful computational analogue for the controlled-to-automatic processing transition observed in human cognition. I synthesize evidence from psychometrics, cognitive neuroscience, and deep learning to propose that fluid and crystallized intelligence map onto distinct phases of this shared trajectory. I further connect this framework to the neural efficiency hypothesis<sup><a href="#ref-6">[6]</a></sup><sup><a href="#ref-7">[7]</a></sup> and to developmental synaptic pruning<sup><a href="#ref-8">[8]</a></sup>, generating testable predictions about the relationship between network sparsity, cognitive efficiency, and individual differences in intelligence.</p>
+
+<p><strong>Keywords:</strong> fluid intelligence, crystallized intelligence, neural network pruning, lottery ticket hypothesis, controlled processing, automatic processing, neural efficiency.</p>
+
+<hr>
+
+<h2>1. Introduction</h2>
+
+<p>Understanding the computational basis of human intelligence remains one of the central challenges of cognitive science. Two largely independent research traditions have converged on a common observation: efficient performance on cognitive tasks is achieved not by deploying more resources, but by deploying fewer, better-organized ones. In differential psychology, this insight is captured by the finding that individuals with higher intelligence exhibit lower cortical activation during task performance &mdash; the neural efficiency hypothesis<sup><a href="#ref-6">[6]</a></sup><sup><a href="#ref-7">[7]</a></sup>. In deep learning, the same principle is formalized by the lottery ticket hypothesis, which demonstrates that large neural networks contain sparse subnetworks capable of matching or exceeding the full network's performance when trained in isolation<sup><a href="#ref-4">[4]</a></sup>.</p>
+
+<p>This post proposes that these parallels are not coincidental. I argue that the training-and-pruning pipeline of modern neural networks &mdash; in which a dense, overparameterized network is first trained and then reduced to a sparse, task-specific circuit &mdash; provides a computational analogue for the well-characterized transition from controlled to automatic processing in human cognition<sup><a href="#ref-2">[2]</a></sup><sup><a href="#ref-3">[3]</a></sup><sup><a href="#ref-9">[9]</a></sup>. I extend this analogy to the psychometric distinction between fluid and crystallized intelligence<sup><a href="#ref-1">[1]</a></sup><sup><a href="#ref-10">[10]</a></sup>, proposing that these two broad ability factors correspond to different phases of the dense-to-sparse trajectory.</p>
+
+<p>The structure of the post is as follows. Section&nbsp;2 reviews the theory of fluid and crystallized intelligence. Section&nbsp;3 summarizes the controlled&ndash;automatic processing framework. Section&nbsp;4 describes the relevant neural network pruning literature, with emphasis on the lottery ticket hypothesis. Section&nbsp;5 presents the core analogy, supported by a comparison with developmental synaptic pruning and the neural efficiency hypothesis. Section&nbsp;6 derives testable predictions. Section&nbsp;7 discusses limitations and future directions.</p>
+
+<hr>
+
+<h2>2. Fluid and Crystallized Intelligence</h2>
+
+<p>The theory of fluid and crystallized intelligence, introduced by Cattell<sup><a href="#ref-1">[1]</a></sup> and refined by Horn and Cattell<sup><a href="#ref-10">[10]</a></sup><sup><a href="#ref-11">[11]</a></sup>, partitions general cognitive ability into two broad factors. <strong>Fluid intelligence</strong> (\(G_f\)) refers to the capacity to reason and solve novel problems independent of previously acquired knowledge. It is measured by tasks such as matrix reasoning, pattern recognition, and abstract series completion. <strong>Crystallized intelligence</strong> (\(G_c\)) refers to the breadth and depth of knowledge and skills acquired through experience and education. It is assessed through vocabulary tests, general knowledge, and domain-specific expertise.</p>
+
+<p>These two factors display distinct developmental trajectories. Fluid intelligence peaks in early adulthood and declines gradually thereafter, while crystallized intelligence continues to increase through middle age and remains relatively stable into old age<sup><a href="#ref-11">[11]</a></sup><sup><a href="#ref-12">[12]</a></sup>. This dissociation has been attributed to the biological substrate underlying \(G_f\) &mdash; including processing speed, working memory capacity, and the integrity of prefrontal cortical circuits &mdash; being more sensitive to age-related neural decline than the distributed cortical representations supporting \(G_c\)<sup><a href="#ref-13">[13]</a></sup>.</p>
+
+<p>Critically, the two forms of intelligence are not independent. Fluid intelligence is thought to facilitate the acquisition of new knowledge and skills, which, once consolidated, become part of the crystallized repertoire. As Cattell noted<sup><a href="#ref-1">[1]</a></sup>, \(G_c\) can be understood as the &ldquo;historical product&rdquo; of \(G_f\) applied to learning opportunities over time. This investment model implies a directional relationship: fluid processes build the crystallized store, and the crystallized store, once established, reduces the need for fluid engagement with familiar problems.</p>
+
+<hr>
+
+<h2>3. Controlled and Automatic Processing</h2>
+
+<p>The transition from effortful, deliberate reasoning to fast, effortless execution is one of the most robust findings in cognitive psychology. Schneider and Shiffrin<sup><a href="#ref-2">[2]</a></sup><sup><a href="#ref-3">[3]</a></sup> formalized this distinction in their dual-process theory of human information processing, identifying two qualitatively different modes of cognition.</p>
+
+<p><strong>Controlled processing</strong> is slow, serial, capacity-limited, and requires active attentional engagement. It is flexible &mdash; it can be adapted to new task demands on the fly &mdash; but it is resource-intensive, fatiguing, and bottlenecked by working memory. Controlled processing dominates during the early stages of learning, when the mapping between stimuli and responses is novel or inconsistent.</p>
+
+<p><strong>Automatic processing</strong> is fast, parallel, relatively effortless, and operates without conscious attentional control. Once developed through extensive practice with consistent stimulus&ndash;response mappings, automatic processes are difficult to suppress or modify. They consume minimal cognitive resources, freeing capacity for other operations<sup><a href="#ref-2">[2]</a></sup><sup><a href="#ref-14">[14]</a></sup>.</p>
+
+<p>Fitts and Posner<sup><a href="#ref-9">[9]</a></sup> described three stages through which skill acquisition proceeds from controlled to automatic performance. In the <em>cognitive stage</em>, the learner must devote substantial attention to understanding the task structure and generating appropriate responses. In the <em>associative stage</em>, performance becomes more consistent, errors decrease, and the learner begins to refine strategies. In the <em>autonomous stage</em>, performance is fast, accurate, and largely independent of conscious control.</p>
+
+<p>Neuroimaging studies have confirmed the neural correlates of this transition. Early learning activates a broad, distributed network including prefrontal and anterior cingulate cortices &mdash; regions associated with executive control and error monitoring<sup><a href="#ref-15">[15]</a></sup><sup><a href="#ref-16">[16]</a></sup>. As automaticity develops, activation in these control regions decreases, and task-relevant processing becomes localized to more specialized cortical areas<sup><a href="#ref-16">[16]</a></sup><sup><a href="#ref-17">[17]</a></sup>. In short, the brain achieves expertise by becoming <em>sparser</em> in its activation patterns.</p>
+
+<figure class="diagram">
+<svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig1-title">
+  <title id="fig1-title">Correspondence between cognitive stages and neural network stages</title>
+  <style>
+    .stage { stroke: #000; stroke-width: 1; rx: 8; ry: 8; }
+    .lbl   { font: 11px "Courier New", monospace; text-anchor: middle; fill: #000; }
+    .sub   { font: 9px "Courier New", monospace; text-anchor: middle; fill: #555; }
+    .row   { font: 10px "Courier New", monospace; fill: #000; font-weight: bold; }
+    .arr   { fill: none; stroke: #000; stroke-width: 1.2; marker-end: url(#arrow); }
+    .dash  { fill: none; stroke: #888; stroke-width: 1; stroke-dasharray: 4 3; }
+    .ann   { font: 9px "Courier New", monospace; text-anchor: middle; fill: #555; font-style: italic; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#000"/>
+    </marker>
+  </defs>
+
+  <!-- Row labels -->
+  <text class="row" x="10" y="70">Human</text>
+  <text class="row" x="10" y="82">Cognition</text>
+  <text class="row" x="10" y="240">Artificial</text>
+  <text class="row" x="10" y="252">Network</text>
+
+  <!-- Top row: cognitive stages -->
+  <rect class="stage" x="90"  y="50" width="120" height="60" fill="#fde0e0"/>
+  <text class="lbl" x="150" y="75">Controlled</text>
+  <text class="lbl" x="150" y="90">Processing</text>
+  <text class="sub" x="150" y="125">slow, effortful, flexible</text>
+
+  <rect class="stage" x="260" y="50" width="120" height="60" fill="#ffe9c8"/>
+  <text class="lbl" x="320" y="75">Associative</text>
+  <text class="lbl" x="320" y="90">Stage</text>
+  <text class="sub" x="320" y="125">improving, consolidating</text>
+
+  <rect class="stage" x="430" y="50" width="120" height="60" fill="#dcf0d2"/>
+  <text class="lbl" x="490" y="75">Automatic</text>
+  <text class="lbl" x="490" y="90">Processing</text>
+  <text class="sub" x="490" y="125">fast, effortless, rigid</text>
+
+  <path class="arr" d="M210,80 L260,80"/>
+  <text class="ann" x="235" y="72">practice</text>
+  <path class="arr" d="M380,80 L430,80"/>
+  <text class="ann" x="405" y="72">mastery</text>
+
+  <!-- Bottom row: NN stages -->
+  <rect class="stage" x="90"  y="220" width="120" height="60" fill="#dde6f5"/>
+  <text class="lbl" x="150" y="245">Dense Network</text>
+  <text class="lbl" x="150" y="260">(Training)</text>
+  <text class="sub" x="150" y="205">overparameterized, plastic</text>
+
+  <rect class="stage" x="260" y="220" width="120" height="60" fill="#c4d6ee"/>
+  <text class="lbl" x="320" y="245">Task-Specific</text>
+  <text class="lbl" x="320" y="260">Pathways</text>
+  <text class="sub" x="320" y="205">weights converging</text>
+
+  <rect class="stage" x="430" y="220" width="120" height="60" fill="#a8c2e3"/>
+  <text class="lbl" x="490" y="245">Sparse Pruned</text>
+  <text class="lbl" x="490" y="260">Network</text>
+  <text class="sub" x="490" y="205">efficient, task-specific</text>
+
+  <path class="arr" d="M210,250 L260,250"/>
+  <text class="ann" x="235" y="242">convergence</text>
+  <path class="arr" d="M380,250 L430,250"/>
+  <text class="ann" x="405" y="242">pruning</text>
+
+  <!-- Vertical analogy lines -->
+  <path class="dash" d="M150,135 L150,200"/>
+  <path class="dash" d="M320,135 L320,200"/>
+  <path class="dash" d="M490,135 L490,200"/>
+  <text class="ann" x="165" y="170">analogy</text>
+  <text class="ann" x="335" y="170">analogy</text>
+  <text class="ann" x="505" y="170">analogy</text>
+</svg>
+<figcaption><strong>Figure&nbsp;1.</strong> Proposed correspondence between stages of human cognitive skill acquisition (top) and the training-and-pruning pipeline of artificial neural networks (bottom). Both trajectories proceed from a resource-intensive, flexible state to an efficient, specialized one.</figcaption>
+</figure>
+
+<hr>
+
+<h2>4. Neural Network Pruning and the Lottery Ticket Hypothesis</h2>
+
+<p>Modern deep neural networks are typically <em>overparameterized</em>: they contain far more trainable weights than are strictly necessary to learn the target function. This overparameterization facilitates optimization &mdash; gradient descent can more easily find good solutions in high-dimensional parameter spaces &mdash; but it results in networks that are computationally expensive and memory-intensive at inference time.</p>
+
+<p><em>Network pruning</em> addresses this inefficiency by removing weights, neurons, or entire filters from a trained network while preserving accuracy<sup><a href="#ref-18">[18]</a></sup><sup><a href="#ref-5">[5]</a></sup><sup><a href="#ref-19">[19]</a></sup>. Pruning techniques can reduce parameter counts by 90% or more without significant performance degradation, producing sparse networks that are faster and cheaper to deploy<sup><a href="#ref-5">[5]</a></sup><sup><a href="#ref-20">[20]</a></sup>.</p>
+
+<h3>4.1. The Lottery Ticket Hypothesis</h3>
+
+<p>Frankle and Carbin<sup><a href="#ref-4">[4]</a></sup> made a surprising discovery that reframes the role of pruning. They demonstrated that dense, randomly initialized networks contain sparse subnetworks &mdash; termed <em>winning tickets</em> &mdash; that, when trained in isolation from their original initialization, can match or exceed the full network's test accuracy in a comparable number of training iterations. Formally:</p>
+
+<div class="claim">
+<p><span class="label">Lottery Ticket Hypothesis.</span> A randomly-initialized, dense neural network contains a subnetwork that is initialized such that &mdash; when trained in isolation &mdash; it can match the test accuracy of the original network after training for at most the same number of iterations.</p>
+</div>
+
+<p>The procedure for identifying winning tickets involves four steps: (1) randomly initialize a dense network \(f(x;\, \theta_0)\); (2) train it for \(j\) iterations, arriving at parameters \(\theta_j\); (3) prune \(p\)% of the smallest-magnitude weights, creating a binary mask \(m\); and (4) reset the surviving weights to their original values \(\theta_0\), yielding the winning ticket \(f(x;\, m \odot \theta_0)\).</p>
+
+<p>Crucially, the initialization matters. When the surviving weights are randomly reinitialized rather than reset to \(\theta_0\), performance degrades substantially. This demonstrates that winning tickets succeed not merely because of their architecture (which connections survive) but because of a fortunate combination of architecture and initial weight values.</p>
+
+<p>These winning tickets are typically 10&ndash;20% the size of the original network. They learn faster (reaching minimum validation loss in fewer iterations), achieve higher test accuracy, and generalize better than the full dense network<sup><a href="#ref-4">[4]</a></sup>.</p>
+
+<figure class="diagram">
+<svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig2-title">
+  <title id="fig2-title">Dense versus sparse network architectures</title>
+  <style>
+    .ttl    { font: 11px "Courier New", monospace; text-anchor: middle; fill: #000; font-weight: bold; }
+    .nactive{ fill: #c4d6ee; stroke: #335a91; stroke-width: 1; }
+    .npruned{ fill: #eee; stroke: #aaa; stroke-width: 1; stroke-dasharray: 3 2; }
+    .cdense { fill: none; stroke: #999; stroke-width: 0.5; opacity: 0.6; }
+    .csparse{ fill: none; stroke: #335a91; stroke-width: 1.4; }
+    .cdrop  { fill: none; stroke: #bbb; stroke-width: 0.4; stroke-dasharray: 2 2; }
+    .arr    { fill: none; stroke: #a33; stroke-width: 2; marker-end: url(#parr); }
+    .ann    { font: 11px "Courier New", monospace; text-anchor: middle; fill: #a33; font-style: italic; }
+  </style>
+  <defs>
+    <marker id="parr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#a33"/>
+    </marker>
+  </defs>
+
+  <!-- DENSE -->
+  <text class="ttl" x="130" y="22">Dense Network</text>
+
+  <!-- Dense connections (drawn first so circles cover) -->
+  <g>
+    <!-- input -> h1 -->
+    <line class="cdense" x1="40" y1="60"  x2="115" y2="50"/>
+    <line class="cdense" x1="40" y1="60"  x2="115" y2="90"/>
+    <line class="cdense" x1="40" y1="60"  x2="115" y2="130"/>
+    <line class="cdense" x1="40" y1="60"  x2="115" y2="170"/>
+    <line class="cdense" x1="40" y1="60"  x2="115" y2="210"/>
+    <line class="cdense" x1="40" y1="120" x2="115" y2="50"/>
+    <line class="cdense" x1="40" y1="120" x2="115" y2="90"/>
+    <line class="cdense" x1="40" y1="120" x2="115" y2="130"/>
+    <line class="cdense" x1="40" y1="120" x2="115" y2="170"/>
+    <line class="cdense" x1="40" y1="120" x2="115" y2="210"/>
+    <line class="cdense" x1="40" y1="180" x2="115" y2="50"/>
+    <line class="cdense" x1="40" y1="180" x2="115" y2="90"/>
+    <line class="cdense" x1="40" y1="180" x2="115" y2="130"/>
+    <line class="cdense" x1="40" y1="180" x2="115" y2="170"/>
+    <line class="cdense" x1="40" y1="180" x2="115" y2="210"/>
+    <line class="cdense" x1="40" y1="240" x2="115" y2="50"/>
+    <line class="cdense" x1="40" y1="240" x2="115" y2="90"/>
+    <line class="cdense" x1="40" y1="240" x2="115" y2="130"/>
+    <line class="cdense" x1="40" y1="240" x2="115" y2="170"/>
+    <line class="cdense" x1="40" y1="240" x2="115" y2="210"/>
+    <!-- h1 -> h2 -->
+    <line class="cdense" x1="115" y1="50"  x2="190" y2="50"/>
+    <line class="cdense" x1="115" y1="50"  x2="190" y2="90"/>
+    <line class="cdense" x1="115" y1="50"  x2="190" y2="130"/>
+    <line class="cdense" x1="115" y1="50"  x2="190" y2="170"/>
+    <line class="cdense" x1="115" y1="50"  x2="190" y2="210"/>
+    <line class="cdense" x1="115" y1="90"  x2="190" y2="50"/>
+    <line class="cdense" x1="115" y1="90"  x2="190" y2="90"/>
+    <line class="cdense" x1="115" y1="90"  x2="190" y2="130"/>
+    <line class="cdense" x1="115" y1="90"  x2="190" y2="170"/>
+    <line class="cdense" x1="115" y1="90"  x2="190" y2="210"/>
+    <line class="cdense" x1="115" y1="130" x2="190" y2="50"/>
+    <line class="cdense" x1="115" y1="130" x2="190" y2="90"/>
+    <line class="cdense" x1="115" y1="130" x2="190" y2="130"/>
+    <line class="cdense" x1="115" y1="130" x2="190" y2="170"/>
+    <line class="cdense" x1="115" y1="130" x2="190" y2="210"/>
+    <line class="cdense" x1="115" y1="170" x2="190" y2="50"/>
+    <line class="cdense" x1="115" y1="170" x2="190" y2="90"/>
+    <line class="cdense" x1="115" y1="170" x2="190" y2="130"/>
+    <line class="cdense" x1="115" y1="170" x2="190" y2="170"/>
+    <line class="cdense" x1="115" y1="170" x2="190" y2="210"/>
+    <line class="cdense" x1="115" y1="210" x2="190" y2="50"/>
+    <line class="cdense" x1="115" y1="210" x2="190" y2="90"/>
+    <line class="cdense" x1="115" y1="210" x2="190" y2="130"/>
+    <line class="cdense" x1="115" y1="210" x2="190" y2="170"/>
+    <line class="cdense" x1="115" y1="210" x2="190" y2="210"/>
+    <!-- h2 -> output -->
+    <line class="cdense" x1="190" y1="50"  x2="265" y2="120"/>
+    <line class="cdense" x1="190" y1="50"  x2="265" y2="180"/>
+    <line class="cdense" x1="190" y1="90"  x2="265" y2="120"/>
+    <line class="cdense" x1="190" y1="90"  x2="265" y2="180"/>
+    <line class="cdense" x1="190" y1="130" x2="265" y2="120"/>
+    <line class="cdense" x1="190" y1="130" x2="265" y2="180"/>
+    <line class="cdense" x1="190" y1="170" x2="265" y2="120"/>
+    <line class="cdense" x1="190" y1="170" x2="265" y2="180"/>
+    <line class="cdense" x1="190" y1="210" x2="265" y2="120"/>
+    <line class="cdense" x1="190" y1="210" x2="265" y2="180"/>
+  </g>
+  <!-- Dense neurons -->
+  <g>
+    <circle class="nactive" cx="40"  cy="60"  r="6"/>
+    <circle class="nactive" cx="40"  cy="120" r="6"/>
+    <circle class="nactive" cx="40"  cy="180" r="6"/>
+    <circle class="nactive" cx="40"  cy="240" r="6"/>
+    <circle class="nactive" cx="115" cy="50"  r="6"/>
+    <circle class="nactive" cx="115" cy="90"  r="6"/>
+    <circle class="nactive" cx="115" cy="130" r="6"/>
+    <circle class="nactive" cx="115" cy="170" r="6"/>
+    <circle class="nactive" cx="115" cy="210" r="6"/>
+    <circle class="nactive" cx="190" cy="50"  r="6"/>
+    <circle class="nactive" cx="190" cy="90"  r="6"/>
+    <circle class="nactive" cx="190" cy="130" r="6"/>
+    <circle class="nactive" cx="190" cy="170" r="6"/>
+    <circle class="nactive" cx="190" cy="210" r="6"/>
+    <circle class="nactive" cx="265" cy="120" r="6"/>
+    <circle class="nactive" cx="265" cy="180" r="6"/>
+  </g>
+
+  <!-- Prune arrow -->
+  <path class="arr" d="M295,150 L355,150"/>
+  <text class="ann" x="325" y="142">prune</text>
+
+  <!-- SPARSE -->
+  <text class="ttl" x="510" y="22">Sparse Network</text>
+
+  <!-- Sparse connections (only the surviving subnetwork) -->
+  <g>
+    <line class="csparse" x1="380" y1="60"  x2="455" y2="50"/>
+    <line class="csparse" x1="380" y1="60"  x2="455" y2="130"/>
+    <line class="csparse" x1="380" y1="120" x2="455" y2="50"/>
+    <line class="csparse" x1="380" y1="120" x2="455" y2="210"/>
+    <line class="csparse" x1="380" y1="180" x2="455" y2="130"/>
+    <line class="csparse" x1="380" y1="180" x2="455" y2="210"/>
+    <line class="csparse" x1="380" y1="240" x2="455" y2="210"/>
+
+    <line class="csparse" x1="455" y1="50"  x2="530" y2="50"/>
+    <line class="csparse" x1="455" y1="50"  x2="530" y2="170"/>
+    <line class="csparse" x1="455" y1="130" x2="530" y2="170"/>
+    <line class="csparse" x1="455" y1="130" x2="530" y2="50"/>
+    <line class="csparse" x1="455" y1="210" x2="530" y2="170"/>
+    <line class="csparse" x1="455" y1="210" x2="530" y2="210"/>
+
+    <line class="csparse" x1="530" y1="50"  x2="605" y2="120"/>
+    <line class="csparse" x1="530" y1="170" x2="605" y2="180"/>
+    <line class="csparse" x1="530" y1="170" x2="605" y2="120"/>
+    <line class="csparse" x1="530" y1="210" x2="605" y2="180"/>
+
+    <!-- pruned connections shown faintly -->
+    <line class="cdrop" x1="380" y1="60"  x2="455" y2="90"/>
+    <line class="cdrop" x1="380" y1="180" x2="455" y2="170"/>
+    <line class="cdrop" x1="455" y1="90"  x2="530" y2="90"/>
+    <line class="cdrop" x1="455" y1="170" x2="530" y2="130"/>
+  </g>
+  <!-- Sparse neurons -->
+  <g>
+    <circle class="nactive" cx="380" cy="60"  r="6"/>
+    <circle class="nactive" cx="380" cy="120" r="6"/>
+    <circle class="nactive" cx="380" cy="180" r="6"/>
+    <circle class="nactive" cx="380" cy="240" r="6"/>
+
+    <circle class="nactive" cx="455" cy="50"  r="6"/>
+    <circle class="npruned" cx="455" cy="90"  r="6"/>
+    <circle class="nactive" cx="455" cy="130" r="6"/>
+    <circle class="npruned" cx="455" cy="170" r="6"/>
+    <circle class="nactive" cx="455" cy="210" r="6"/>
+
+    <circle class="nactive" cx="530" cy="50"  r="6"/>
+    <circle class="npruned" cx="530" cy="90"  r="6"/>
+    <circle class="npruned" cx="530" cy="130" r="6"/>
+    <circle class="nactive" cx="530" cy="170" r="6"/>
+    <circle class="nactive" cx="530" cy="210" r="6"/>
+
+    <circle class="nactive" cx="605" cy="120" r="6"/>
+    <circle class="nactive" cx="605" cy="180" r="6"/>
+  </g>
+</svg>
+<figcaption><strong>Figure&nbsp;2.</strong> Dense versus sparse network architectures. Left: a fully connected network with all neurons and connections active (overparameterized). Right: after pruning, inactive neurons (dashed circles) and connections (faint dashed lines) are removed, leaving only the task-critical subnetwork &mdash; the &ldquo;winning ticket&rdquo;<sup><a href="#ref-4">[4]</a></sup>. The sparse network achieves comparable or superior performance with a fraction of the parameters.</figcaption>
+</figure>
+
+<hr>
+
+<h2>5. Bridging the Analogy: From Artificial Pruning to Cognitive Efficiency</h2>
+
+<p>The parallels between artificial neural network pruning and human cognitive development are structural, not merely metaphorical. In this section, I make the analogy explicit and ground it in three converging lines of evidence.</p>
+
+<h3>5.1. Developmental Synaptic Pruning</h3>
+
+<p>The human brain undergoes a process remarkably similar to the training-and-pruning pipeline of artificial networks. Huttenlocher<sup><a href="#ref-8">[8]</a></sup> demonstrated that synaptic density in the human frontal cortex increases rapidly after birth, reaching a peak approximately 50% above adult levels by age 1&ndash;2 years. This initial overproduction of synapses is followed by a prolonged period of synaptic elimination &mdash; <em>synaptic pruning</em> &mdash; that continues through adolescence and into early adulthood<sup><a href="#ref-21">[21]</a></sup><sup><a href="#ref-22">[22]</a></sup>. The process is not random: activity-dependent mechanisms selectively eliminate synapses that are weakly activated while strengthening those that participate in frequently used circuits<sup><a href="#ref-23">[23]</a></sup>.</p>
+
+<p>This biological trajectory mirrors the artificial case precisely. The developing brain begins in a dense, overconnected state (analogous to a randomly initialized, overparameterized network). Through experience-dependent activity (analogous to training), certain pathways are strengthened while others weaken. Finally, the weakened connections are eliminated (pruned), leaving a sparser, more efficient circuit<sup><a href="#ref-24">[24]</a></sup><sup><a href="#ref-25">[25]</a></sup>.</p>
+
+<h3>5.2. The Neural Efficiency Hypothesis</h3>
+
+<p>Haier and colleagues<sup><a href="#ref-6">[6]</a></sup> first observed that individuals who scored higher on intelligence tests exhibited <em>lower</em> cortical glucose metabolism during cognitive task performance, as measured by positron emission tomography (PET). This counterintuitive finding &mdash; that smarter brains work less hard &mdash; was termed the <em>neural efficiency hypothesis</em>. In a follow-up study, Haier et&nbsp;al.<sup><a href="#ref-26">[26]</a></sup> demonstrated that practice on a novel task (the video game <em>Tetris</em>) led to decreased cortical activation over time, with the magnitude of the decrease correlating with performance improvement.</p>
+
+<p>Neubauer and Fink<sup><a href="#ref-7">[7]</a></sup> conducted a comprehensive review of 54 neuroimaging studies and confirmed that the neural efficiency effect is robust for tasks of low to moderate difficulty, though it reverses for very demanding tasks, where higher-ability individuals may recruit additional resources. This pattern is consistent with the observation that pruned neural networks perform well within their trained domain but may lack the capacity to generalize to substantially different tasks without retraining.</p>
+
+<p>The neural efficiency hypothesis provides a direct neural correlate for the analogy proposed here. If expertise involves the progressive sparsification of cortical activation patterns &mdash; fewer neurons, firing more selectively &mdash; then the artificial pruning pipeline captures this process in a mathematically tractable form.</p>
+
+<h3>5.3. Mapping the Analogy</h3>
+
+<p>Table&nbsp;1 summarizes the proposed correspondences between artificial neural network stages and human cognitive constructs.</p>
+
+<table class="mapping">
+<caption style="caption-side: bottom; text-align: left; font-size: 0.9em; color: #555; padding-top: 0.5em;"><strong>Table&nbsp;1.</strong> Proposed correspondences between neural network processing stages and human cognitive constructs.</caption>
+<thead>
+<tr>
+  <th>Neural Network Stage</th>
+  <th>Cognitive Analogue</th>
+  <th>Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Dense, randomly initialized network</td>
+  <td>Controlled processing; novel task engagement (\(G_f\))</td>
+  <td>Overparameterized, plastic, resource-intensive, slow convergence</td>
+</tr>
+<tr>
+  <td>Trained network with defined pathways</td>
+  <td>Associative stage; consolidation</td>
+  <td>Weights converged, task-specific pathways strengthened, some redundancy remains</td>
+</tr>
+<tr>
+  <td>Pruned sparse network (winning ticket)</td>
+  <td>Automatic processing; crystallized skill (\(G_c\))</td>
+  <td>Efficient, fast inference, minimal redundancy, rigid and task-specific</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>6. Predictions and Testable Hypotheses</h2>
+
+<p>If the neural network pruning framework is applicable to the controlled-to-automatic processing transition, I would expect the following observable patterns in human cognition.</p>
+
+<h3>6.1. Prediction 1: Three Phases of Learning Efficiency</h3>
+
+<p>Learning a new skill should display three distinct phases that parallel the dense-to-sparse pipeline:</p>
+
+<p><em>(a) An initial learning period</em> characterized by slow performance, high error rates, high metabolic cost (broad cortical activation), and maximal plasticity. This corresponds to the training phase of a dense network, where gradients are large and many parameters are being updated simultaneously.</p>
+
+<p><em>(b) An intermediate &ldquo;new expert&rdquo; period</em> characterized by improved speed and accuracy, reduced but still elevated metabolic cost, and decreasing plasticity. This corresponds to a trained but unpruned network, where task-specific pathways have been identified but redundant connections remain.</p>
+
+<p><em>(c) A mature &ldquo;old expert&rdquo; period</em> characterized by fast, accurate, and metabolically efficient performance, with minimal plasticity and reduced adaptability to task variations. This corresponds to the pruned winning ticket.</p>
+
+<p>These three phases map directly onto the cognitive, associative, and autonomous stages of Fitts and Posner<sup><a href="#ref-9">[9]</a></sup>, but the neural network framework adds a quantitative prediction: the efficiency gain (measured, for instance, as accuracy per unit of metabolic expenditure) should follow a trajectory resembling the test accuracy versus network sparsity curves reported by Frankle and Carbin<sup><a href="#ref-4">[4]</a></sup>.</p>
+
+<h3>6.2. Prediction 2: Differential Intelligence Profiles</h3>
+
+<p>Individuals high in fluid intelligence (\(G_f\)) and those high in crystallized intelligence (\(G_c\)) should display different performance signatures across the three phases.</p>
+
+<p>Individuals with high \(G_f\) should exhibit advantages during the initial learning period &mdash; faster convergence, fewer errors, more efficient exploration of the task space. In network terms, they may possess superior &ldquo;initial weight configurations&rdquo; or more effective optimization dynamics, enabling them to identify useful pathways more rapidly in a dense parameter space.</p>
+
+<p>Individuals with high \(G_c\) should exhibit advantages during the expert periods &mdash; faster retrieval, lower metabolic cost, more efficient execution of well-practiced skills. In network terms, they have successfully pruned their task-relevant circuits, retaining only the most efficient subnetwork.</p>
+
+<h3>6.3. Prediction 3: The Role of Selective Inhibition</h3>
+
+<p>An important asymmetry between artificial networks and adult human brains warrants attention. Artificial networks begin training with no prior knowledge &mdash; their initial weights are random. Adult humans, by contrast, bring a vast repertoire of previously learned representations to every new task. This suggests that a key component of fluid intelligence may not be the ability to learn <em>de novo</em>, but rather the ability to <em>selectively inhibit</em> irrelevant prior knowledge &mdash; to, in effect, identify which existing connections should be suppressed when facing a novel problem.</p>
+
+<p>In pruning terms, high-\(G_f\) individuals may excel at rapidly generating a task-appropriate mask \(m\) that suppresses interference from previously learned circuits. This prediction aligns with evidence that working memory capacity &mdash; a strong correlate of \(G_f\) &mdash; is closely tied to the ability to resist interference from irrelevant information<sup><a href="#ref-14">[14]</a></sup>.</p>
+
+<h3>6.4. Prediction 4: Sparsity&ndash;Rigidity Trade-off</h3>
+
+<p>The lottery ticket hypothesis demonstrates that winning tickets, while efficient, are <em>specific to their trained task</em>. Pruned networks lose the capacity to generalize to substantially different tasks &mdash; a consequence of having eliminated the redundant connections that might have supported alternative solution pathways.</p>
+
+<p>This predicts an analogous trade-off in human expertise. Highly practiced skills should become both more efficient (lower metabolic cost, faster execution) and more rigid (resistant to modification, vulnerable to disruption by task variations). Expert performance should break down when task parameters change in ways that require re-engaging the pruned-away pathways. This is consistent with the well-documented phenomenon of the &ldquo;Einstellung effect&rdquo; &mdash; the tendency for experts to apply familiar solutions even when they are suboptimal for the current problem.</p>
+
+<hr>
+
+<h2>7. Discussion</h2>
+
+<p>The framework proposed here offers a unified computational vocabulary for phenomena that have been studied in relative isolation: fluid and crystallized intelligence in psychometrics, controlled and automatic processing in cognitive psychology, neural efficiency in cognitive neuroscience, and synaptic pruning in developmental neurobiology. By mapping these phenomena onto the training-and-pruning pipeline of artificial neural networks, I gain not only a useful metaphor but also a source of quantitative predictions and formal tools.</p>
+
+<p>Several limitations should be acknowledged. First, the analogy is structural, not mechanistic. Artificial neural networks learn by backpropagation; biological networks learn through Hebbian plasticity, neuromodulation, and a host of other processes that have no direct counterpart in standard deep learning. The claim is not that the brain <em>implements</em> magnitude-based weight pruning, but that the <em>functional outcome</em> &mdash; progressive sparsification in the service of efficiency &mdash; is shared.</p>
+
+<p>Second, the lottery ticket hypothesis has primarily been demonstrated in feed-forward and convolutional architectures for supervised classification tasks. The human brain employs recurrent, feedback-rich connectivity and faces far more diverse and open-ended task demands. Extensions of the lottery ticket hypothesis to recurrent networks, reinforcement learning, and continual learning settings would strengthen the analogy considerably.</p>
+
+<p>Third, the neural efficiency hypothesis is itself subject to important moderating variables. Neubauer and Fink<sup><a href="#ref-7">[7]</a></sup> report that the inverse relationship between intelligence and cortical activation holds primarily for tasks of low to moderate difficulty and may reverse for highly demanding tasks. This suggests that the &ldquo;pruned network&rdquo; mode of operation has boundary conditions &mdash; under sufficient task demands, even efficient systems must recruit additional (perhaps previously pruned) resources.</p>
+
+<p>Despite these caveats, the framework generates novel research directions. Computational experiments could directly test whether the relationship between network sparsity and performance recapitulates the relationship between cortical activation sparsity and cognitive efficiency. Neuroimaging studies could examine whether the development of automaticity is accompanied by structural changes (e.g., in white matter connectivity or synaptic density) that parallel the pruning masks identified in artificial networks. Individual-differences research could investigate whether \(G_f\) and \(G_c\) predict differential patterns of network-level reorganization during skill acquisition, as measured by dynamic functional connectivity<sup><a href="#ref-17">[17]</a></sup>.</p>
+
+<hr>
+
+<h2>8. Conclusion</h2>
+
+<p>I have argued that the trajectory from dense, overparameterized neural networks to sparse, pruned &ldquo;winning tickets&rdquo; provides a productive computational analogue for the transition from controlled to automatic processing in human cognition. This analogy connects psychometric distinctions between fluid and crystallized intelligence, cognitive-psychological models of skill acquisition, neuroscientific evidence for neural efficiency, and developmental observations of synaptic pruning into a unified framework. The central insight is shared across all of these domains: efficient cognition is achieved not by adding capacity, but by identifying and retaining only the essential circuitry. Whether realized in silicon or in synapses, intelligence may be less about the resources available and more about the precision with which they are deployed.</p>
+
+<hr>
+
+<h2>References</h2>
+
+<ol class="refs">
+  <li id="ref-1">Cattell, R.B. (1963). Theory of fluid and crystallized intelligence: A critical experiment. <em>Journal of Educational Psychology</em>, 54(1), 1&ndash;22. <a href="https://doi.org/10.1037/h0046743">doi:10.1037/h0046743</a>.</li>
+  <li id="ref-2">Schneider, W. &amp; Shiffrin, R.M. (1977). Controlled and automatic human information processing: I. Detection, search, and attention. <em>Psychological Review</em>, 84(1), 1&ndash;66.</li>
+  <li id="ref-3">Shiffrin, R.M. &amp; Schneider, W. (1977). Controlled and automatic human information processing: II. Perceptual learning, automatic attending, and a general theory. <em>Psychological Review</em>, 84(2), 127&ndash;190.</li>
+  <li id="ref-4">Frankle, J. &amp; Carbin, M. (2019). The lottery ticket hypothesis: Finding sparse, trainable neural networks. <em>Proceedings of the International Conference on Learning Representations (ICLR)</em>. arXiv:1803.03635.</li>
+  <li id="ref-5">Han, S., Pool, J., Tran, J., &amp; Dally, W.J. (2015). Learning both weights and connections for efficient neural networks. <em>Advances in Neural Information Processing Systems</em>, 28, 1135&ndash;1143.</li>
+  <li id="ref-6">Haier, R.J., Siegel, B.V., Nuechterlein, K.H., Hazlett, E., Wu, J.C., Paek, J., Browning, H.L., &amp; Buchsbaum, M.S. (1988). Cortical glucose metabolic rate correlates of abstract reasoning and attention studied with positron emission tomography. <em>Intelligence</em>, 12(2), 199&ndash;217.</li>
+  <li id="ref-7">Neubauer, A.C. &amp; Fink, A. (2009). Intelligence and neural efficiency. <em>Neuroscience &amp; Biobehavioral Reviews</em>, 33(7), 1004&ndash;1023.</li>
+  <li id="ref-8">Huttenlocher, P.R. (1979). Synaptic density in human frontal cortex &mdash; developmental changes and effects of aging. <em>Brain Research</em>, 163(2), 195&ndash;205.</li>
+  <li id="ref-9">Fitts, P.M. &amp; Posner, M.I. (1967). <em>Human Performance</em>. Belmont, CA: Brooks/Cole.</li>
+  <li id="ref-10">Horn, J.L. &amp; Cattell, R.B. (1966). Refinement and test of the theory of fluid and crystallized general intelligences. <em>Journal of Educational Psychology</em>, 57(5), 253&ndash;270.</li>
+  <li id="ref-11">Horn, J.L. &amp; Cattell, R.B. (1967). Age differences in fluid and crystallized intelligence. <em>Acta Psychologica</em>, 26, 107&ndash;129.</li>
+  <li id="ref-12">McGrew, K.S. (2009). CHC theory and the human cognitive abilities project: Standing on the shoulders of the giants of psychometric intelligence research. <em>Intelligence</em>, 37(1), 1&ndash;10.</li>
+  <li id="ref-13">Deary, I.J., Penke, L., &amp; Johnson, W. (2010). The neuroscience of human intelligence differences. <em>Nature Reviews Neuroscience</em>, 11(3), 201&ndash;211.</li>
+  <li id="ref-14">Schneider, W. &amp; Chein, J.M. (2003). Controlled &amp; automatic processing: behavior, theory, and biological mechanisms. <em>Cognitive Science</em>, 27(3), 525&ndash;559.</li>
+  <li id="ref-15">Petersen, S.E., van Mier, H., Fiez, J.A., &amp; Raichle, M.E. (1998). The anterior cingulate cortex mediates processing selection in the Stroop attentional conflict paradigm. <em>Proceedings of the National Academy of Sciences</em>, 95(3), 853&ndash;860.</li>
+  <li id="ref-16">Chein, J.M. &amp; Schneider, W. (2005). Neuroimaging studies of practice-related change: fMRI and meta-analytic evidence of a domain-general control network for learning. <em>Cognitive Brain Research</em>, 25(3), 607&ndash;623.</li>
+  <li id="ref-17">Bassett, D.S., Wymbs, N.F., Porter, M.A., Mucha, P.J., Carlson, J.M., &amp; Grafton, S.T. (2011). Dynamic reconfiguration of human brain networks during learning. <em>Proceedings of the National Academy of Sciences</em>, 108(18), 7641&ndash;7646.</li>
+  <li id="ref-18">LeCun, Y., Denker, J.S., &amp; Solla, S.A. (1990). Optimal brain damage. <em>Advances in Neural Information Processing Systems</em>, 2, 598&ndash;605.</li>
+  <li id="ref-19">Li, H., Kadav, A., Durdanovic, I., Samet, H., &amp; Graf, H.P. (2017). Pruning filters for efficient convnets. <em>Proceedings of the International Conference on Learning Representations (ICLR)</em>.</li>
+  <li id="ref-20">Zhu, M. &amp; Gupta, S. (2017). To prune, or not to prune: exploring the efficacy of pruning for model compression. <em>arXiv preprint arXiv:1710.01878</em>.</li>
+  <li id="ref-21">Huttenlocher, P.R. (1990). Morphometric study of human cerebral cortex development. <em>Neuropsychologia</em>, 28(6), 517&ndash;527.</li>
+  <li id="ref-22">Feinberg, I. (1982). Schizophrenia: Caused by a fault in programmed synaptic elimination during adolescence? <em>Journal of Psychiatric Research</em>, 17(4), 319&ndash;334.</li>
+  <li id="ref-23">Rakic, P., Bourgeois, J.-P., Eckenhoff, M.F., Zecevic, N., &amp; Goldman-Rakic, P.S. (1986). Concurrent overproduction of synapses in diverse regions of the primate cerebral cortex. <em>Science</em>, 232(4747), 232&ndash;235.</li>
+  <li id="ref-24">Bullmore, E.T. &amp; Sporns, O. (2012). The economy of brain network organization. <em>Nature Reviews Neuroscience</em>, 13(5), 336&ndash;349.</li>
+  <li id="ref-25">Sporns, O. &amp; Zwi, J.D. (2004). The small world of the cerebral cortex. <em>Neuroinformatics</em>, 2(2), 145&ndash;162.</li>
+  <li id="ref-26">Haier, R.J., Siegel, B.V., Tang, C., Abel, L., &amp; Buchsbaum, M.S. (1992). Intelligence and changes in regional cerebral glucose metabolic rate following learning. <em>Intelligence</em>, 16(3&ndash;4), 415&ndash;426.</li>
+</ol>
+
+<hr>
+
+<p><a href="../blog.html">&larr; Back to blog</a></p>
+
+<footer>
+&mdash; sasha, 2026
+</footer>
+
+</body>
+</html>
