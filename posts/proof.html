@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>POST TITLE &mdash; sasha's blog</title>
+<title>Proof &mdash; sasha's blog</title>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -18,10 +18,10 @@
 <hr>
 
 <h1>Proof</h1>
-<p><em>2025-05-13</em>less organized than ususal...</p>
+<p><em>2025-05-13</em> less organized than ususal...</p>
 
 <p>It is impossible to provide proof for any step towards conclusion.</p>
-<p>We iteratively move burden of proof to an assumption layer, lower. Until we reach a point inconvenient for us to continue further, an <b>axiom</b>.</p>
+<p>We iteratively move burden of proof to an assumption layer lower. Until, we reach a point inconvenient for us to continue further, an <b>axiom</b>.</p>
 <h2>Questions:</h2>
 <ul>
   <li>At what point does a system become so complex that it becomes intractable to solve discretely?</li>
@@ -42,6 +42,36 @@
 <h3>What counts as a "solution"?</h3>
   <p><i>In a small, formally defined system, determanistic solutions exist. A deterministic algorithm follows a single path from input to output with no branching or randomness. In that narrow sense, deterministic solutions exist. But the algorithm operates inside a formal system (a logic, a model of computation, a set of axioms), and the choice of that system is not itself the output of any deterministic process. You chose ZFC, or Peano arithmetic, or classical logic, but the validity of these framework choices are impossible to determine from inside the system.</i></p>
   <p><i>Maybe the correct statement is: all solutions are probabilistic, and what we call a "deterministic solution" is just the limiting case where our confidence is high enough that we treat the residual uncertainty as zero.</i></p>
+<h3>The transition: discrete → probabilistic</h3>
+  <p><i>Is there a sharp boundary, or a gradual degradation?</i></p>
+  <p><i>The literature on phase transitions in computational complexity suggests sharp. random k-SAT (Monasson, Zecchina, et al., Nature 1999; Achlioptas et al., Nature 2005) shows that random instances of NP-complete problems undergo phase transitions at critical constraint-to-variable ratios. Below the threshold solutions are abundant. Above it they're exponentially rare. The transition is a cliff.</i></p>
+  <p><i>Counterintuitively, the hardest instances cluster right at the boundary, not deep in the unsolvable (time intractable) regime. The systems where you most need to decide whether to keep proving or stop and assume an axiom are precisely the boundary cases where neither strategy clearly dominates.</i></p>
+<h3>Can you know where you are?</h4>
+  <p><i>if so, assuming system size and complexity are known quantities, the time approximately at which discrete solutions to your system are available is known. your current position in the S(c,s) curve is known, implying you are able to find out |t₀ − T|.</i></p>
+  <p><i>Can you estimate how far you are from the tractability boundary while embedded in the system?</i></p>
+  <p><i>Observing how partial solutions are converging might let me extrapolate? It connects to concentration inequalities and tail bounds in probability theory. But Rice's theorem says that all non-trivial semantic properties of programs are undecidable. In the general case, you cannot determine from a partial computation whether it will converge. Im stuck with heuristics.</i></p>
+
+<h2>Once you start doubting, theres no end to it</h2>
+<p><i>- Ghost in the Shell</i></p>
+
+<p>Im unable to justify any conclusion I come to, once you remove the mechanism to stop a proof and carry on without justification.</p>
+<p>Our brains should do this automatically. Otherwise you would be crippled.</p>
+<p>This implies that we evolved the ability to stop attempting to provide justification for lower and lower levels of assumption and proof. Is this what mechanism accounts for the stocasicicity between “our intelligence” and the attempts at “artificial intelligence”?</p>
+<p>Is this what emotions are?</p>
+
+
+<h2>Ad break</h2>
+
+<p>Do YOU think data science practices are lame? PHILOSOPHY might be right for you!</p>
+<p>Take the assumption that the method of generating a solution to a system through data->big analytics->hypothesis, is “lame”. Implicit then is the assumption, data follows hypothesis, a very “scientific method” preference. Then follows in mathematics, you must drop regression, and statistics. Then you must review the foundations of your mathematics. Then you must check if your logical framework for reasoning in mathematics is valid. </p>
+<p>Then you might take a break, and get distracted by “is this persuit of theory precedes data” a valid way to spend time? Is “Genius” overrated?</p>
+<p><i>Philosopy</i></p>
+
+
+
+
+<p>Show me the proof for "slippery slope fallacy, is a fallacy" punk</p>
+
 <hr>
 
 <p><a href="../blog.html">&larr; Back to blog</a></p>
