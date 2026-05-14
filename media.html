@@ -108,13 +108,230 @@
   <li><em> See more in "Reading Rants" post..
 </ul>
 
+<h2>Library</h2>
 
+<p class="library-blurb">
+Everything I've been into &mdash; current and past. Rated in <em>e</em>'s out of 5.
+</p>
+
+<div class="library-controls">
+  <span class="lc-label">filter:</span>
+  <button type="button" data-filter="all" class="active">all</button>
+  <button type="button" data-filter="current">currently</button>
+  <button type="button" data-filter="music">music</button>
+  <button type="button" data-filter="literature">literature</button>
+  <button type="button" data-filter="film">film</button>
+  <span class="lc-label lc-sort">sort:</span>
+  <select id="library-sort">
+    <option value="default">default</option>
+    <option value="rating-desc">rating &darr;</option>
+    <option value="rating-asc">rating &uarr;</option>
+    <option value="title-asc">title A&ndash;Z</option>
+  </select>
+</div>
+
+<ul class="library">
+  <!--
+    Add new entries like this:
+    <li data-type="film" data-status="current" data-rating="4" data-title="Sortable Title">
+      <div class="lib-title"><em>Title</em> &mdash; Creator</div>
+      <div class="lib-meta">
+        <span class="lib-type"></span>
+        <span class="lib-status"></span>
+        <span class="lib-rating"></span>
+      </div>
+      <div class="lib-desc">~ short description</div>
+    </li>
+    data-type:   music | literature | film
+    data-status: current | past
+    data-rating: 0..5 (number of filled e's)
+    data-title:  used for A-Z sort
+  -->
+
+  <li data-type="literature" data-status="current" data-rating="4" data-title="Cryptonomicon">
+    <div class="lib-title"><em>Cryptonomicon</em> &mdash; Neal Stephenson</div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">~ </div>
+  </li>
+
+  <li data-type="literature" data-status="current" data-rating="4" data-title="Two's Company, Three (or more) is a Simplex">
+    <div class="lib-title"><em>2's Company, 3 (or more) is a simplex</em> &mdash; Giusti et. al.</div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">~ </div>
+  </li>
+
+  <li data-type="music" data-status="current" data-rating="4" data-title="Horizontal Hold">
+    <div class="lib-title"><em>Horizontal Hold</em> &mdash; This Heat</div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">~ </div>
+  </li>
+
+  <li data-type="music" data-status="current" data-rating="4" data-title="Man Proposes, God Disposes">
+    <div class="lib-title"><em>Man Proposes, God Disposes</em> &mdash; Sprain</div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">~ </div>
+  </li>
+
+  <li data-type="music" data-status="past" data-rating="4" data-title="Descending">
+    <div class="lib-title"><em>Descending</em> &mdash; Leechmilk</div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">~ </div>
+  </li>
+
+  <li data-type="music" data-status="past" data-rating="4" data-title="Jamtland">
+    <div class="lib-title"><em>Jamtland</em> &mdash; Brakhage</div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">~ </div>
+  </li>
+
+  <li data-type="music" data-status="past" data-rating="4" data-title="Gossip">
+    <div class="lib-title"><em>Gossip</em> &mdash; Suburban Lawns</div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">~ </div>
+  </li>
+
+  <li data-type="music" data-status="past" data-rating="4" data-title="Possibly Maybe">
+    <div class="lib-title"><em>Possibly Maybe</em> &mdash; Bj&ouml;rk</div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">~ </div>
+  </li>
+
+  <li data-type="music" data-status="past" data-rating="4" data-title="Send It On">
+    <div class="lib-title"><em>Send It On</em> &mdash; D&rsquo;Angelo</div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">~ </div>
+  </li>
+
+</ul>
 
 <hr>
 
 <footer>
 &mdash; sasha, 2026
 </footer>
+
+<script>
+(function () {
+  var library = document.querySelector('ul.library');
+  if (!library) return;
+
+  var items = Array.from(library.querySelectorAll('li'));
+  var original = items.slice();
+  var filter = 'all';
+  var sort = 'default';
+
+  items.forEach(function (item) {
+    var rating = parseInt(item.dataset.rating, 10) || 0;
+    var ratingEl = item.querySelector('.lib-rating');
+    if (ratingEl) {
+      var html = '';
+      for (var i = 0; i < 5; i++) {
+        html += '<span class="' + (i < rating ? 'filled' : 'empty') + '">e</span>';
+      }
+      ratingEl.innerHTML = html;
+      ratingEl.setAttribute('aria-label', 'rating ' + rating + ' out of 5');
+    }
+
+    var typeEl = item.querySelector('.lib-type');
+    if (typeEl) typeEl.textContent = item.dataset.type || '';
+
+    var statusEl = item.querySelector('.lib-status');
+    if (statusEl) {
+      if (item.dataset.status === 'current') {
+        statusEl.textContent = 'currently';
+        statusEl.classList.add('current');
+      } else {
+        statusEl.textContent = '';
+      }
+    }
+  });
+
+  function apply() {
+    items.forEach(function (item) {
+      var t = item.dataset.type;
+      var s = item.dataset.status;
+      var show;
+      if (filter === 'all') show = true;
+      else if (filter === 'current') show = (s === 'current');
+      else show = (t === filter);
+      item.style.display = show ? '' : 'none';
+    });
+
+    var ordered = original.slice();
+    if (sort === 'rating-desc') {
+      ordered.sort(function (a, b) {
+        return (parseInt(b.dataset.rating, 10) || 0) - (parseInt(a.dataset.rating, 10) || 0);
+      });
+    } else if (sort === 'rating-asc') {
+      ordered.sort(function (a, b) {
+        return (parseInt(a.dataset.rating, 10) || 0) - (parseInt(b.dataset.rating, 10) || 0);
+      });
+    } else if (sort === 'title-asc') {
+      ordered.sort(function (a, b) {
+        return (a.dataset.title || '').localeCompare(b.dataset.title || '');
+      });
+    }
+    ordered.forEach(function (item) { library.appendChild(item); });
+  }
+
+  document.querySelectorAll('.library-controls button[data-filter]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.library-controls button[data-filter]').forEach(function (b) {
+        b.classList.remove('active');
+      });
+      btn.classList.add('active');
+      filter = btn.dataset.filter;
+      apply();
+    });
+  });
+
+  var sortSelect = document.getElementById('library-sort');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', function () {
+      sort = sortSelect.value;
+      apply();
+    });
+  }
+
+  apply();
+})();
+</script>
 
 </body>
 </html>

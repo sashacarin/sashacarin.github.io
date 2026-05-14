@@ -159,3 +159,120 @@ sup a {
   text-decoration: none;
 }
 
+/* library section */
+.library-blurb {
+  font-size: 0.95em;
+  color: #333;
+  margin: 0.4em 0 1em;
+}
+
+.library-controls {
+  font-size: 0.9em;
+  margin: 0.8em 0 1.2em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3em 0.4em;
+  padding: 0.4em 0.6em;
+  border: 1px solid #000;
+  background: #f7f7f0;
+}
+
+.library-controls .lc-label {
+  color: #555;
+}
+
+.library-controls .lc-sort {
+  margin-left: 0.8em;
+}
+
+.library-controls button {
+  font-family: inherit;
+  font-size: inherit;
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+  padding: 0.05em 0.55em;
+  cursor: pointer;
+}
+
+.library-controls button:hover {
+  background: #eee;
+}
+
+.library-controls button.active {
+  background: #000;
+  color: #fff;
+}
+
+.library-controls select {
+  font-family: inherit;
+  font-size: inherit;
+  background: #fff;
+  border: 1px solid #000;
+  padding: 0.05em 0.3em;
+}
+
+ul.library {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.library li {
+  border-top: 1px dashed #000;
+  padding: 0.7em 0;
+}
+
+ul.library li:last-child {
+  border-bottom: 1px dashed #000;
+}
+
+.lib-title {
+  font-size: 1em;
+}
+
+.lib-meta {
+  font-size: 0.82em;
+  margin: 0.25em 0;
+  color: #555;
+}
+
+.lib-type {
+  border: 1px solid #555;
+  padding: 0 0.4em;
+  margin-right: 0.4em;
+}
+
+.lib-status {
+  padding: 0;
+  margin-right: 0.4em;
+}
+
+.lib-status.current {
+  background: #000;
+  color: #fff;
+  padding: 0 0.4em;
+}
+
+.lib-rating {
+  font-style: italic;
+  letter-spacing: 0.18em;
+  margin-left: 0.2em;
+}
+
+.lib-rating .filled {
+  color: #000;
+  font-weight: bold;
+}
+
+.lib-rating .empty {
+  color: #ccc;
+}
+
+.lib-desc {
+  font-size: 0.92em;
+  color: #222;
+  margin-top: 0.2em;
+}
+
