@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POST TITLE &mdash; sasha's blog</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<nav>
+<a href="../index.html">Home</a> |
+<a href="../blog.html">Blog</a> |
+<a href="../media.html">Media</a> |
+<a href="../contact.html">Contact</a>
+</nav>
+
+<hr>
+
+<h1>Proof</h1>
+<p><em>2025-05-13</em>less organized than ususal...</p>
+
+<p>It is impossible to provide proof for any step towards conclusion.</p>
+<p>We iteratively move burden of proof to an assumption layer, lower. Until we reach a point inconvenient for us to continue further, an <b>axiom</b>.</p>
+<h2>Questions:</h2>
+<ul>
+  <li>At what point does a system become so complex that it becomes intractable to solve discretely?</li>
+  <li>Once we've crossed that threshold: how can we determine a "likelihood" as we push the notion of a discrete solution toward its limit as t → ∞?</li>
+</ul>
+  
+<p>These questions decompose into at least four subproblems.</p>
+  
+<h3>How do you measure a system's complexity?</h3>
+  <p><i>This is already an unsolved (and partially unsolvable) problem. Candidate measures include:</i></p>
+  <ul>
+    <li><i>State space size |Ω| — the number of configurations the system can occupy. Simple to define, but crude; it doesn't capture structure.</i></li>
+    <li><i>Kolmogorov complexity K(x) — the length of the shortest program that produces a description of the system. Theoretically the most fundamental measure, but provably uncomputable (Solomonoff, 1960; Kolmogorov, 1965). You cannot, in general, determine the complexity of a system from inside it.</i></li>
+    <li><i>Interaction density / coupling — how many components influence each other, and how strongly. Captures the difference between a system of 1000 independent particles (easy) and 1000 entangled ones (hard).</i></li>
+    <li><i>Degrees of freedom — the number of independent parameters needed to specify the system's state.</i></li>
+  </ul>
+<p>The choice of complexity measure is itself an axiom, We fall victim again to G&ouml;del</p>
+<h3>What counts as a "solution"?</h3>
+  <p><i>In a small, formally defined system, determanistic solutions exist. A deterministic algorithm follows a single path from input to output with no branching or randomness. In that narrow sense, deterministic solutions exist. But the algorithm operates inside a formal system (a logic, a model of computation, a set of axioms), and the choice of that system is not itself the output of any deterministic process. You chose ZFC, or Peano arithmetic, or classical logic, but the validity of these framework choices are impossible to determine from inside the system.</i></p>
+  <p><i>Maybe the correct statement is: all solutions are probabilistic, and what we call a "deterministic solution" is just the limiting case where our confidence is high enough that we treat the residual uncertainty as zero.</i></p>
+<hr>
+
+<p><a href="../blog.html">&larr; Back to blog</a></p>
+
+<footer>
+&mdash; sasha, 2026
+</footer>
+
+</body>
+</html>
