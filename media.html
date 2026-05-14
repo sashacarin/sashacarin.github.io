@@ -119,7 +119,7 @@ media ive been into &mdash; current and past. rated in <em>e</em>'s out of 5.
   <button type="button" data-filter="all" class="active">all</button>
   <button type="button" data-filter="current">currently</button>
   <button type="button" data-filter="music">music</button>
-  <button type="button" data-filter="literature">lit</button>
+  <button type="button" data-filter="lit">lit</button>
   <button type="button" data-filter="film">film</button>
   <span class="lc-label lc-sort">sort:</span>
   <select id="library-sort">
@@ -142,9 +142,9 @@ media ive been into &mdash; current and past. rated in <em>e</em>'s out of 5.
       </div>
       <div class="lib-desc">~ short description</div>
     </li>
-    data-type:   music | literature | film
+    data-type:   music | lit | film
     data-status: current | past
-    data-rating: 0..5 (number of filled e's)
+    data-rating: 0..5 (number of filled e's), or "i" for absolutely horrible
     data-title:  used for A-Z sort
   -->
 
@@ -238,6 +238,96 @@ media ive been into &mdash; current and past. rated in <em>e</em>'s out of 5.
     <div class="lib-desc"> </div>
   </li>
 
+  <li data-type="lit" data-status="past" data-rating="3" data-title="Rocheworld">
+    <div class="lib-title"><em>Rocheworld</em></div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">real ones will know &ldquo;flight of the dragonfly&rdquo; </div>
+  </li>
+
+  <li data-type="lit" data-status="current" data-rating="5" data-title="Otherland: City of Golden Shadow">
+    <div class="lib-title"><em>Otherland: City of Golden Shadow</em></div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">as good as it gets </div>
+  </li>
+
+  <li data-type="lit" data-status="past" data-rating="4" data-title="Diamond Age">
+    <div class="lib-title"><em>The Diamond Age</em></div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">everyone wants to make a primer </div>
+  </li>
+
+  <li data-type="film" data-status="current" data-rating="3" data-title="Ghost in the Shell">
+    <div class="lib-title"><em>Ghost in the Shell</em></div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc"> </div>
+  </li>
+
+  <li data-type="film" data-status="past" data-rating="4" data-title="SLC Punk">
+    <div class="lib-title"><em>SLC Punk</em></div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">maybe the real poser was the friends we made on the way </div>
+  </li>
+
+  <li data-type="film" data-status="past" data-rating="4" data-title="Mad God">
+    <div class="lib-title"><em>Mad God</em></div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">beautiful </div>
+  </li>
+
+  <li data-type="film" data-status="past" data-rating="i" data-title="Rip">
+    <div class="lib-title"><em>The Rip</em></div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">im convinced this was made for ntflx to launder money </div>
+  </li>
+
+  <li data-type="lit" data-status="past" data-rating="3" data-title="Uprooted">
+    <div class="lib-title"><em>Uprooted</em></div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">good fantasy bad romance </div>
+  </li>
+
+  <li data-type="lit" data-status="past" data-rating="3" data-title="Paul Takes the Form of a Mortal Girl">
+    <div class="lib-title"><em>Paul Takes the Form of a Mortal Girl</em></div>
+    <div class="lib-meta">
+      <span class="lib-type"></span>
+      <span class="lib-status"></span>
+      <span class="lib-rating"></span>
+    </div>
+    <div class="lib-desc">amazing writing, my internalized taboo made me feel icky </div>
+  </li>
+
 </ul>
 
 <hr>
@@ -256,16 +346,26 @@ media ive been into &mdash; current and past. rated in <em>e</em>'s out of 5.
   var filter = 'all';
   var sort = 'default';
 
+  function ratingValue(item) {
+    return item.dataset.rating === 'i' ? -1 : (parseInt(item.dataset.rating, 10) || 0);
+  }
+
   items.forEach(function (item) {
-    var rating = parseInt(item.dataset.rating, 10) || 0;
+    var raw = item.dataset.rating;
     var ratingEl = item.querySelector('.lib-rating');
     if (ratingEl) {
-      var html = '';
-      for (var i = 0; i < 5; i++) {
-        html += '<span class="' + (i < rating ? 'filled' : 'empty') + '">e</span>';
+      if (raw === 'i') {
+        ratingEl.innerHTML = '<span class="imag">iiiii</span>';
+        ratingEl.setAttribute('aria-label', 'imaginary rating (terrible)');
+      } else {
+        var rating = parseInt(raw, 10) || 0;
+        var html = '';
+        for (var i = 0; i < 5; i++) {
+          html += '<span class="' + (i < rating ? 'filled' : 'empty') + '">e</span>';
+        }
+        ratingEl.innerHTML = html;
+        ratingEl.setAttribute('aria-label', 'rating ' + rating + ' out of 5');
       }
-      ratingEl.innerHTML = html;
-      ratingEl.setAttribute('aria-label', 'rating ' + rating + ' out of 5');
     }
 
     var typeEl = item.querySelector('.lib-type');
@@ -295,13 +395,9 @@ media ive been into &mdash; current and past. rated in <em>e</em>'s out of 5.
 
     var ordered = original.slice();
     if (sort === 'rating-desc') {
-      ordered.sort(function (a, b) {
-        return (parseInt(b.dataset.rating, 10) || 0) - (parseInt(a.dataset.rating, 10) || 0);
-      });
+      ordered.sort(function (a, b) { return ratingValue(b) - ratingValue(a); });
     } else if (sort === 'rating-asc') {
-      ordered.sort(function (a, b) {
-        return (parseInt(a.dataset.rating, 10) || 0) - (parseInt(b.dataset.rating, 10) || 0);
-      });
+      ordered.sort(function (a, b) { return ratingValue(a) - ratingValue(b); });
     } else if (sort === 'title-asc') {
       ordered.sort(function (a, b) {
         return (a.dataset.title || '').localeCompare(b.dataset.title || '');
