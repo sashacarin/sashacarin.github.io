@@ -28,11 +28,12 @@ body {
   background: #fff;
   max-width: 680px;
   margin: 0 auto;
-  padding: 2em 1em;
+  padding: 4em 1em 2em;
   min-height: 100vh;
   box-sizing: border-box;
   border-left: 1px solid #000;
   border-right: 1px solid #000;
+  position: relative;
 }
 
 
@@ -125,6 +126,36 @@ footer {
 
 @media (max-width: 600px) {
   body { margin: 1em auto; }
+}
+
+/* navigation frog */
+#frog {
+  position: absolute;
+  width: 60px;
+  height: 40px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+}
+#frog.ready {
+  opacity: 1;
+}
+#frog img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: auto;
+  display: none;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  user-select: none;
+}
+#frog img.active {
+  display: block;
 }
 
 /* post boxes: axioms, claims, proofs, gaps */
