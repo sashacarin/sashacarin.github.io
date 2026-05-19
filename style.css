@@ -312,3 +312,78 @@ ul.library li:last-child {
   margin-top: 0.2em;
 }
 
+/* bits: short timestamped memos as pixelated chat bubbles */
+.bits-blurb {
+  font-size: 0.95em;
+  color: #333;
+  margin: 0.4em 0 1.4em;
+}
+
+ol.bits {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1em;
+}
+
+.bit {
+  display: block;
+  margin: 0 0 1.6em;
+  max-width: 78%;
+}
+
+.bit-body {
+  position: relative;
+  background: #fffbe8;
+  padding: 0.55em 0.9em 0.45em;
+  font-size: 0.95em;
+  /* pixelated stepped corners + a 2px stepped tail jutting out bottom-left */
+  clip-path: polygon(
+    4px 0,
+    calc(100% - 4px) 0,
+    calc(100% - 4px) 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) 4px,
+    100% 4px,
+    100% calc(100% - 4px),
+    calc(100% - 2px) calc(100% - 4px),
+    calc(100% - 2px) calc(100% - 2px),
+    calc(100% - 4px) calc(100% - 2px),
+    calc(100% - 4px) 100%,
+    22px 100%,
+    22px calc(100% + 2px),
+    18px calc(100% + 2px),
+    18px calc(100% + 4px),
+    14px calc(100% + 4px),
+    14px calc(100% + 6px),
+    10px calc(100% + 6px),
+    10px 100%,
+    4px 100%,
+    4px calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px calc(100% - 4px),
+    0 calc(100% - 4px),
+    0 4px,
+    2px 4px,
+    2px 2px,
+    4px 2px
+  );
+  /* four offset drop-shadows form a 2px black "pixel" outline that follows the clip-path */
+  filter:
+    drop-shadow(2px 0 0 #000)
+    drop-shadow(-2px 0 0 #000)
+    drop-shadow(0 2px 0 #000)
+    drop-shadow(0 -2px 0 #000);
+}
+
+.bit-text {
+  margin: 0 0 0.25em;
+  white-space: pre-wrap;
+}
+
+.bit-time {
+  display: block;
+  font-size: 0.78em;
+  color: #555;
+  letter-spacing: 0.04em;
+}
+
