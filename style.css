@@ -25,11 +25,38 @@ body {
   max-width: 680px;
   margin: 0 auto;
   padding: 4em 1em 2em;
-  min-height: 100vh;
   box-sizing: border-box;
   border-left: 1px solid #000;
   border-right: 1px solid #000;
   position: relative;
+}
+
+.side-buttons {
+  position: absolute;
+  top: 4em;
+  left: 100%;
+  margin-left: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+}
+
+.side-buttons img {
+  display: block;
+  border: 0;
+}
+
+#music-toggle {
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .side-buttons {
+    position: static;
+    margin: 0 0 1em;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
 }
 
 
