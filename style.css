@@ -50,6 +50,14 @@ body {
   cursor: pointer;
 }
 
+.music-toggle-floating {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  cursor: pointer;
+  z-index: 50;
+}
+
 @media (max-width: 900px) {
   .side-buttons {
     position: static;

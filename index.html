@@ -17,58 +17,7 @@
   <a href="guestbook.html"><img src="assets/guestbook-button.gif" alt="sign my guestbook"
      width="88" height="31"></a>
 </div>
-<script>
-  (function () {
-    var tracks = [
-      'media/bjork-possibly-maybe.mp3',
-      'media/brakhage-jamtland.mp3',
-      'media/dangelo-send-it-on.mp3',
-      'media/leechmilk-descending.mp3',
-      'media/sprain-man-proposes-god-disposes.mp3',
-      'media/suburban-lawns-gossip.mp3',
-      'media/this-heat-horizontal-hold.mp3'
-    ];
-
-    for (var i = tracks.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = tracks[i];
-      tracks[i] = tracks[j];
-      tracks[j] = tmp;
-    }
-
-    var audio = document.getElementById('bg-music');
-    var current = 0;
-
-    function playTrack() {
-      if (!audio.src) audio.src = tracks[current];
-      return audio.play();
-    }
-
-    audio.addEventListener('ended', function () {
-      current = (current + 1) % tracks.length;
-      audio.src = tracks[current];
-      audio.play();
-    });
-
-    document.getElementById('music-toggle').addEventListener('click', function () {
-      if (audio.paused) {
-        playTrack();
-      } else {
-        audio.pause();
-      }
-    });
-
-    playTrack().catch(function () {
-      var resume = function () {
-        playTrack();
-        document.removeEventListener('click', resume);
-        document.removeEventListener('keydown', resume);
-      };
-      document.addEventListener('click', resume);
-      document.addEventListener('keydown', resume);
-    });
-  })();
-</script>
+<script src="assets/player.js" defer></script>
 
 <nav>
 <a href="index.html">Home</a> |
