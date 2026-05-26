@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guestbook &mdash; sasha's blog</title>
+<link rel="stylesheet" href="style.css">
+<script src="assets/frog.js" defer></script>
+</head>
+<body>
+<nav>
+<a href="index.html">Home</a> |
+<a href="blog.html">Blog</a> |
+<a href="bits.html">Bits</a> |
+<a href="media.html">Media</a> |
+<a href="guestbook.html">Guestbook</a> |
+<a href="contact.html">Contact</a>
+</nav>
+
+<hr>
+
+<h1>Guestbook</h1>
+
+<p class="bits-blurb">leave a note, say hi</p>
+
+<form id="gb-form" class="gb-form" autocomplete="off">
+  <label class="gb-label" for="gb-message">message</label>
+  <textarea id="gb-message" name="message" rows="3" maxlength="500" required></textarea>
+
+  <div class="gb-row">
+    <span class="gb-field">
+      <label class="gb-label" for="gb-handle">handle <span class="gb-opt">(optional)</span></label>
+      <input id="gb-handle" name="handle" type="text" maxlength="40">
+    </span>
+    <span class="gb-field">
+      <label class="gb-label" for="gb-url">url <span class="gb-opt">(optional)</span></label>
+      <input id="gb-url" name="url" type="url" maxlength="200" placeholder="https://">
+    </span>
+  </div>
+
+  <button type="submit" class="gb-submit">sign</button>
+  <span id="gb-status" class="gb-status" role="status"></span>
+</form>
+
+<ol class="bits" id="gb-list"></ol>
+
+<hr>
+
+<footer>
+&mdash; sasha, 2026 &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>
+</footer>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // ---- Firebase config -------------------------------------------------
+  // Replace these placeholder values with your project's web app config.
+  // (Firebase console -> Project settings -> Your apps -> SDK setup.)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQlwcDmC11wfGP0ulnSNxje0EnYrQO-2I",
+    authDomain: "guestbook-389fd.firebaseapp.com",
+    projectId: "guestbook-389fd",
+    storageBucket: "guestbook-389fd.firebasestorage.app",
+    messagingSenderId: "177386078281",
+    appId: "1:177386078281:web:b10594ea9b0b10253b3f98"
+  };
+  // ----------------------------------------------------------------------
+
+  var form = document.getElementById("gb-form");
+  var statusEl = document.getElementById("gb-status");
+  var list = document.getElementById("gb-list");
+
+  if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+    statusEl.textContent = "guestbook not configured yet";
+    form.querySelector(".gb-submit").disabled = true;
+  } else {
+    var app = initializeApp(firebaseConfig);
+    var db = getFirestore(app);
+    var entries = collection(db, "guestbook");
+
+    var q = query(entries, orderBy("createdAt", "desc"), limit(200));
+    onSnapshot(q, function (snap) {
+      list.textContent = "";
+      snap.forEach(function (doc) {
+        list.appendChild(renderEntry(doc.data()));
+      });
+    }, function () {
+      statusEl.textContent = "couldn't load the guestbook";
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var message = form.message.value.trim();
+      if (!message) return;
+      var handle = form.handle.value.trim();
+      var url = form.url.value.trim();
+      if (url && !/^https?:\/\//i.test(url)) url = "https://" + url;
+
+      var btn = form.querySelector(".gb-submit");
+      btn.disabled = true;
+      statusEl.textContent = "signing…";
+
+      addDoc(entries, {
+        message: message.slice(0, 500),
+        handle: handle.slice(0, 40),
+        url: url.slice(0, 200),
+        createdAt: serverTimestamp()
+      }).then(function () {
+        form.reset();
+        statusEl.textContent = "thanks for signing!";
+      }).catch(function () {
+        statusEl.textContent = "couldn't post — try again";
+      }).finally(function () {
+        btn.disabled = false;
+      });
+    });
+  }
+
+  function renderEntry(data) {
+    var li = document.createElement("li");
+    li.className = "bit";
+
+    var body = document.createElement("div");
+    body.className = "bit-body";
+
+    var text = document.createElement("p");
+    text.className = "bit-text";
+    text.textContent = data.message || "";
+    body.appendChild(text);
+
+    var meta = document.createElement("span");
+    meta.className = "bit-time gb-meta";
+
+    var handle = (data.handle || "").trim();
+    var url = (data.url || "").trim();
+    var safeUrl = /^https?:\/\//i.test(url) ? url : "";
+    var name = handle || "anonymous";
+
+    if (safeUrl) {
+      var a = document.createElement("a");
+      a.className = "gb-handle";
+      a.href = safeUrl;
+      a.target = "_blank";
+      a.rel = "noopener nofollow ugc";
+      a.textContent = name;
+      meta.appendChild(a);
+    } else {
+      var span = document.createElement("span");
+      span.className = "gb-handle";
+      span.textContent = name;
+      meta.appendChild(span);
+    }
+
+    if (data.createdAt && typeof data.createdAt.toDate === "function") {
+      meta.appendChild(document.createTextNode(" · " + formatTime(data.createdAt.toDate())));
+    }
+
+    body.appendChild(meta);
+    li.appendChild(body);
+    return li;
+  }
+
+  function formatTime(d) {
+    function p(n) { return n < 10 ? "0" + n : "" + n; }
+    return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) +
+      " · " + p(d.getHours()) + ":" + p(d.getMinutes());
+  }
+</script>
+
+</body>
+</html>
