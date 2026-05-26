@@ -379,3 +379,86 @@ ol.bits {
   letter-spacing: 0.04em;
 }
 
+/* guestbook */
+.gb-form {
+  border: 1px solid #000;
+  background: #f7f7f0;
+  padding: 0.8em 1em;
+  margin: 0 0 1.6em;
+}
+
+.gb-label {
+  display: block;
+  font-size: 0.85em;
+  color: #555;
+  margin: 0.4em 0 0.2em;
+}
+
+.gb-opt {
+  color: #999;
+}
+
+.gb-form textarea,
+.gb-form input {
+  font-family: inherit;
+  font-size: 0.95em;
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+  padding: 0.3em 0.45em;
+}
+
+.gb-form textarea {
+  resize: vertical;
+}
+
+.gb-row {
+  display: flex;
+  gap: 0.8em;
+}
+
+.gb-field {
+  flex: 1;
+}
+
+.gb-submit {
+  font-family: inherit;
+  font-size: 0.95em;
+  margin-top: 0.7em;
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+  padding: 0.15em 1.2em;
+  cursor: pointer;
+}
+
+.gb-submit:hover {
+  background: #eee;
+}
+
+.gb-submit:disabled {
+  color: #999;
+  cursor: default;
+}
+
+.gb-status {
+  font-size: 0.82em;
+  color: #555;
+  margin-left: 0.7em;
+}
+
+.gb-meta .gb-handle {
+  font-weight: bold;
+  color: #0000ee;
+}
+
+.gb-meta span.gb-handle {
+  color: #333;
+}
+
+@media (max-width: 420px) {
+  .gb-row { flex-direction: column; gap: 0; }
+}
+
