@@ -1,5 +1,21 @@
 (function () {
   var KEY = 'bgPlayer';
+
+  // Derive the site root prefix from this script's own src, so the player
+  // works whether it's loaded from the root or from a subdirectory (posts/).
+  var base = '';
+  var scripts = document.getElementsByTagName('script');
+  for (var s = 0; s < scripts.length; s++) {
+    var src = scripts[s].getAttribute('src') || '';
+    var marker = 'assets/player.js';
+    if (src.slice(-marker.length) === marker) {
+      base = src.slice(0, src.length - marker.length);
+      break;
+    }
+  }
+
+  // Stored base-relative so the saved order is valid from any directory; the
+  // base prefix is applied only when assigning audio.src.
   var tracks = [
     'media/bjork-possibly-maybe.mp3',
     'media/brakhage-jamtland.mp3',
@@ -9,6 +25,7 @@
     'media/suburban-lawns-gossip.mp3',
     'media/this-heat-horizontal-hold.mp3'
   ];
+  function srcFor(i) { return base + state.order[i]; }
 
   function load() {
     try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; }
@@ -35,7 +52,7 @@
     document.body.appendChild(audio);
   }
 
-  audio.src = state.order[state.index];
+  audio.src = srcFor(state.index);
   audio.addEventListener('loadedmetadata', function once() {
     audio.removeEventListener('loadedmetadata', once);
     if (state.time) { try { audio.currentTime = state.time; } catch (e) {} }
@@ -45,7 +62,7 @@
     state.index = (state.index + 1) % state.order.length;
     state.time = 0;
     save();
-    audio.src = state.order[state.index];
+    audio.src = srcFor(state.index);
     audio.play();
   });
 
@@ -77,7 +94,7 @@
     toggle = document.createElement('img');
     toggle.id = 'music-toggle';
     toggle.className = 'music-toggle-floating';
-    toggle.src = 'assets/greensmilies.gif';
+    toggle.src = base + 'assets/greensmilies.gif';
     toggle.alt = 'pause/unpause music';
     toggle.width = 88;
     toggle.height = 31;
