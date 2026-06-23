@@ -142,6 +142,22 @@ ul.playlist {
   margin-top: 0.6em;
 }
 
+ul.sc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5em;
+}
+
+ul.sc-list li {
+  margin-bottom: 1em;
+}
+
+ul.sc-list iframe {
+  display: block;
+  width: 100%;
+  border: 1px solid #000;
+}
+
 @media (max-width: 520px) {
   ul.playlist { grid-template-columns: repeat(2, 1fr); }
 }
