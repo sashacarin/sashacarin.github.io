@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On the Formal Irrepresentability of Some Things &mdash; sasha's blog</title>
+<link rel="stylesheet" href="../style.css">
+
+<!-- math rendering -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+<!-- minimal post-local styling; everything else inherits the site stylesheet -->
+<style>
+  .thm, .rmk, .proof { margin: 1.1em 0; }
+  .qed { float: right; }
+  .qa-q { margin-top: 1.7em; }
+  hr.qsep { border: 0; border-top: 1px solid; opacity: .28; width: 45%; margin: 1.8em auto; }
+  figure.diagram { margin: 1.8em 0; text-align: center; }
+  figure.diagram svg { max-width: 100%; height: auto; }
+  figure.diagram figcaption { font-size: .9em; opacity: .75; margin-top: .7em; }
+  .lead-note { opacity: .85; }
+</style>
+</head>
+<body>
+
+<nav>
+<a href="../index.html">Home</a> |
+<a href="../blog.html">Blog</a> |
+<a href="../bits.html">Bits</a> |
+<a href="../media.html">Media</a> |
+<a href="../contact.html">Contact</a>
+</nav>
+
+<hr>
+
+<h1>On the Formal Irrepresentability of Some Things, and of Some Experiences</h1>
+<p><em>2026-06-23</em></p>
+
+<p class="lead-note"><em>Working note; maximal-rigor reconstruction. The argument is carried by a
+Cantor cardinality count; Gödel, Tarski, and Chaitin enter only as a secondary,
+weaker route (Remark&nbsp;3). Section&nbsp;6 answers eight questions, and several of
+those answers are folded back into the body.</em></p>
+
+<h2>0. Standing conventions</h2>
+
+<p>We reason in an informal metatheory (ZFC). To avoid proper-class pathologies
+we fix once and for all a <strong>set</strong> $G$ — the <em>global domain of all
+things under discussion</em> — rather than a proper class (Remark&nbsp;7). All
+cardinal arithmetic is metatheoretic. “$\aleph_0$” denotes countable infinity;
+“at most countable” means finite or countably infinite.</p>
+
+<h2>1. Definitions</h2>
+
+<p class="thm"><strong>Definition 1.1 (Formal language).</strong> A
+<em>formal language</em> is a pair $(\Sigma, L)$ where the alphabet $\Sigma$ is an
+at most countable set of symbols and $L \subseteq \Sigma^{*}$ is a set of finite
+strings over $\Sigma$ (the <em>well-formed expressions</em>). Since $\Sigma$ is at
+most countable, so is $\Sigma^{*}$, hence $|L| \le \aleph_0$.</p>
+
+<p class="thm"><strong>Definition 1.2 (Representation system).</strong> A
+<em>representation system</em> over $G$ is a triple $\mathcal{S} = (\Sigma, L, \rho)$
+where $(\Sigma, L)$ is a formal language and the <em>denotation</em>
+$\rho \colon L \rightharpoonup G$ is a partial function. We read $\rho(w) = x$ as
+“the expression $w$ represents the thing $x$.” Functionality encodes that a fixed
+expression, in a fixed system, picks out at most one thing; ambiguity is handled in
+Remark&nbsp;1.</p>
+
+<p class="thm"><strong>Definition 1.3 (The representable and the irrepresentable).</strong>
+Fix an at most countable family of representation systems
+$\mathcal{R} = \{\mathcal{S}_i\}_{i \in I}$, $|I| \le \aleph_0$,
+$\mathcal{S}_i = (\Sigma_i, L_i, \rho_i)$. Define</p>
+
+\[
+O_f \;:=\; \bigcup_{i \in I} \operatorname{ran}(\rho_i)
+\;=\; \{\, x \in G : \exists\, i\in I,\ \exists\, w \in L_i,\ \rho_i(w)=x \,\},
+\qquad
+O_n \;:=\; G \setminus O_f .
+\]
+
+<p>$O_f$ is the class of <strong>formally representable</strong> things, $O_n$ its
+complement in $G$, and $G = O_f \sqcup O_n$ is a partition.</p>
+
+<p class="rmk"><strong>Assumption A (the bridge: Verbalizable $\iff$ Formally
+Representable).</strong> A thing is <em>verbalizable</em> iff it lies in $O_f$ for
+the family $\mathcal{R}$ comprising the formalizable fragments of natural language.
+Assumption&nbsp;A is what licenses transporting any conclusion about $O_f / O_n$ into
+a conclusion about what can and cannot be <em>said</em>. It is a premise (you may
+call it an axiom), not a theorem; its plausibility — and in particular the
+rule-following tension raised in Q2 — is treated in §6. The honest reading is
+<em>extensional</em>: A concerns finished utterances, not the open-ended act of
+meaning-making.</p>
+
+<p class="rmk"><strong>Terminology note (information $:=$ $O_f$).</strong> We
+deliberately speak of “things,” not “information.” In Shannon and Kolmogorov theory
+“information” is formal <em>by construction</em> (bits, codewords, programs), so
+naming the elements of $G$ “information” would pre-decide $O_n = \emptyset$ and beg
+the question. We therefore <em>define</em></p>
+
+\[
+\text{information} \;:=\; O_f \quad(\text{the finitely codeable part of }G),
+\]
+
+<p>so the entire program is the slogan <strong>things $\supsetneq$ information</strong>:
+$O_n$ is the non-informational — what there is but cannot be coded. (See Q7.)</p>
+
+<h2>2. The counting lemma</h2>
+
+<p class="thm"><strong>Lemma 2.1 (Representability is countable).</strong>
+$|O_f| \le \aleph_0$.</p>
+
+<p class="proof"><em>Proof.</em> For each $i$, $L_i$ is at most countable
+(Def.&nbsp;1.1) and $\rho_i$ is a partial function, so
+$|\operatorname{ran}(\rho_i)| \le |L_i| \le \aleph_0$. Then $O_f$ is a union indexed
+by the at most countable $I$ of at most countable sets; by the countable union
+theorem (countable choice suffices), $|O_f| \le \aleph_0 \cdot \aleph_0 = \aleph_0$.
+<span class="qed">&#8718;</span></p>
+
+<p class="rmk"><strong>Remark 1 (ambiguity does not help).</strong> If denotation is
+relational — one expression $w$ admitting a set $\rho_i[w] \subseteq G$ of referents
+— the lemma survives provided each $\rho_i[w]$ is at most countable, since $O_f$ is
+then still a countable union of countable sets. It fails only if a single finite
+expression may denote uncountably many things at once; but such a system represents
+nothing in particular and trivializes Assumption&nbsp;A. Countable denotation is the
+principled setting.</p>
+
+<p class="rmk"><strong>Remark 2 (description-length / compression form).</strong>
+Define the <em>description length</em>
+$\ell(x) := \min\{\,|w| : \rho_i(w)=x \text{ for some } i\,\}$, with
+$\ell(x)=\infty$ when $x$ has no representative; equivalently $\ell$ is a Kolmogorov
+complexity relative to $\mathcal{R}$. Then $O_f = \{x : \ell(x) &lt; \infty\}$. For each
+$n$ there are at most $\sum_{k \le n}\sum_i |\Sigma_i|^{k}$ expressions of length
+$\le n$, a finite number per fixed finite alphabet (and countable overall), so
+$\{x : \ell(x) \le n\}$ is at most countable and
+$O_f = \bigcup_{n} \{x : \ell(x) \le n\}$ is countable. This re-proves Lemma&nbsp;2.1
+in the language of compression: <strong>to represent is to compress to a finite
+codeword</strong>, and only countably many finite codewords exist.</p>
+
+<h2>3. The cardinality proposition (the corrected “Corollary”)</h2>
+
+<blockquote>The draft labelled this a Corollary and wrote the half-formed
+“$|O_f| &gt;$”. It is not a corollary of anything prior; the intended content is the
+existence claim below.</blockquote>
+
+<p class="thm"><strong>Proposition 3.1.</strong> If $|G| &gt; \aleph_0$, then
+$O_n \neq \emptyset$; more precisely $|O_n| = |G|$ while $|O_f| \le \aleph_0$. Both
+$O_f$ and $O_n$ are proper and nonempty as soon as $G$ contains at least one
+representable thing.</p>
+
+<p class="proof"><em>Proof.</em> By Lemma&nbsp;2.1, $|O_f| \le \aleph_0 &lt; |G|$. If
+$O_n$ were at most countable then
+$|G| = |O_f \cup O_n| \le \aleph_0 + \aleph_0 = \aleph_0$, a contradiction; so
+$|O_n| &gt; \aleph_0$, hence $O_n \ne \emptyset$. Moreover
+$|O_n| \le |G| = |O_f \cup O_n| \le |O_f| + |O_n| = |O_n|$ (the last step since
+$|O_n|$ is infinite and absorbs $|O_f| \le \aleph_0$), so $|O_n| = |G|$ by
+Cantor–Schröder–Bernstein. $O_f \neq \emptyset$ exactly when some $\rho_i$ is
+nonempty. <span class="qed">&#8718;</span></p>
+
+<p class="thm"><strong>Proposition 3.2 (the stochastic case is the same case).</strong>
+Let representation be <em>stochastic</em> in any of the usual senses — (i) a randomized
+generator/recognizer; (ii) a probability assignment over expressions (e.g. a
+Solomonoff/algorithmic prior $M(x)=\sum_{p:\,U(p)=x}2^{-|p|}$); or (iii) things
+represented by probability distributions. Then still $|O_f| \le \aleph_0$, hence
+$O_n \neq \emptyset$ whenever $|G| &gt; \aleph_0$.</p>
+
+<p class="proof"><em>Proof.</em> (i) The strings a randomized machine can emit with
+positive probability, ranging over all seeds, form a subset of $\Sigma^{*}$, hence
+countable. (ii) A prior is a probability measure over the countable set of
+expressions, so its support — the positively-weighted representations — is at most
+countable. (iii) There are $2^{\aleph_0}$ distributions, but only the
+<em>finitely specifiable</em> (computable) ones are usable finite representations, and
+those are countable; an arbitrary real-parametrised distribution has no finite
+description and is itself a member of $O_n$, so option (iii) relocates
+irrepresentability without removing it. In each case the representable set injects
+into a countable set of finite specifications, so Lemma&nbsp;2.1 applies unchanged.
+<span class="qed">&#8718;</span></p>
+
+<p>So the draft's deterministic/stochastic split is unnecessary: the count is blind to
+a system's internal mechanism because it only ever counts <em>finite expressions</em>.</p>
+
+<p class="rmk"><strong>Remark 3 (why Gödel is the wrong tool, and what it does give).</strong>
+The draft's Case&nbsp;1 invoked incompleteness to obtain $O_n \neq \emptyset$. This does
+not go through. Gödel's first theorem: every consistent, recursively axiomatised
+$T \supseteq Q$ (Robinson arithmetic) admits a sentence $G_T$ true in $\mathbb{N}$ but
+unprovable in $T$. But $G_T$ <strong>is a well-formed formula</strong> — a finite
+string, hence <em>representable</em> ($G_T \in O_f$); what it is not is
+<em>$T$-provable</em>. Incompleteness separates <strong>truth from provability</strong>,
+not <strong>things from their representations</strong>; Tarski's undefinability likewise
+concerns a system's internal reach, not the size of $O_f$. The incompleteness phenomena
+yield at most:</p>
+
+<blockquote><em>(Secondary route.)</em> No single consistent r.e. $T \supseteq Q$
+<strong>decides</strong> every truth in its own language.</blockquote>
+
+<p>This is a claim about <em>deductive capture</em>, which neither entails nor is
+entailed by the <em>representability</em> claim $O_n \neq \emptyset$: the two are
+logically independent, and incompleteness simply does not reach the conclusion the
+draft wanted from it. The cardinality count is what delivers irrepresentability.</p>
+
+<h2>4. Theorem (human experience)</h2>
+
+<p>Let $E_h \subseteq G$, $E_h \neq \emptyset$, be the class of things
+<em>experienced by humans</em>. (We use non-strict $\subseteq$: properness is never
+invoked — see Q5.)</p>
+
+<p class="thm"><strong>Theorem 4.1.</strong> If $|E_h| &gt; \aleph_0$, then
+$E_h \cap O_n \neq \emptyset$ (indeed $|E_h \cap O_n| = |E_h|$). Equivalently, under
+Assumption&nbsp;A: if the space of human experience is uncountable, some experience is
+unverbalizable.</p>
+
+<p class="proof"><em>Proof.</em> Suppose $E_h \cap O_n = \emptyset$. Then
+$E_h \subseteq O_f$. Compose the inclusion $E_h \hookrightarrow O_f$ with the choice
+$O_f \to \bigsqcup_i L_i,\ x \mapsto (i,w)$ for some $w$ with $\rho_i(w)=x$; this is an
+<strong>injection</strong> of $E_h$ into the at most countable set $\bigsqcup_i L_i$
+(injective because $\rho_i$ is a function, so a codeword determines its referent).
+Hence $|E_h| \le \aleph_0$, contradicting $|E_h| &gt; \aleph_0$. Therefore
+$E_h \cap O_n \neq \emptyset$. The refinement repeats the split of Prop.&nbsp;3.1 with
+$E_h$ for $G$: $|E_h| \le |E_h\cap O_f| + |E_h\cap O_n| \le \aleph_0 + |E_h\cap O_n|$
+forces $|E_h \cap O_n| = |E_h|$. <span class="qed">&#8718;</span></p>
+
+<p class="rmk"><strong>Remark 4 (resolving the draft's placeholders).</strong> The draft
+groped for “$f \colon O_f \to E_h$ (probably wrong?)” then “$f \colon G \to E_h$ (maybe
+right?)”. Neither: the needed morphism runs the <em>other way</em> and is an
+<strong>injection</strong> $E_h \hookrightarrow \bigsqcup_i L_i$; the contradiction is
+that an uncountable set cannot inject into a countable one. No surjection onto $E_h$, no
+“compression function,” and no appeal to the Proposition are required — Lemma&nbsp;2.1
+alone closes it. The draft's unease about $f\colon O_f \to E_h$ was right: that arrow is
+reversed.</p>
+
+<p class="rmk"><strong>Remark 5 (the theorem is exactly as strong as its premise).</strong>
+Theorem&nbsp;4.1 is conditional, honestly so. The machinery manufactures nothing; it
+converts the target into one load-bearing premise</p>
+
+\[
+(\dagger)\qquad |E_h| &gt; \aleph_0 .
+\]
+
+<p><em>For:</em> experiential qualities seem to vary along continua (pitch, brightness,
+hue, pain intensity); if distinct points of a quality continuum are distinct
+experiences, $|E_h| \ge 2^{\aleph_0}$. <em>Against:</em> perception may be quantised by
+finite just-noticeable-difference thresholds and bounded neural state, making the
+discriminable experiences finite, hence $\le \aleph_0$ and the theorem silent. This is an
+empirical/philosophical question; the formalization's value is to locate it exactly. (See
+Q6 for how the <em>choice of formalization of $E_h$</em> is the same act as asserting or
+denying $(\dagger)$.)</p>
+
+<p class="rmk"><strong>Remark 6 (compression form, and lossless vs. lossy).</strong> Read
+through Remark&nbsp;2: $x$ is <em>losslessly</em> representable iff $\ell(x) &lt; \infty$ iff
+$x \in O_f$. Theorem&nbsp;4.1 then says: if $|E_h| &gt; \aleph_0$, the coding map
+$c \colon E_h \to \{0,1\}^{*}$ cannot be total and injective — <em>you cannot losslessly
+compress uncountably many experiences into finite codewords</em> — so some $x \in E_h$ has
+$\ell(x) = \infty$: an <strong>incompressible experience</strong>, admitting no finite
+exact description. That is the ineffable element, and it is exactly the “compression
+function” the draft reached for, with the arrow corrected. The lossy counterpart sharpens
+the picture: language <em>describes approximately</em>, and rate–distortion theory gives,
+for a continuous source, $R(D) &lt; \infty$ for every tolerance $D &gt; 0$ but
+$R(D) \to \infty$ as $D \to 0$. One can always say <em>something</em> (finite bits,
+$D&gt;0$) yet never say it <em>exactly</em> ($D=0$ needs infinite bits). A countable dense
+codebook approximates a separable $E_h$ to any $\delta &gt; 0$; exact capture of uncountably
+many points is impossible. “Words approximate the sunset but never equal it” becomes the
+statement $R(0) = \infty$. (Full development in Q8.)</p>
+
+<h2>5. Foundational caveats</h2>
+
+<p class="rmk"><strong>Remark 7 (set vs. proper class).</strong> If “all things” is a
+proper class, “$|G|$” is not a cardinal and Prop.&nbsp;3.1 is ill-typed. The §0 fix
+presumes the totality can be set-bounded; it suffices throughout that $G$ merely
+<em>contain</em> an uncountable set (a copy of $\mathbb{R}$, read as magnitudes among
+“things”), to which the arguments localize.</p>
+
+<p class="rmk"><strong>Remark 8 (Richard, Berry, pointwise-definable models).</strong>
+Lemma&nbsp;2.1 counts <em>expressions</em> under an <em>externally fixed</em> denotation,
+so $O_f$ is a genuine set of size $\le \aleph_0$ and the conclusion is immune to Richard's
+and Berry's paradoxes — which arise only when “is representable” is <em>internalised</em>
+as an object-language predicate (Tarski forbids this). One subtlety: there are models of
+ZFC in which <em>every</em> set is parameter-free definable (pointwise-definable models,
+Hamkins–Linetsky–Reitz); there the <em>internal</em> analogue of $O_f$ exhausts the
+universe and internal $O_n = \emptyset$. This does not contradict Prop.&nbsp;3.1 (a
+statement about an externally fixed countable $\mathcal{R}$), but it shows
+“$O_n = \emptyset$?” is sensitive to the internal/external reading and to which
+$\mathcal{R}$ is admitted. Assumption&nbsp;A must fix $\mathcal{R}$ externally.</p>
+
+<h2>6. Questions, problems, and the lot</h2>
+
+<p class="qa-q"><strong>Q1. Does Gödel's contradiction criterion allow the
+<em>creation of new information</em> in the deterministic case? How would one prove
+it?</strong></p>
+
+<p>Make “new information” precise; the hunch is half-right, and which half depends on the
+sense.</p>
+
+<p><em>Deductive sense (independent sentences).</em> Yes. By the second incompleteness
+theorem a consistent r.e. $T \supseteq \mathrm{PA}$ does not prove $\mathrm{Con}(T)$, so
+$T_1 := T + \mathrm{Con}(T)$ proves a sentence $T$ could not; iterating,
+$T_{n+1} := T_n + \mathrm{Con}(T_n)$ — and the transfinite progressions of Turing (1939)
+and Feferman (1962) — keep producing sentences independent of every earlier stage. Along
+suitable paths such progressions prove <em>all</em> true $\Pi^0_1$ sentences. So new
+<em>theorems</em> genuinely appear. <strong>But</strong> the deterministic system does not
+generate them autonomously: each extension requires <em>adding an axiom</em> (choosing
+$G_T$, or $\mathrm{Con}(T_n)$, or a path through ordinal notations), and at the transfinite
+stages selecting the path imports information contained in no $T_n$. The “creation” is
+really an <em>external choice made at the gap</em> incompleteness leaves open — which is
+exactly your intuition that the contradiction criterion (proving $G_T$ would breach
+consistency, so $G_T$ is left undecided) <em>opens a slot</em> where new information can be
+inserted.</p>
+
+<p><em>Algorithmic sense (Kolmogorov complexity).</em> No — and this is the clean theorem
+to prove the hunch against. <strong>Chaitin's incompleteness theorem:</strong> for a
+consistent r.e. theory $T$ there is a constant $c \approx K(T) + O(1)$ such that $T$ proves
+no statement of the form “$K(s) &gt; c$,” although all but finitely many strings $s$ satisfy
+it. A formal system cannot <em>certify</em> information beyond roughly its own Kolmogorov
+complexity. So a fixed deterministic system cannot spontaneously create unbounded new
+(certified) information; it is capped by its own size.</p>
+
+<p><em>Tie to the framework.</em> Either way nothing escapes $O_f$: every $G_T$, every
+$\mathrm{Con}(T_n)$, is a finite string, hence representable. “New information” in the
+deductive sense is movement <em>within</em> $O_f$ — which representable truths get certified
+— never a crossing into $O_n$. The cardinality wall is untouched. <em>How to prove your
+version:</em> fix the sense, then cite (deductive) the 2nd incompleteness theorem +
+Feferman progressions for strict gain, or (algorithmic) Chaitin's bound for the ceiling.</p>
+
+<hr class="qsep">
+
+<p class="qa-q"><strong>Q2. Language follows rules, yet was <em>created into</em>
+rule-following. How does that gel with Assumption&nbsp;A?</strong></p>
+
+<p>The tension is real and is the Wittgenstein/Kripkenstein point: natural language is an
+open, self-extending practice; its “rules” are descriptive and revisable, meaning is use,
+and no finite statement of a rule fixes the rule (the rule-following regress). Resolve it by
+splitting two things A could be about:</p>
+
+<ul>
+<li><em>Products</em> — finished utterances/expressions. Even an ever-extending language
+coins only countably many finite expressions across countably many stages, so Lemma&nbsp;2.1
+still bounds the products: open-endedness does <strong>not</strong> escape $\aleph_0$. A is
+safe here.</li>
+<li><em>The generative act</em> — the instituting and altering of meaning. No finite rule
+fixes it (regress), so the meaning-conferring practice is plausibly itself in $O_n$.</li>
+</ul>
+
+<p>So read A <strong>extensionally</strong> (about what gets said): it survives, and powers
+the theorems. Read <strong>intensionally</strong> (about the saying), it is doubtful — and
+that doubt is not a problem but <em>evidence</em> for the program: the very capacity that
+creates language looks like an $O_n$ resident. Net recommendation: state A extensionally, and
+note that the generativity of language is itself a candidate ineffable.</p>
+
+<hr class="qsep">
+
+<p class="qa-q"><strong>Q3. Doesn't the “corollary” imply $O_f$ is empty?</strong></p>
+
+<p>No. It implies $|O_f| \le \aleph_0$ and $|O_n| = |G|$: $O_f$ is <em>countable</em>, not
+empty. “Almost all things lie in $O_n$” is not “$O_f$ is empty” — a countably infinite set is
+vanishingly small beside an uncountable one yet still richly populated. For any non-degenerate
+language $O_f \neq \emptyset$: it contains $0,1,2,\dots$, every finite string, every nameable
+object — countably infinitely many. Only the degenerate empty/everywhere-undefined
+$\mathcal{R}$ gives $O_f = \emptyset$. The worry likely comes from the discarded sub-case (“a
+contradiction forces removing elements from $O_f$”); under the cardinality argument there is no
+such erosion. $O_f$ is small but populous.</p>
+
+<hr class="qsep">
+
+<p class="qa-q"><strong>Q4. How is the stochastic case of the “corollary” done?</strong></p>
+
+<p>It is now <strong>Proposition 3.2</strong> in the body, with proof. In brief, three readings
+of “stochastic formalization” all give $|O_f| \le \aleph_0$: (i) a randomized machine's
+positive-probability outputs are still finite strings (countable); (ii) an algorithmic/Solomonoff
+prior is supported on the computable strings (countable); (iii) representing things by
+<em>distributions</em> admits $2^{\aleph_0}$ distributions, but only the finitely specifiable ones
+are usable representations (countable), and the rest are themselves in $O_n$ — stochasticity
+<em>relocates</em> irrepresentability, never removes it. Hence $O_n \neq \emptyset$ when
+$|G| &gt; \aleph_0$, exactly as in the deterministic case. The upshot worth keeping: there was never
+a separate stochastic burden, because the count sees only finite specifications.</p>
+
+<hr class="qsep">
+
+<p class="qa-q"><strong>Q5. In the Theorem I wrote $E_h \subsetneq G$ (proper). Does it matter?
+Would $\subseteq$ imply human experience could be of <em>all</em> things?</strong></p>
+
+<p>It does not matter to the theorem: the proof uses only $E_h \neq \emptyset$ and
+$|E_h| &gt; \aleph_0$; properness is never invoked. (I switched to $\subseteq$ for the weakest
+hypothesis.) On the logic: $\subseteq$ <em>permits</em> $E_h = G$ but does <strong>not</strong>
+<em>imply</em> it — non-strict inclusion allows equality without asserting it, so it does not
+claim humans experience everything. $\subsetneq$ asserts $G \setminus E_h \neq \emptyset$ (some
+thing goes unexperienced) — independently plausible but unused here; indeed even if $E_h = G$ the
+theorem holds trivially, since then $O_n \subseteq G = E_h$ gives
+$E_h \cap O_n = O_n \neq \emptyset$. Use $\subseteq$ for generality; assert $\subsetneq$ only if
+you separately want “humans don't experience everything,” which the argument does not need.</p>
+
+<hr class="qsep">
+
+<p class="qa-q"><strong>Q6. Can we formalize the definition of $E_h$?</strong></p>
+
+<p>Yes — <em>as a set</em> — and doing so is consistent with the theorem, because
+<strong>naming a set is not representing its members.</strong> “$\mathbb{R}$” finitely names the
+reals though almost every real is undefinable; likewise a finite definition of $E_h$ does not
+drop its elements into $O_f$. The catch: the <em>choice</em> of formalization decides the premise
+$(\dagger)$.</p>
+
+<ul>
+<li>A <em>functional/finite-state</em> identification (an experience $=$ a brain or computational
+state) makes $E_h$ finite or countable, so $(\dagger)$ fails and Theorem&nbsp;4.1 is
+<strong>vacuous</strong>.</li>
+<li>A <em>quality-space</em> model — $E_h \subseteq Q = \prod_{j} I_j$, each $I_j$ a continuum
+(hue, brightness, pitch, intensity, …), experiences taken modulo indistinguishability — gives
+$|E_h| = 2^{\aleph_0}$, so $(\dagger)$ holds and the theorem <strong>bites</strong>.</li>
+</ul>
+
+<p>Recommended: define $E_h$ as a nonempty subset of such a quality space — finitely
+<em>named</em>, uncountably <em>populated</em>. This is the formalization most faithful to the
+project, and it makes explicit that <em>to formalize $E_h$ this way and to assert $(\dagger)$ are
+the same act</em>. So: formalizable as a set, yes; just don't expect that formalization to
+enumerate experiences — enumeration is precisely what $O_n$ forbids.</p>
+
+<hr class="qsep">
+
+<p class="qa-q"><strong>Q7. “Things” vs. “information”: is there a better adaptation?</strong></p>
+
+<p>Your instinct is correct and worth keeping. In information theory “information” is formal by
+construction (it <em>is</em> bits/codewords/programs), so labelling the elements of $G$
+“information” smuggles formalizability into the domain and makes $O_n = \emptyset$ by fiat —
+question begged. The clean fix is the <strong>Terminology note</strong> in §1: keep “things” for
+$G$ and <em>define</em> information $:= O_f$, the finitely codeable part. Then the thesis is the
+slogan <strong>things $\supsetneq$ information</strong>, and $O_n$ is “the non-informational.”
+This dissolves the worry: information is, correctly, the formal <em>subset</em>; the theorem says
+the world of things strictly exceeds it. Nearest existing vocabulary: Floridi's data&nbsp;→&nbsp;information
+hierarchy (data as primitive, pre-meaning differences) is the closest, but even “data” leans
+formal; “things”/“entities” stays maximally neutral. Keep “things,” and let “information” be the
+derived, bounded notion.</p>
+
+<hr class="qsep">
+
+<p class="qa-q"><strong>Q8. How to finish the Theorem along the compression track?</strong></p>
+
+<p>This is now carried by <strong>Remark 2</strong> (definitions) and <strong>Remark 6</strong>
+(the theorem); here is the whole arc.</p>
+
+<p><em>Representation $=$ compression.</em> Set $\ell(x)$ $=$ length of the shortest expression
+denoting $x$ ($=\infty$ if none); equivalently a Kolmogorov complexity $K(x)$ relative to a
+universal machine. Then $O_f = \{x : \ell(x) &lt; \infty\}$: the representable things are exactly the
+<em>finitely compressible</em> ones.</p>
+
+<p><em>The count, re-derived.</em> Only finitely many things have $\ell \le n$ per fixed alphabet,
+so $O_f = \bigcup_n \{\ell \le n\}$ is countable (Lemma&nbsp;2.1, compression form).</p>
+
+<p><em>The theorem, finished.</em> If $|E_h| &gt; \aleph_0$, the coding map
+$c \colon E_h \to \{0,1\}^{*}$ cannot be total and injective — uncountably many experiences cannot
+be losslessly compressed into finite codewords — so some $x \in E_h$ has
+$\ell(x) = K(x) = \infty$: an <strong>incompressible experience</strong>, no finite exact
+description. That element is the ineffable one. This is your “compression function,” arrow
+corrected: $c$ lives on $O_f$ and cannot extend over all of $E_h$.</p>
+
+<p><em>The interesting track, made precise — lossless vs. lossy.</em> Lossless (exact)
+representability is $\ell(x) &lt; \infty$, i.e. $x \in O_f$; uncountable $E_h$ $\Rightarrow$ most
+experiences are not losslessly representable. Language, though, compresses <em>lossily</em> —
+“the sunset was beautiful” is a low-rate approximation. Rate–distortion theory: for a continuous
+source, $R(D) &lt; \infty$ for every tolerance $D &gt; 0$ but $R(D) \to \infty$ as $D \to 0$ (e.g.
+Gaussian $R(D) = \tfrac12\log(\sigma^2/D)$). So you can always say <em>something</em> (finite bits,
+$D &gt; 0$) yet never say it <em>exactly</em> ($D = 0$ demands infinite bits). A countable dense
+codebook approximates a separable $E_h$ to any $\delta &gt; 0$; exact capture of uncountably many
+points is impossible. <strong>Ineffability lives in the rate–distortion residual</strong> — the
+part every finite (lossy) description discards. “Words approximate the experience but never equal
+it” is then the theorem $R(0) = \infty$.</p>
+
+<h2>Appendix: dependency map of the argument</h2>
+
+<figure class="diagram">
+<svg viewBox="0 0 760 470" role="img"
+     aria-label="Dependency map: Definition 1.1 and Remark 2 feed Lemma 2.1, which supports Proposition 3.1, Proposition 3.2, and Theorem 4.1; the Goedel/Tarski/Chaitin note is separate."
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="7" refY="3"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <!-- edges -->
+  <g stroke="currentColor" stroke-width="1.5" fill="none" marker-end="url(#arr)">
+    <path d="M175,69 L305,119"/>
+    <path d="M455,69 L360,119"/>
+    <path d="M320,167 L150,248"/>
+    <path d="M330,167 L370,248"/>
+    <path d="M345,167 L600,248"/>
+  </g>
+
+  <!-- boxes -->
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <rect x="80"  y="21"  width="190" height="48" rx="6"/>
+    <rect x="330" y="21"  width="250" height="48" rx="6"/>
+    <rect x="215" y="121" width="230" height="46" rx="6"/>
+    <rect x="28"  y="250" width="208" height="56" rx="6"/>
+    <rect x="285" y="250" width="170" height="56" rx="6"/>
+    <rect x="505" y="250" width="235" height="56" rx="6"/>
+    <rect x="120" y="384" width="520" height="62" rx="6" stroke-dasharray="5 4"/>
+  </g>
+
+  <!-- labels -->
+  <g fill="currentColor" font-family="system-ui, -apple-system, Segoe UI, sans-serif"
+     text-anchor="middle">
+    <text x="175" y="41" font-size="13" font-weight="600">Def 1.1</text>
+    <text x="175" y="58" font-size="12">countable language</text>
+
+    <text x="455" y="41" font-size="13" font-weight="600">Remark 2</text>
+    <text x="455" y="58" font-size="12">&#8467; = description length</text>
+
+    <text x="330" y="141" font-size="13" font-weight="600">Lemma 2.1</text>
+    <text x="330" y="158" font-size="12">|O_f| &#8804; &#8501;&#8320;</text>
+
+    <text x="132" y="271" font-size="13" font-weight="600">Prop 3.1</text>
+    <text x="132" y="289" font-size="11.5">|G| &gt; &#8501;&#8320; &#8658; O_n &#8800; &#8709;</text>
+
+    <text x="370" y="271" font-size="13" font-weight="600">Prop 3.2</text>
+    <text x="370" y="289" font-size="11.5">stochastic = same</text>
+
+    <text x="622" y="271" font-size="13" font-weight="600">Thm 4.1</text>
+    <text x="622" y="289" font-size="11.5">|E_h| &gt; &#8501;&#8320; &#8658; E_h &#8745; O_n &#8800; &#8709;</text>
+
+    <!-- premise captions -->
+    <text x="132" y="326" font-size="11" font-style="italic" opacity="0.8">premise: |G| &gt; &#8501;&#8320;</text>
+    <text x="622" y="326" font-size="11" font-style="italic" opacity="0.8">premise (&#8224;): |E_h| &gt; &#8501;&#8320;  (all weight)</text>
+    <text x="622" y="342" font-size="11" font-style="italic" opacity="0.8">+ Assumption A  +  Remark 6</text>
+
+    <!-- separate note -->
+    <text x="380" y="406" font-size="12" font-weight="600">G&#246;del / Tarski / Chaitin  (Remark 3, Q1)</text>
+    <text x="380" y="423" font-size="11.5">truth &#8843; provability;  certified info &#8804; system size</text>
+    <text x="380" y="438" font-size="11.5" font-style="italic">separate, weaker claims &#8212; never reach O_n</text>
+  </g>
+</svg>
+<figcaption>How the pieces depend on one another. The cardinality count (Lemma&nbsp;2.1) is the
+trunk; the Gödel/Tarski/Chaitin note sits to the side as a weaker, separate claim that never
+reaches $O_n$.</figcaption>
+</figure>
+
+<hr>
+
+<p><a href="../blog.html">&larr; Back to blog</a></p>
+
+<footer>
+&mdash; sasha, 2026 &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>
+</footer>
+
+<script src="../assets/player.js" defer></script>
+</body>
+</html>
