@@ -135,11 +135,7 @@ $O_f = \bigcup_{n} \{x : \ell(x) \le n\}$ is countable. This re-proves Lemma&nbs
 using compression: <strong>to represent is to compress to a finite
 codeword</strong>, and only countably many finite codewords exist.</p>
 
-<h2>3. The cardinality proposition (the corrected “Corollary”)</h2>
-
-<blockquote>The draft labelled this a Corollary and wrote the half-formed
-“$|O_f| &gt;$”. It is not a corollary of anything prior; the intended content is the
-existence claim below.</blockquote>
+<h2>3. Cardinality proposition </h2>
 
 <p class="thm"><strong>Proposition 3.1.</strong> If $|G| &gt; \aleph_0$, then
 $O_n \neq \emptyset$; more precisely $|O_n| = |G|$ while $|O_f| \le \aleph_0$. Both
@@ -155,7 +151,7 @@ $|O_n|$ is infinite and absorbs $|O_f| \le \aleph_0$), so $|O_n| = |G|$ by
 Cantor–Schröder–Bernstein. $O_f \neq \emptyset$ exactly when some $\rho_i$ is
 nonempty. <span class="qed">&#8718;</span></p>
 
-<p class="thm"><strong>Proposition 3.2 (the stochastic case is the same case).</strong>
+<p class="thm"><strong>Proposition 3.2 (Stochastism changes nothing).</strong>
 Let representation be <em>stochastic</em> in any of the usual senses — (i) a randomized
 generator/recognizer; (ii) a probability assignment over expressions (e.g. a
 Solomonoff/algorithmic prior $M(x)=\sum_{p:\,U(p)=x}2^{-|p|}$); or (iii) things
@@ -174,19 +170,16 @@ irrepresentability without removing it. In each case the representable set injec
 into a countable set of finite specifications, so Lemma&nbsp;2.1 applies unchanged.
 <span class="qed">&#8718;</span></p>
 
-<p>So the draft's deterministic/stochastic split is unnecessary: the count is blind to
-a system's internal mechanism because it only ever counts <em>finite expressions</em>.</p>
 
-<p class="rmk"><strong>Remark 3 (why Gödel is the wrong tool, and what it does give).</strong>
-The draft's Case&nbsp;1 invoked incompleteness to obtain $O_n \neq \emptyset$. This does
-not go through. Gödel's first theorem: every consistent, recursively axiomatised
+
+<!--<p class="rmk"><strong>Remark 3 (Incompleteness is the wrong tool for this).</strong>
+Gödel's first theorem: every consistent, recursively axiomatised
 $T \supseteq Q$ (Robinson arithmetic) admits a sentence $G_T$ true in $\mathbb{N}$ but
-unprovable in $T$. But $G_T$ <strong>is a well-formed formula</strong> — a finite
+unprovable in $T$. But $G_T$ <strong>is a well-formed formula</strong>, a finite
 string, hence <em>representable</em> ($G_T \in O_f$); what it is not is
 <em>$T$-provable</em>. Incompleteness separates <strong>truth from provability</strong>,
 not <strong>things from their representations</strong>; Tarski's undefinability likewise
-concerns a system's internal reach, not the size of $O_f$. The incompleteness phenomena
-yield at most:</p>
+concerns a system's internal reach, not the size of $O_f$. Incompleteness can give us at most:</p>
 
 <blockquote><em>(Secondary route.)</em> No single consistent r.e. $T \supseteq Q$
 <strong>decides</strong> every truth in its own language.</blockquote>
@@ -194,9 +187,9 @@ yield at most:</p>
 <p>This is a claim about <em>deductive capture</em>, which neither entails nor is
 entailed by the <em>representability</em> claim $O_n \neq \emptyset$: the two are
 logically independent, and incompleteness simply does not reach the conclusion the
-draft wanted from it. The cardinality count is what delivers irrepresentability.</p>
+draft wanted from it. The cardinality count is what delivers irrepresentability.</p>-->
 
-<h2>4. Theorem (human experience)</h2>
+<h2>4. Human experience Theorem </h2>
 
 <p>Let $E_h \subseteq G$, $E_h \neq \emptyset$, be the class of things
 <em>experienced by humans</em>. (We use non-strict $\subseteq$: properness is never
