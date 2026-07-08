@@ -39,7 +39,7 @@
 </nav>
 
 <hr>
-<i>Before I begin I want to say, this is a work in progress. The only reason I am putting this up is to see if anyone is interested in taking this further.
+<i>Before I begin, this is a work in progress. The only reason I am putting this up is to see if anyone is interested in taking this further.
 I would absolutely love some non-conditional "proof" for Thm 4.1, so please, contact me ;s - Sasha </i>
 <h1>Irrepresentability</h1>
 <p><em>2026-06-23</em></p>
@@ -49,7 +49,7 @@ I would absolutely love some non-conditional "proof" for Thm 4.1, so please, con
 
 <p>We reason in an informal metatheory (ZFC). To avoid proper-class pathologies
 we fix once and for all a <strong>set</strong> $G$, the <em>global domain of all
-things under discussion</em>, rather than a proper class (Remark&nbsp;7). All
+things</em>, rather than a proper class (Remark&nbsp;7). All
 cardinal arithmetic is metatheoretic. “$\aleph_0$” denotes countable infinity;
 “at most countable” means finite or countably infinite.</p>
 
@@ -64,7 +64,7 @@ most countable, so is $\Sigma^{*}$, hence $|L| \le \aleph_0$.</p>
 <p class="thm"><strong>Definition 1.2 [Representation system].</strong> A
 <em>representation system</em> over $G$ is a triple $\mathcal{S} = (\Sigma, L, \rho)$
 where $(\Sigma, L)$ is a formal language and the <em>denotation</em>
-$\rho \colon L \rightharpoonup G$ is a partial function. We read $\rho(w) = x$ as
+$\rho \colon L \rightharpoonup G$ is a partial function. read $\rho(w) = x$ as
 “the expression $w$ represents the thing $x$.” Functionality encodes that a fixed
 expression, in a fixed system, picks out at most one thing; ambiguity is handled in
 Remark&nbsp;1.</p>
@@ -84,28 +84,25 @@ O_n \;:=\; G \setminus O_f .
 <p>$O_f$ is the class of <strong>formally representable</strong> things, $O_n$ its
 complement in $G$, and $G = O_f \sqcup O_n$ is a partition.</p>
 
-<p class="rmk"><strong>Assumption A (the bridge: Verbalizable $\iff$ Formally
+<p class="rmk"><strong>Assumption A (Verbalizable $\iff$ Formally
 Representable).</strong> A thing is <em>verbalizable</em> iff it lies in $O_f$ for
 the family $\mathcal{R}$ comprising the formalizable fragments of natural language.
 Assumption&nbsp;A is what licenses transporting any conclusion about $O_f / O_n$ into
-a conclusion about what can and cannot be <em>said</em>. It is a premise (you may
-call it an axiom), not a theorem; its plausibility — and in particular the
-rule-following tension raised in Q2 — is treated in §6. The honest reading is
-<em>extensional</em>: A concerns finished utterances, not the open-ended act of
+a conclusion about what can and cannot be <em>said</em>. I guess its an axiom, not a theorem. see §6 for plausibility and the
+issue raised in Q2. I guess in short, this concerns finished utterances, not the open ended act of
 meaning-making.</p>
 
 <p class="rmk"><strong>Terminology note (information $:=$ $O_f$).</strong> We
-deliberately speak of “things,” not “information.” In Shannon and Kolmogorov theory
+deliberately speak of “things,” not “information.” In Shannon and Kolmogorov's theories
 “information” is formal <em>by construction</em> (bits, codewords, programs), so
-naming the elements of $G$ “information” would pre-decide $O_n = \emptyset$ and beg
-the question. We therefore <em>define</em></p>
+naming the elements of $G$ “information” would would predicate $O_n = \emptyset$. So:
 
 \[
 \text{information} \;:=\; O_f \quad(\text{the finitely codeable part of }G),
 \]
 
-<p>so the entire program is the slogan <strong>things $\supsetneq$ information</strong>:
-$O_n$ is the non-informational — what there is but cannot be coded. (See Q7.)</p>
+<p>In general, <strong>things $\supsetneq$ information</strong>, implying that
+$O_n$ is whatever is "non-informational" (See Q7.)</p>
 
 <h2>2. The counting lemma</h2>
 
