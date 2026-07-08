@@ -210,33 +210,16 @@ $E_h \cap O_n \neq \emptyset$. The refinement repeats the split of Prop.&nbsp;3.
 $E_h$ for $G$: $|E_h| \le |E_h\cap O_f| + |E_h\cap O_n| \le \aleph_0 + |E_h\cap O_n|$
 forces $|E_h \cap O_n| = |E_h|$. <span class="qed">&#8718;</span></p>
 
-<p class="rmk"><strong>Remark 4 (resolving the draft's placeholders).</strong> The draft
-groped for “$f \colon O_f \to E_h$ (probably wrong?)” then “$f \colon G \to E_h$ (maybe
-right?)”. Neither: the needed morphism runs the <em>other way</em> and is an
-<strong>injection</strong> $E_h \hookrightarrow \bigsqcup_i L_i$; the contradiction is
-that an uncountable set cannot inject into a countable one. No surjection onto $E_h$, no
-“compression function,” and no appeal to the Proposition are required — Lemma&nbsp;2.1
-alone closes it. The draft's unease about $f\colon O_f \to E_h$ was right: that arrow is
-reversed.</p>
+<i>And this is kind of where my thinking has ended. Going forward all of my work is <ul>iffy</ul> at best, so I will denote via italics. All because; </i>
 
-<p class="rmk"><strong>Remark 5 (the theorem is exactly as strong as its premise).</strong>
-Theorem&nbsp;4.1 is conditional, honestly so. The machinery manufactures nothing; it
-converts the target into one load-bearing premise</p>
+<p class="rmk"><strong>Remark 5.</strong>
+Theorem&nbsp;4.1 is conditional I guess. Everything then depends on:</p>
 
 \[
 (\dagger)\qquad |E_h| &gt; \aleph_0 .
 \]
 
-<p><em>For:</em> experiential qualities seem to vary along continua (pitch, brightness,
-hue, pain intensity); if distinct points of a quality continuum are distinct
-experiences, $|E_h| \ge 2^{\aleph_0}$. <em>Against:</em> perception may be quantised by
-finite just-noticeable-difference thresholds and bounded neural state, making the
-discriminable experiences finite, hence $\le \aleph_0$ and the theorem silent. This is an
-empirical/philosophical question; the formalization's value is to locate it exactly. (See
-Q6 for how the <em>choice of formalization of $E_h$</em> is the same act as asserting or
-denying $(\dagger)$.)</p>
-
-<p class="rmk"><strong>Remark 6 (compression form, and lossless vs. lossy).</strong> Read
+<p class="rmk"><strong>Remark 6 [compression form].</strong><i> Read
 through Remark&nbsp;2: $x$ is <em>losslessly</em> representable iff $\ell(x) &lt; \infty$ iff
 $x \in O_f$. Theorem&nbsp;4.1 then says: if $|E_h| &gt; \aleph_0$, the coding map
 $c \colon E_h \to \{0,1\}^{*}$ cannot be total and injective — <em>you cannot losslessly
@@ -250,17 +233,17 @@ $R(D) \to \infty$ as $D \to 0$. One can always say <em>something</em> (finite bi
 $D&gt;0$) yet never say it <em>exactly</em> ($D=0$ needs infinite bits). A countable dense
 codebook approximates a separable $E_h$ to any $\delta &gt; 0$; exact capture of uncountably
 many points is impossible. “Words approximate the sunset but never equal it” becomes the
-statement $R(0) = \infty$. (Full development in Q8.)</p>
+statement $R(0) = \infty$. (Full development in Q8.)</i></p>
 
 <h2>5. Foundational caveats</h2>
 
-<p class="rmk"><strong>Remark 7 (set vs. proper class).</strong> If “all things” is a
+<p class="rmk"><strong>Remark 7 (set vs. proper class).</strong><i> If “all things” is a
 proper class, “$|G|$” is not a cardinal and Prop.&nbsp;3.1 is ill-typed. The §0 fix
 presumes the totality can be set-bounded; it suffices throughout that $G$ merely
 <em>contain</em> an uncountable set (a copy of $\mathbb{R}$, read as magnitudes among
-“things”), to which the arguments localize.</p>
+“things”), to which the arguments localize.</i></p>
 
-<p class="rmk"><strong>Remark 8 (Richard, Berry, pointwise-definable models).</strong>
+<p class="rmk"><strong>Remark 8 (Richard, Berry, pointwise-definable models).</strong><i>
 Lemma&nbsp;2.1 counts <em>expressions</em> under an <em>externally fixed</em> denotation,
 so $O_f$ is a genuine set of size $\le \aleph_0$ and the conclusion is immune to Richard's
 and Berry's paradoxes — which arise only when “is representable” is <em>internalised</em>
@@ -270,56 +253,21 @@ Hamkins–Linetsky–Reitz); there the <em>internal</em> analogue of $O_f$ exhau
 universe and internal $O_n = \emptyset$. This does not contradict Prop.&nbsp;3.1 (a
 statement about an externally fixed countable $\mathcal{R}$), but it shows
 “$O_n = \emptyset$?” is sensitive to the internal/external reading and to which
-$\mathcal{R}$ is admitted. Assumption&nbsp;A must fix $\mathcal{R}$ externally.</p>
+$\mathcal{R}$ is admitted. Assumption&nbsp;A must fix $\mathcal{R}$ externally.</i></p>
 
 <h2>6. Questions, problems, and the lot</h2>
 
 <p class="qa-q"><strong>Q1. Does Gödel's contradiction criterion allow the
 <em>creation of new information</em> in the deterministic case? How would one prove
-it?</strong></p>
+it, question it, etc.?</strong></p>
 
-<p>Make “new information” precise; the hunch is half-right, and which half depends on the
-sense.</p>
+<p>?</p>
 
-<p><em>Deductive sense (independent sentences).</em> Yes. By the second incompleteness
-theorem a consistent r.e. $T \supseteq \mathrm{PA}$ does not prove $\mathrm{Con}(T)$, so
-$T_1 := T + \mathrm{Con}(T)$ proves a sentence $T$ could not; iterating,
-$T_{n+1} := T_n + \mathrm{Con}(T_n)$ — and the transfinite progressions of Turing (1939)
-and Feferman (1962) — keep producing sentences independent of every earlier stage. Along
-suitable paths such progressions prove <em>all</em> true $\Pi^0_1$ sentences. So new
-<em>theorems</em> genuinely appear. <strong>But</strong> the deterministic system does not
-generate them autonomously: each extension requires <em>adding an axiom</em> (choosing
-$G_T$, or $\mathrm{Con}(T_n)$, or a path through ordinal notations), and at the transfinite
-stages selecting the path imports information contained in no $T_n$. The “creation” is
-really an <em>external choice made at the gap</em> incompleteness leaves open — which is
-exactly your intuition that the contradiction criterion (proving $G_T$ would breach
-consistency, so $G_T$ is left undecided) <em>opens a slot</em> where new information can be
-inserted.</p>
-
-<p><em>Algorithmic sense (Kolmogorov complexity).</em> No — and this is the clean theorem
-to prove the hunch against. <strong>Chaitin's incompleteness theorem:</strong> for a
-consistent r.e. theory $T$ there is a constant $c \approx K(T) + O(1)$ such that $T$ proves
-no statement of the form “$K(s) &gt; c$,” although all but finitely many strings $s$ satisfy
-it. A formal system cannot <em>certify</em> information beyond roughly its own Kolmogorov
-complexity. So a fixed deterministic system cannot spontaneously create unbounded new
-(certified) information; it is capped by its own size.</p>
-
-<p><em>Tie to the framework.</em> Either way nothing escapes $O_f$: every $G_T$, every
-$\mathrm{Con}(T_n)$, is a finite string, hence representable. “New information” in the
-deductive sense is movement <em>within</em> $O_f$ — which representable truths get certified
-— never a crossing into $O_n$. The cardinality wall is untouched. <em>How to prove your
-version:</em> fix the sense, then cite (deductive) the 2nd incompleteness theorem +
-Feferman progressions for strict gain, or (algorithmic) Chaitin's bound for the ceiling.</p>
 
 <hr class="qsep">
 
-<p class="qa-q"><strong>Q2. Language follows rules, yet was <em>created into</em>
-rule-following. How does that gel with Assumption&nbsp;A?</strong></p>
+<p class="qa-q"><strong>Q2. Language follows rules, yet was <em>created</em> when there were no rules (or much simpler ones. How does that gel with Assumption&nbsp;A?</strong></p>
 
-<p>The tension is real and is the Wittgenstein/Kripkenstein point: natural language is an
-open, self-extending practice; its “rules” are descriptive and revisable, meaning is use,
-and no finite statement of a rule fixes the rule (the rule-following regress). Resolve it by
-splitting two things A could be about:</p>
 
 <ul>
 <li><em>Products</em> — finished utterances/expressions. Even an ever-extending language
@@ -338,72 +286,6 @@ note that the generativity of language is itself a candidate ineffable.</p>
 
 <hr class="qsep">
 
-<p class="qa-q"><strong>Q3. Doesn't the “corollary” imply $O_f$ is empty?</strong></p>
-
-<p>No. It implies $|O_f| \le \aleph_0$ and $|O_n| = |G|$: $O_f$ is <em>countable</em>, not
-empty. “Almost all things lie in $O_n$” is not “$O_f$ is empty” — a countably infinite set is
-vanishingly small beside an uncountable one yet still richly populated. For any non-degenerate
-language $O_f \neq \emptyset$: it contains $0,1,2,\dots$, every finite string, every nameable
-object — countably infinitely many. Only the degenerate empty/everywhere-undefined
-$\mathcal{R}$ gives $O_f = \emptyset$. The worry likely comes from the discarded sub-case (“a
-contradiction forces removing elements from $O_f$”); under the cardinality argument there is no
-such erosion. $O_f$ is small but populous.</p>
-
-<hr class="qsep">
-
-<p class="qa-q"><strong>Q4. How is the stochastic case of the “corollary” done?</strong></p>
-
-<p>It is now <strong>Proposition 3.2</strong> in the body, with proof. In brief, three readings
-of “stochastic formalization” all give $|O_f| \le \aleph_0$: (i) a randomized machine's
-positive-probability outputs are still finite strings (countable); (ii) an algorithmic/Solomonoff
-prior is supported on the computable strings (countable); (iii) representing things by
-<em>distributions</em> admits $2^{\aleph_0}$ distributions, but only the finitely specifiable ones
-are usable representations (countable), and the rest are themselves in $O_n$ — stochasticity
-<em>relocates</em> irrepresentability, never removes it. Hence $O_n \neq \emptyset$ when
-$|G| &gt; \aleph_0$, exactly as in the deterministic case. The upshot worth keeping: there was never
-a separate stochastic burden, because the count sees only finite specifications.</p>
-
-<hr class="qsep">
-
-<p class="qa-q"><strong>Q5. In the Theorem I wrote $E_h \subsetneq G$ (proper). Does it matter?
-Would $\subseteq$ imply human experience could be of <em>all</em> things?</strong></p>
-
-<p>It does not matter to the theorem: the proof uses only $E_h \neq \emptyset$ and
-$|E_h| &gt; \aleph_0$; properness is never invoked. (I switched to $\subseteq$ for the weakest
-hypothesis.) On the logic: $\subseteq$ <em>permits</em> $E_h = G$ but does <strong>not</strong>
-<em>imply</em> it — non-strict inclusion allows equality without asserting it, so it does not
-claim humans experience everything. $\subsetneq$ asserts $G \setminus E_h \neq \emptyset$ (some
-thing goes unexperienced) — independently plausible but unused here; indeed even if $E_h = G$ the
-theorem holds trivially, since then $O_n \subseteq G = E_h$ gives
-$E_h \cap O_n = O_n \neq \emptyset$. Use $\subseteq$ for generality; assert $\subsetneq$ only if
-you separately want “humans don't experience everything,” which the argument does not need.</p>
-
-<hr class="qsep">
-
-<p class="qa-q"><strong>Q6. Can we formalize the definition of $E_h$?</strong></p>
-
-<p>Yes — <em>as a set</em> — and doing so is consistent with the theorem, because
-<strong>naming a set is not representing its members.</strong> “$\mathbb{R}$” finitely names the
-reals though almost every real is undefinable; likewise a finite definition of $E_h$ does not
-drop its elements into $O_f$. The catch: the <em>choice</em> of formalization decides the premise
-$(\dagger)$.</p>
-
-<ul>
-<li>A <em>functional/finite-state</em> identification (an experience $=$ a brain or computational
-state) makes $E_h$ finite or countable, so $(\dagger)$ fails and Theorem&nbsp;4.1 is
-<strong>vacuous</strong>.</li>
-<li>A <em>quality-space</em> model — $E_h \subseteq Q = \prod_{j} I_j$, each $I_j$ a continuum
-(hue, brightness, pitch, intensity, …), experiences taken modulo indistinguishability — gives
-$|E_h| = 2^{\aleph_0}$, so $(\dagger)$ holds and the theorem <strong>bites</strong>.</li>
-</ul>
-
-<p>Recommended: define $E_h$ as a nonempty subset of such a quality space — finitely
-<em>named</em>, uncountably <em>populated</em>. This is the formalization most faithful to the
-project, and it makes explicit that <em>to formalize $E_h$ this way and to assert $(\dagger)$ are
-the same act</em>. So: formalizable as a set, yes; just don't expect that formalization to
-enumerate experiences — enumeration is precisely what $O_n$ forbids.</p>
-
-<hr class="qsep">
 
 <p class="qa-q"><strong>Q7. “Things” vs. “information”: is there a better adaptation?</strong></p>
 
@@ -420,38 +302,6 @@ formal; “things”/“entities” stays maximally neutral. Keep “things,” 
 derived, bounded notion.</p>
 
 <hr class="qsep">
-
-<p class="qa-q"><strong>Q8. How to finish the Theorem along the compression track?</strong></p>
-
-<p>This is now carried by <strong>Remark 2</strong> (definitions) and <strong>Remark 6</strong>
-(the theorem); here is the whole arc.</p>
-
-<p><em>Representation $=$ compression.</em> Set $\ell(x)$ $=$ length of the shortest expression
-denoting $x$ ($=\infty$ if none); equivalently a Kolmogorov complexity $K(x)$ relative to a
-universal machine. Then $O_f = \{x : \ell(x) &lt; \infty\}$: the representable things are exactly the
-<em>finitely compressible</em> ones.</p>
-
-<p><em>The count, re-derived.</em> Only finitely many things have $\ell \le n$ per fixed alphabet,
-so $O_f = \bigcup_n \{\ell \le n\}$ is countable (Lemma&nbsp;2.1, compression form).</p>
-
-<p><em>The theorem, finished.</em> If $|E_h| &gt; \aleph_0$, the coding map
-$c \colon E_h \to \{0,1\}^{*}$ cannot be total and injective — uncountably many experiences cannot
-be losslessly compressed into finite codewords — so some $x \in E_h$ has
-$\ell(x) = K(x) = \infty$: an <strong>incompressible experience</strong>, no finite exact
-description. That element is the ineffable one. This is your “compression function,” arrow
-corrected: $c$ lives on $O_f$ and cannot extend over all of $E_h$.</p>
-
-<p><em>The interesting track, made precise — lossless vs. lossy.</em> Lossless (exact)
-representability is $\ell(x) &lt; \infty$, i.e. $x \in O_f$; uncountable $E_h$ $\Rightarrow$ most
-experiences are not losslessly representable. Language, though, compresses <em>lossily</em> —
-“the sunset was beautiful” is a low-rate approximation. Rate–distortion theory: for a continuous
-source, $R(D) &lt; \infty$ for every tolerance $D &gt; 0$ but $R(D) \to \infty$ as $D \to 0$ (e.g.
-Gaussian $R(D) = \tfrac12\log(\sigma^2/D)$). So you can always say <em>something</em> (finite bits,
-$D &gt; 0$) yet never say it <em>exactly</em> ($D = 0$ demands infinite bits). A countable dense
-codebook approximates a separable $E_h$ to any $\delta &gt; 0$; exact capture of uncountably many
-points is impossible. <strong>Ineffability lives in the rate–distortion residual</strong> — the
-part every finite (lossy) description discards. “Words approximate the experience but never equal
-it” is then the theorem $R(0) = \infty$.</p>
 
 <h2>Appendix: dependency map of the argument</h2>
 
