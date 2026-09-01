@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>sashaslib</title>
+  <link>https://sashacarin.github.io/</link>
+  <description>math, writing, brains, intelligence, and sci-fi.</description>
+  <language>en</language>
+  <atom:link href="https://sashacarin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+
+  <!--
+    HOW THIS FEED WORKS (read me before editing):
+
+    Subscribers are pinged ONCE per <item>, keyed by its <guid>. This feed is
+    hand-maintained and separate from your post HTML, so editing/tweaking a post
+    NEVER pings anyone. You get pinged out only when YOU add a new <item> here.
+
+    This file is now auto-synced from blog.html's post list by
+    scripts/generate_feed.py, run on every push via
+    .github/workflows/feed.yml. Existing <item> blocks are matched by <guid>
+    and left untouched; only a post in blog.html with no matching guid yet
+    gets a new <item> appended (with a naive auto-generated description you
+    can hand-edit afterwards, safely, since guid is what's permanent).
+    You can still add an <item> by hand instead; the script will leave it
+    alone once its guid exists.
+
+    To announce something by hand instead of waiting on the automation:
+      1. Copy the template block below.
+      2. Paste it directly under this comment (newest item on top).
+      3. Fill in title, link, description, and pubDate.
+      4. Give it a NEW, permanent <guid> (never reuse or change one).
+      5. Commit + push. That's the "send" button.
+
+    pubDate must be RFC-822, e.g.  Mon, 22 Jun 2026 12:00:00 +0000
+    Get today's:  date -u '+%a, %d %b %Y %H:%M:%S +0000'
+
+    TEMPLATE (leave commented; copy it, don't edit it in place):
+    <item>
+      <title>Post title here</title>
+      <link>https://sashacarin.github.io/posts/slug.html</link>
+      <guid isPermaLink="false">sashaslib-UNIQUE-ID</guid>
+      <description>One-line summary.</description>
+      <pubDate>Mon, 22 Jun 2026 12:00:00 +0000</pubDate>
+    </item>
+  -->
+
+  <item>
+    <title>Digital Twin</title>
+    <link>https://sashacarin.github.io/posts/digital-twin.html</link>
+    <guid isPermaLink="false">sashaslib-digital-twin</guid>
+    <description>An ongoing journal on simulating a person in silico.</description>
+    <pubDate>Tue, 01 Sep 2026 12:00:00 +0000</pubDate>
+  </item>
+
+  <item>
+    <title>Irrepresentability</title>
+    <link>https://sashacarin.github.io/posts/irrepresentability.html</link>
+    <guid isPermaLink="false">sashaslib-irrepresentability</guid>
+    <description>A work-in-progress formal argument about irrepresentability.</description>
+    <pubDate>Tue, 23 Jun 2026 12:00:00 +0000</pubDate>
+  </item>
+
+  <item>
+    <title>Question &#8212; Complexity and Smooth Manifolds in 4d</title>
+    <link>https://sashacarin.github.io/posts/q-complexity-manifolds.html</link>
+    <guid isPermaLink="false">sashaslib-q-complexity-manifolds</guid>
+    <description>A question on complexity and smooth manifolds in 4d.</description>
+    <pubDate>Mon, 22 Jun 2026 12:00:00 +0000</pubDate>
+  </item>
+
+  <item>
+    <title>Proof</title>
+    <link>https://sashacarin.github.io/posts/proof.html</link>
+    <guid isPermaLink="false">sashaslib-proof</guid>
+    <description>Proof.</description>
+    <pubDate>Wed, 13 May 2026 12:00:00 +0000</pubDate>
+  </item>
+
+  <item>
+    <title>Heat Bath</title>
+    <link>https://sashacarin.github.io/posts/heatbath.html</link>
+    <guid isPermaLink="false">sashaslib-heatbath</guid>
+    <description>Heat bath.</description>
+    <pubDate>Wed, 06 May 2026 12:00:00 +0000</pubDate>
+  </item>
+
+  <item>
+    <title>Sparse Networks &amp; Human Intelligence</title>
+    <link>https://sashacarin.github.io/posts/iq-nn.html</link>
+    <guid isPermaLink="false">sashaslib-iq-nn</guid>
+    <description>Sparse networks and human intelligence.</description>
+    <pubDate>Tue, 05 May 2026 12:00:00 +0000</pubDate>
+  </item>
+
+  <item>
+    <title>Stimulus &#8212; Shmimulus</title>
+    <link>https://sashacarin.github.io/posts/stimulus-shmimulus.html</link>
+    <guid isPermaLink="false">sashaslib-stimulus-shmimulus</guid>
+    <description>Stimulus, shmimulus.</description>
+    <pubDate>Sun, 26 Apr 2026 12:00:00 +0000</pubDate>
+  </item>
+
+  <item>
+    <title>A Cryptonomic-ish Report</title>
+    <link>https://sashacarin.github.io/posts/cryptonomic-ish.html</link>
+    <guid isPermaLink="false">sashaslib-cryptonomic-ish</guid>
+    <description>A cryptonomic-ish report.</description>
+    <pubDate>Thu, 23 Apr 2026 12:00:00 +0000</pubDate>
+  </item>
+
+  <item>
+    <title>Rants</title>
+    <link>https://sashacarin.github.io/posts/rants.html</link>
+    <guid isPermaLink="false">sashaslib-rants</guid>
+    <description>Rants.</description>
+    <pubDate>Wed, 22 Apr 2026 12:00:00 +0000</pubDate>
+  </item>
+
+</channel>
+</rss>
