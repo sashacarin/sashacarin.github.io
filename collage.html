@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>collage</title>
+<!-- the frame is not a page anyone visits; don't let it ask for a favicon -->
+<link rel="icon" href="data:,">
+<style>
+/* The board behind every page. Embedded as an iframe by the .collage-board
+   rule in style.css -- it lives in its own document so the tiles are written
+   once instead of once per page.
+
+   Links carry target="_top" so a click navigates the page, not this frame,
+   and tabindex="-1" to stay out of the host page's tab order: the board is
+   wallpaper, and every link in it duplicates a nav destination. */
+
+:root {
+  /* minimum tile width; columns stretch from here to divide the width
+     evenly, so the step up on wide screens keeps the tiles from turning
+     into confetti on a big display */
+  --tile: 118px;
+  --gap: 7px;
+}
+
+@media (min-width: 1600px) { :root { --tile: 140px; } }
+@media (min-width: 2200px) { :root { --tile: 168px; } }
+@media (min-width: 3000px) { :root { --tile: 200px; } }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: var(--gap);
+  box-sizing: border-box;
+  background: #141414;
+  overflow: hidden;
+  display: grid;
+  /* Columns stretch to divide the width evenly; rows take their height from
+     the square tiles, so every box stays the same size and stays square.
+     Tiles past the bottom edge are simply clipped. */
+  grid-template-columns: repeat(auto-fill, minmax(var(--tile), 1fr));
+  grid-auto-rows: auto;
+  gap: var(--gap);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.t {
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #222;
+  cursor: default;
+}
+
+a.t {
+  cursor: pointer;
+}
+
+.t img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.9) brightness(0.78);
+  transition: filter 0.18s ease;
+}
+
+.t img.contain {
+  object-fit: contain;
+}
+
+.t img.pixel {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* linked tiles come up to full brightness under the cursor */
+a.t:hover img {
+  filter: none;
+}
+</style>
+</head>
+
+<!-- 300 tiles, enough to fill a 4K display; the rest are clipped. The order
+     is scattered so no image ever sits next to a copy of itself, and rarely
+     above or below one either, whatever the column count works out to.
+
+     To add an image: put it in assets/collage/ (~440px on the long edge is
+     plenty) and paste another line in below. Linked:
+
+       <a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/x.jpg" alt="" draggable="false"></a>
+
+     Plain, no link:
+
+       <div class="t"><img src="assets/collage/x.jpg" alt="" draggable="false"></div>
+
+     Add class="contain" to an image that shouldn't be cropped (a wide
+     banner, a sprite), and class="pixel" to one that should keep hard pixel
+     edges instead of being smoothed. -->
+
+<body>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="blog.html" target="_top" tabindex="-1" title="blog"><img src="assets/collage/greensmilies.gif" alt="" class="contain pixel" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Björk — Possibly Maybe"><img src="assets/collage/bjork.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/beach-pixel.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="index.html" target="_top" tabindex="-1" title="sashaslib — home"><img src="assets/collage/qween.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="D’Angelo — Send It On"><img src="assets/collage/dangelo.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="This Heat — Horizontal Hold"><img src="assets/collage/this-heat.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="guestbook.html" target="_top" tabindex="-1" title="sign my guestbook"><img src="assets/collage/guestbook-button.gif" alt="" class="contain pixel" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Suburban Lawns — Gossip"><img src="assets/collage/suburban-lawns.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Sprain — Man Proposes, God Disposes"><img src="assets/collage/sprain.jpg" alt="" draggable="false"></a>
+<a class="t" href="media.html" target="_top" tabindex="-1" title="Leechmilk — Descending"><img src="assets/collage/leechmilk.jpg" alt="" draggable="false"></a>
+<div class="t"><img src="assets/collage/frog.png" alt="" class="contain pixel" draggable="false"></div>
+<a class="t" href="bits.html" target="_top" tabindex="-1" title="bits"><img src="assets/collage/beach.jpg" alt="" draggable="false"></a>
+</body>
+</html>
