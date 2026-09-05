@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Makes feed.xml render as a readable page when somebody opens it in a
-  browser, instead of a wall of XML.
 
-  Browsers dropped RSS handling years ago: clicking a feed link doesn't
-  subscribe you to anything, it just shows you the file. Feed readers are what
-  subscribe. So the page a browser lands on should say that, and hand over the
-  address to paste. Readers themselves ignore this stylesheet entirely and
-  parse the XML underneath, so nothing here affects subscribers.
--->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="html" encoding="UTF-8" indent="yes"/>
 
