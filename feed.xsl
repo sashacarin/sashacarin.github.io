@@ -52,24 +52,18 @@
 
 <h1><xsl:value-of select="title"/> &#8212; RSS feed</h1>
 
-<p class="lede">
-  You've landed on the feed itself. This is a file for software to read, which
-  is why it looks like this &#8212; browsers stopped knowing what to do with
-  feeds years ago, so clicking the link didn't subscribe you to anything.
-</p>
-
-<p class="lede">A feed reader is what subscribes. Give it this address:</p>
+<p class="lede">give this link to whatever feeder u use.</p>
 
 <code class="url"><xsl:value-of select="atom:link/@href" xmlns:atom="http://www.w3.org/2005/Atom"/></code>
 
 <p class="lede">
-  Any reader will take it &#8212; NetNewsWire, Feedly, Inoreader, Miniflux,
-  whatever you like. New posts turn up there on their own.
+  reccommend &#8212; NetNewsWire, Feedly, Inoreader, Miniflux,
+  whatever you use should work.
 </p>
 
 <hr/>
 
-<h2>In this feed</h2>
+<h2>will feed you -></h2>
 <ul class="posts">
   <xsl:for-each select="item">
     <li>
