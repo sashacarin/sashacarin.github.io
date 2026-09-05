@@ -41,6 +41,7 @@ COUNT = 220
 LAGS = range(8, 25)
 
 TILES = [
+    ("qween.jpg",                None, None, "cover"),
     ("lorenz.png",               None, None, "cover"),
     ("chirikov.gif",             None, None, "cover"),
     ("ordchaos.gif",             None, None, "cover"),
@@ -50,6 +51,7 @@ TILES = [
     ("laun.gif",                 None, None, "cover"),
     ("interrogate150.jpg",       None, None, "cover"),
     ("relationship-compass.jpg", None, None, "cover"),
+    ("blownaway.jpg",            None, None, "contain"),
     ("PREVIEWHM.jpg",            None, None, "contain"),
     ("widelogo.gif",             None, None, "contain"),
     ("select.gif",               None, None, "contain"),
