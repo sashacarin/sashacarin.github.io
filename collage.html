@@ -29,20 +29,42 @@
 
 html, body {
   height: 100%;
+  margin: 0;
+  overflow: hidden;
 }
 
 body {
-  margin: 0;
+  background: #141414;
+  position: relative;
+}
+
+/* The grid is a layer inside the body rather than the body itself, and it is
+   deliberately not given a bottom edge -- its height comes from however many
+   rows the tiles need. Pin all four sides (or set height:100%) and the auto
+   rows divide that height between themselves instead: twenty rows of 38px,
+   while aspect-ratio goes on sizing each tile from its column width, so every
+   tile overflows its row and lands on top of the ones below it.
+
+   fixed, not absolute: a fixed layer never contributes scrollable overflow,
+   so the surplus rows below the fold cannot make this document scroll. An
+   overflow:hidden viewport would not be enough on its own -- hidden still
+   allows scripted scrolling, and a root clip computes back to hidden when it
+   propagates to the viewport. */
+.board {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   padding: var(--gap);
   box-sizing: border-box;
-  background: #141414;
-  overflow: hidden;
   display: grid;
   /* Columns stretch to divide the width evenly; rows take their height from
-     the square tiles, so every box stays the same size and stays square.
-     Tiles past the bottom edge are simply clipped. */
+     the square tiles, so every box stays the same size and stays square. */
   grid-template-columns: repeat(auto-fill, minmax(var(--tile), 1fr));
   grid-auto-rows: auto;
+  /* Belt and braces against the same trap, should the tiles ever stop
+     filling a screen. */
+  align-content: start;
   gap: var(--gap);
   -webkit-user-select: none;
   user-select: none;
@@ -85,6 +107,7 @@ a.t:hover img {
          python3 scripts/build_collage.py -->
 
 <body>
+<div class="board">
 <div class="t"><img src="assets/collage/chirikov.gif" alt="" draggable="false"></div>
 <div class="t"><img src="assets/collage/ortnet.gif" alt="" draggable="false"></div>
 <div class="t"><img src="assets/collage/relationship-compass.jpg" alt="" draggable="false"></div>
@@ -305,85 +328,6 @@ a.t:hover img {
 <div class="t"><img src="assets/collage/PREVIEWHM.jpg" alt="" class="contain" draggable="false"></div>
 <div class="t"><img src="assets/collage/gusher_1.JPG" alt="" draggable="false"></div>
 <div class="t"><img src="assets/collage/HWAwardForVision.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/PREVIEWHM.jpg" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/gusher_1.JPG" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/HWAwardForVision.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/ortnet.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/lorenz.png" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/HWAwardForVision.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/ortnet.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/lorenz.png" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/genepool.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/ortnet.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/lorenz.png" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/select.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/laun.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/genepool.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/select.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/laun.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/chirikov.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/interrogate150.jpg" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/ordchaos.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/laun.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/interrogate150.jpg" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/widelogo.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/relationship-compass.jpg" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/interrogate150.jpg" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/widelogo.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/ordchaos.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/PREVIEWHM.jpg" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/gusher_1.JPG" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/widelogo.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/PREVIEWHM.jpg" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/gusher_1.JPG" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/HWAwardForVision.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/PREVIEWHM.jpg" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/gusher_1.JPG" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/HWAwardForVision.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/ortnet.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/lorenz.png" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/HWAwardForVision.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/ortnet.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/genepool.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/lorenz.png" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/ortnet.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/chirikov.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/genepool.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/laun.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/chirikov.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/select.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/laun.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/chirikov.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/interrogate150.jpg" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/relationship-compass.jpg" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/laun.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/ordchaos.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/relationship-compass.jpg" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/widelogo.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/ordchaos.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/interrogate150.jpg" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/relationship-compass.jpg" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/PREVIEWHM.jpg" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/widelogo.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/gusher_1.JPG" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/PREVIEWHM.jpg" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/HWAwardForVision.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/gusher_1.JPG" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/PREVIEWHM.jpg" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/HWAwardForVision.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/gusher_1.JPG" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/ortnet.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/lorenz.png" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/genepool.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/ortnet.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/select.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/lorenz.png" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/chirikov.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/genepool.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/lorenz.png" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/chirikov.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/select.gif" alt="" class="contain" draggable="false"></div>
-<div class="t"><img src="assets/collage/laun.gif" alt="" draggable="false"></div>
-<div class="t"><img src="assets/collage/chirikov.gif" alt="" draggable="false"></div>
+</div>
 </body>
 </html>

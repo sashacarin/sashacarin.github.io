@@ -30,8 +30,10 @@ OUT = ROOT / "collage.html"
 IMAGES = ROOT / "assets" / "collage"
 
 # How many tiles to emit. Enough to fill a 4K display at the largest tile
-# size; on anything smaller the surplus is simply clipped.
-COUNT = 300
+# size (about 18 x 11), with a little slack; on anything smaller the surplus
+# is clipped. Every tile past the fold still costs layout, so this is sized
+# to the worst case rather than rounded up for comfort.
+COUNT = 220
 
 # Column counts the board plausibly lands on across real window widths.
 # scatter() avoids vertical neighbours for every one of them at once, since
@@ -110,7 +112,7 @@ def main():
     order = scatter(COUNT, len(TILES))
     report(order, len(TILES))
     body = "\n".join(markup(TILES[i]) for i in order)
-    OUT.write_text(head + body + "\n</body>\n</html>\n", encoding="utf-8")
+    OUT.write_text(head + body + "\n</div>\n</body>\n</html>\n", encoding="utf-8")
     print("wrote %s" % OUT.relative_to(ROOT))
 
 
