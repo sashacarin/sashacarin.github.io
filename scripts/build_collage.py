@@ -36,6 +36,10 @@ COLS = 5
 ROWS = 3
 COUNT = COLS * ROWS
 
+# Cells left empty, as (row, column), both 1-indexed from the top left. An
+# empty cell shows the board's backing colour rather than a tile.
+BLANK = {(1, 3), (2, 3)}
+
 TILES = [
     ("qween.jpg",                None, None, "cover"),
     ("lorenz.png",               None, None, "cover"),
@@ -53,41 +57,47 @@ TILES = [
 ]
 
 
-def arrange(n, k, seed=20260904):
-    """Place n cells from k images so no image touches a copy of itself.
+def arrange(cells, k, seed=20260904):
+    """Lay k images into the given cell indices so no two copies touch.
 
-    Every image is used before any is used twice, so the repeats are only
-    the n - k surplus. Neighbours here means all eight around a cell, not
-    just left and above: at this size a diagonal pair is as obvious as any
-    other. Shuffles until one comes up clean, which it does almost at once.
+    Every image is used before any is used twice, so repeats are only the
+    surplus over k. Neighbours means all eight around a cell, not just left
+    and above -- at this size a diagonal pair is as obvious as any other.
+    Blank cells are not neighbours of anything; they break up the grid, which
+    only makes a clean layout easier to find.
     """
     rng = random.Random(seed)
+    n = len(cells)
     pool = [i % k for i in range(n)]
+    at = {cell: slot for slot, cell in enumerate(cells)}
 
     def clean(order):
-        for idx, img in enumerate(order):
-            r, c = divmod(idx, COLS)
+        for slot, cell in enumerate(cells):
+            r, c = divmod(cell, COLS)
             for dr in (-1, 0, 1):
                 for dc in (-1, 0, 1):
                     if dr == 0 and dc == 0:
                         continue
                     nr, nc = r + dr, c + dc
-                    if 0 <= nr < ROWS and 0 <= nc < COLS:
-                        if order[nr * COLS + nc] == img:
-                            return False
+                    if not (0 <= nr < ROWS and 0 <= nc < COLS):
+                        continue
+                    neighbour = at.get(nr * COLS + nc)
+                    if neighbour is not None and order[neighbour] == order[slot]:
+                        return False
         return True
 
     for attempt in range(20000):
         rng.shuffle(pool)
         if clean(pool):
             return list(pool), attempt + 1
-    raise SystemExit("no clean arrangement found for %d images in %d cells" % (k, n))
+    raise SystemExit("no clean arrangement for %d images in %d cells" % (k, n))
 
 
 def report(order, k, attempts):
     dupes = [i for i in set(order) if order.count(i) > 1]
-    print("%d tiles (%d x %d) from %d images" % (len(order), COLS, ROWS, k))
-    print("  images shown twice: %d" % len(dupes))
+    print("%d x %d grid, %d blank, %d tiles from %d images"
+          % (COLS, ROWS, len(BLANK), len(order), k))
+    print("  images shown more than once: %d" % len(dupes))
     print("  no image touches a copy of itself (found in %d shuffles)" % attempts)
 
 
@@ -108,9 +118,16 @@ def markup(tile):
 
 def main():
     head = (ROOT / "scripts" / "collage_head.html").read_text(encoding="utf-8")
-    order, attempts = arrange(COUNT, len(TILES))
+    cells = [i for i in range(COUNT)
+             if (i // COLS + 1, i % COLS + 1) not in BLANK]
+    order, attempts = arrange(cells, len(TILES))
     report(order, len(TILES), attempts)
-    body = "\n".join(markup(TILES[i]) for i in order)
+
+    placed = dict(zip(cells, order))
+    body = "\n".join(
+        markup(TILES[placed[i]]) if i in placed else '<div class="t blank"></div>'
+        for i in range(COUNT)
+    )
     OUT.write_text(head + body + "\n</div>\n</body>\n</html>\n", encoding="utf-8")
     print("wrote %s" % OUT.relative_to(ROOT))
 
