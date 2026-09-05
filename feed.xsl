@@ -50,7 +50,7 @@
 </head>
 <body>
 
-<h1><xsl:value-of select="title"/> &#8212; RSS feed</h1>
+<h1>RSS</h1>
 
 <p class="lede">give this link to whatever feeder u use.</p>
 
