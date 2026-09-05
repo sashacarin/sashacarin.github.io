@@ -18,9 +18,10 @@ Each entry is (file, href, label, fit):
              Use contain for anything with text or a shape that shouldn't be
              cut: banners, badges, wide logos.
 
-The order the tiles are placed in is not the order below. Identical images
-sitting next to each other is the one thing that makes a repeating board look
-repeating, so the order is searched for below -- see scatter().
+The order the tiles are placed in is not the order below. The board is a
+fixed 5 x 3, so with fewer than fifteen images some have to appear twice --
+arrange() looks for a placement where no image touches a copy of itself,
+diagonally included.
 """
 import random
 from pathlib import Path
@@ -29,16 +30,11 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "collage.html"
 IMAGES = ROOT / "assets" / "collage"
 
-# How many tiles to emit. Enough to fill a 4K display at the largest tile
-# size (about 18 x 11), with a little slack; on anything smaller the surplus
-# is clipped. Every tile past the fold still costs layout, so this is sized
-# to the worst case rather than rounded up for comfort.
-COUNT = 220
-
-# Column counts the board plausibly lands on across real window widths.
-# scatter() avoids vertical neighbours for every one of them at once, since
-# a static file cannot know which it will be.
-LAGS = range(8, 25)
+# The board is a fixed grid dividing the viewport, not an auto-filling one,
+# so this is exactly how many tiles there are -- none are clipped.
+COLS = 5
+ROWS = 3
+COUNT = COLS * ROWS
 
 TILES = [
     ("qween.jpg",                None, None, "cover"),
@@ -53,44 +49,46 @@ TILES = [
     ("relationship-compass.jpg", None, None, "cover"),
     ("blownaway.jpg",            None, None, "contain"),
     ("PREVIEWHM.jpg",            None, None, "contain"),
-    ("widelogo.gif",             None, None, "contain"),
     ("HWAwardForVision.gif",     None, None, "contain"),
 ]
 
 
-def scatter(n, k, seed=20260904):
-    """Order n cells drawn from k images so copies never touch.
+def arrange(n, k, seed=20260904):
+    """Place n cells from k images so no image touches a copy of itself.
 
-    Greedy: at each cell, discard the two preceding images outright, then of
-    what is left prefer whichever collides with the fewest of the candidate
-    column counts. Ties broken at random. Guarantees no horizontal neighbour
-    repeats, and in practice leaves only a handful of vertical ones at any
-    single column count.
+    Every image is used before any is used twice, so the repeats are only
+    the n - k surplus. Neighbours here means all eight around a cell, not
+    just left and above: at this size a diagonal pair is as obvious as any
+    other. Shuffles until one comes up clean, which it does almost at once.
     """
     rng = random.Random(seed)
-    out = []
-    for i in range(n):
-        recent = {out[i - 1] if i >= 1 else -1, out[i - 2] if i >= 2 else -1}
-        best, best_cost = [], None
-        for c in range(k):
-            if c in recent:
-                continue
-            cost = sum(1 for lag in LAGS if i >= lag and out[i - lag] == c)
-            if best_cost is None or cost < best_cost:
-                best, best_cost = [c], cost
-            elif cost == best_cost:
-                best.append(c)
-        out.append(rng.choice(best))
-    return out
+    pool = [i % k for i in range(n)]
+
+    def clean(order):
+        for idx, img in enumerate(order):
+            r, c = divmod(idx, COLS)
+            for dr in (-1, 0, 1):
+                for dc in (-1, 0, 1):
+                    if dr == 0 and dc == 0:
+                        continue
+                    nr, nc = r + dr, c + dc
+                    if 0 <= nr < ROWS and 0 <= nc < COLS:
+                        if order[nr * COLS + nc] == img:
+                            return False
+        return True
+
+    for attempt in range(20000):
+        rng.shuffle(pool)
+        if clean(pool):
+            return list(pool), attempt + 1
+    raise SystemExit("no clean arrangement found for %d images in %d cells" % (k, n))
 
 
-def report(order, k):
-    worst = max((sum(1 for i in range(lag, len(order))
-                     if order[i] == order[i - lag]), lag) for lag in LAGS)
-    side = sum(1 for i in range(1, len(order)) if order[i] == order[i - 1])
-    print("%d tiles from %d images" % (len(order), k))
-    print("  horizontal neighbour repeats: %d" % side)
-    print("  worst column count: %d repeats at %d columns" % worst)
+def report(order, k, attempts):
+    dupes = [i for i in set(order) if order.count(i) > 1]
+    print("%d tiles (%d x %d) from %d images" % (len(order), COLS, ROWS, k))
+    print("  images shown twice: %d" % len(dupes))
+    print("  no image touches a copy of itself (found in %d shuffles)" % attempts)
 
 
 def markup(tile):
@@ -110,8 +108,8 @@ def markup(tile):
 
 def main():
     head = (ROOT / "scripts" / "collage_head.html").read_text(encoding="utf-8")
-    order = scatter(COUNT, len(TILES))
-    report(order, len(TILES))
+    order, attempts = arrange(COUNT, len(TILES))
+    report(order, len(TILES), attempts)
     body = "\n".join(markup(TILES[i]) for i in order)
     OUT.write_text(head + body + "\n</div>\n</body>\n</html>\n", encoding="utf-8")
     print("wrote %s" % OUT.relative_to(ROOT))
