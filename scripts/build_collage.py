@@ -54,7 +54,6 @@ TILES = [
     ("blownaway.jpg",            None, None, "contain"),
     ("PREVIEWHM.jpg",            None, None, "contain"),
     ("widelogo.gif",             None, None, "contain"),
-    ("select.gif",               None, None, "contain"),
     ("HWAwardForVision.gif",     None, None, "contain"),
 ]
 
